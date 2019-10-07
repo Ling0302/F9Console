@@ -1,0 +1,258 @@
+/**
+ * All your custom CSS should go into this file
+ */
+ .wrapper {padding-bottom: 85px;}
+.padding-vert { padding-bottom: 20px;}
+.margin-bottom { margin-bottom: 20px;}
+.knob-label { font-size: 10pt !important;}
+.devs_table_foot, .network_devs_table_foot { background: #666; color: #fff;}
+.box.box-gold { border-top-color: #e6cc64;}
+.box.box-dark { border-top-color: #666;}
+.box.box-light { border-top-color: #ddd;}
+.nav .caret { border-top-color: #434343; border-bottom-color: #434343; }
+.nav .open>a, .nav .open>a:hover, .nav .open>a:focus { background-color: #eee !important; border-color: #434343;}
+.skin-black .navbar .nav > li > a:hover {background: #999; }
+.bg-dark-grey { background-color: #333 !important;  color: #f9f9f9 !important; }
+.bg-dark { background-color: #666 !important;  color: #fff !important; }
+.bg-light { background-color: #f0f0f0 !important; color: #434343 !important; }
+.bg-light >.box-header { color: #434343 !important;}
+.bg-really-black {background-color: #000;}
+.navbar-nav > .user-menu > .dropdown-menu > li.user-body { padding: 25px 15px 20px !important; }
+.pass-form { padding-left: 90px;}
+.box > .loading-img { background: transparent url('../img/ajax-loader.gif') 50% 50% no-repeat !important;}
+.more-line-height {line-height: 1.8em;}
+.warning-section { display: none;}
+body > .header .navbar .nav > li > a > .label { padding: 3px !important; }
+.row-btn-options { margin: 15px 0;}
+.label-white { background-color: #f7f7f7; color: #434343; }
+.label-muted { background-color: #f7f7f7; color: #999; }
+.label-light { background-color: #E0E0E0; color: #7a7a7a; }
+.label-dark { background-color: #434343; color: #f7f7f7; }
+.small-box h4 { font-size: 28px; font-weight: bold; margin: 0 0 10px 0; white-space: nowrap; padding: 0; }
+.log-box { font-size: 11px; min-height: 220px; overflow: hidden;}
+.sidebar { position: fixed; width: 220px; }
+body > .header { position: fixed !important; }
+.right-side { margin-top: 52px; }
+.donation-pool { background: #E2EDF0; color: #99A5A8; }
+.callout.callout-grey { background-color: #F3F3F3; border-color: #ed5565; }
+.section-raw-stats { display: none;}
+.modal-dialog-center { margin-top: 15%;}
+.modal-terminal { margin-top: 5%; width: 75%; }
+.modal-footer-center { margin: 0; padding: 6px 20px !important; text-align: center;}
+.font-bold { font-weight: bold;}
+.error {color: rgb(171, 21, 21);}
+.active { font-weight: bold; }
+.activeTree { background-color: rgb(107, 107, 107); color: #fff !important; }
+.skin-black .sidebar .sidebar-menu .treeview a:hover { color: #fff !important; }
+.skin-blue .sidebar .sidebar-menu .treeview a:hover { color: #555 !important; }
+.sidebar .sidebar-menu { margin-bottom: 60px !important;}
+.modal-footer { background-color: #F9F9F9; }
+.checkbox label { padding-left: 0; }
+.box-panels td { padding: 10px; }
+
+.bg-dark-blue { background: #656F80 !important; color: white; }
+.bg-light2 { background: #E4EBEF !important; color: #434343; }
+.bg-light-brown { background: #B29B88 !important; color: white; }
+.bg-light-green { background: rgba(136, 229, 152, 0.30) !important; }
+
+.ellipsis {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.mt10 { margin-top: 10px; }
+.mt15 { margin-top: 15px; }
+.mt20 { margin-top: 20px; }
+.mt30 { margin-top: 30px; }
+.mt50 { margin-top: 50px; }
+
+.mb10 { margin-bottom: 10px; }
+.mb20 { margin-bottom: 20px; }
+.mb30 { margin-bottom: 30px; }
+.mb50 { margin-bottom: 50px; }
+
+.mr5 { margin-right: 5px; }
+.ml5 { margin-left: 5px; }
+.mr10 { margin-right: 10px; }
+.ml10 { margin-left: 10px; }
+.mr10 { margin-right: 10px; }
+
+.p10 { padding: 10px; }
+.pl10 { padding-left: 10px; }
+.pr10 { padding-rigth: 10px; }
+
+.ml10 { margin-left: 10px; }
+
+.fs10 { font-size: 10px; }
+.fs12 { font-size: 12px; }
+.fs72 { font-size: 72px; }
+
+.lockscreen {background: url(../img/bg-dark.jpg) repeat center center fixed !important;}
+.lockscreen-link, .lockscreen-name { color: #fff;}
+.lockscreen .headline { color: #ccc !important; margin-top: 10px;}
+
+.tip-button { float: left; margin-top: 14px; margin-right: 0; margin-left: 5px; }
+.coinbase-donate-button { }
+.copyright-lockscreen { font-size: small; position: absolute; bottom: 10px; right: 10px; color: rgb(195, 195, 195); }
+.copyright { text-align: right; font-size: small; margin-top: 6px;}
+.copyright a { color: #FF4D50; }
+.github-btn { float: right; margin-left: 10px; margin-top: -3px; }
+
+.bootstro-highlight { background-color: rgba(255, 255, 255, 0.2) !important; }
+
+.lockscreen-cover {
+	width: 100%;
+	height: 200px;
+	background: url('../img/cover_minera.jpg') no-repeat;
+	background-size: contain;
+	background-position: center center;
+    background-color: #ff4d51;
+}
+
+.scroll-ad {
+	display: none;
+	position: fixed;
+	z-index: 10;
+	right: 0;
+	bottom: 0;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+}
+
+.save-toolbox {
+	display: none;
+	position: fixed;
+    z-index: 10;
+	right: 0;
+    background: rgba(255, 255, 255, 0.72);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    margin-top: -48px;
+}
+.save-toolbox ul {
+	margin: 0;
+	padding: 0;
+}
+.save-toolbox ul li {
+	list-style-type: none;
+	display: inline;
+	margin-right: 10px;
+}
+.save-toolbox ul li a {
+	color: #333;
+}
+.save-toolbox ul li:last-child {
+	margin-right: 0px;
+}
+.mini-save-toolbox {
+	position: absolute;
+    right: 92px;
+    top: 15px;
+}
+.mini-save-toolbox {
+	margin: 0;
+	padding: 0;
+}
+.mini-save-toolbox li {
+	list-style-type: none;
+	display: inline;
+	margin-right: 10px;
+}
+.mini-save-toolbox ul li:last-child {
+	margin-right: 0px;
+}
+
+.spin::before{
+  -webkit-animation: spin 1s infinite linear;
+	-moz-animation: spin 1s infinite linear;
+	-ms-animation: spin 1s infinite linear;
+	-o-animation: spin 1s infinite linear;
+	animation: spin 1s infinite linear;
+}
+
+@keyframes "spin" {
+ from {
+    -webkit-transform: rotate(0deg);
+   	-moz-transform: rotate(0deg);
+   	-o-transform: rotate(0deg);
+   	-ms-transform: rotate(0deg);
+   	transform: rotate(0deg);
+ }
+ to {
+    -webkit-transform: rotate(359deg);
+   	-moz-transform: rotate(359deg);
+   	-o-transform: rotate(359deg);
+   	-ms-transform: rotate(359deg);
+   	transform: rotate(359deg);
+ }
+
+}
+
+@-moz-keyframes spin {
+ from {
+   -moz-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -moz-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+@-webkit-keyframes "spin" {
+ from {
+   -webkit-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -webkit-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+@-ms-keyframes "spin" {
+ from {
+   -ms-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -ms-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+@-o-keyframes "spin" {
+ from {
+   -o-transform: rotate(0deg);
+   transform: rotate(0deg);
+ }
+ to {
+   -o-transform: rotate(359deg);
+   transform: rotate(359deg);
+ }
+
+}
+
+/* Terminal */
+.terminal-font {
+    color: #fff;
+    font-family: monospace;
+    text-shadow: 1px 1px 2px rgba(150, 150, 150, 1);
+    text-transform: uppercase;
+    font-size: 14px;
+    position: static;
+}
+
+
+@media all and (max-width : 960px) { 
+	.messages-menu { display: none !important;}
+}
+
+@media all and (max-width : 1090px) { 
+	.tip-button { display: none;}
+}
