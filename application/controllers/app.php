@@ -213,8 +213,8 @@ class App extends CI_Controller {
 		$data['btc'] = $this->util_model->getBtcUsdRates();
 		
 		// Check custom miners
-		$data['customMiners'] = $this->util_model->readCustomMinerDir();
-		$data['activeCustomMiners'] = json_decode($this->redis->get('active_custom_miners'));
+		// $data['customMiners'] = $this->util_model->readCustomMinerDir();
+		// $data['activeCustomMiners'] = json_decode($this->redis->get('active_custom_miners'));
 				
 		// Load miner settings
 		$data['builtInMinersConf'] = json_decode($this->util_model->refreshMinerConf());

@@ -61,132 +61,7 @@
 						
 					<form action="#" method="post" role="form" id="minersettings" enctype="multipart/form-data">
 												
-						<input type="hidden" name="save_settings" value="1" />                                                    
-
-
-						
-						<div class="row">
-							<section class="left-section col-xs-12 col-md-6">
-						
-								<!-- Dashboard box -->
-								<div class="box box-primary" id="dashboard-box">
-									<div class="box-header">
-										<!-- tools box -->
-		                                <div class="pull-right box-tools">
-		                                    <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-		                                </div><!-- /. tools -->
-		                                <i class="fa fa-dashboard"></i>
-		                                
-		                                <h3 class="box-title">Dashboard Settings</h3>
-		                            </div>
-									
-		                            <div class="box-body">
-			                            <div class="row">
-				                            <div class="col-md-12">
-												<!-- Temperatures scale F°/C°-->
-												<div class="form-group">
-													<label>Temperature units</label>
-													<p>Select your preferred units to display temperature.</p>
-													<div class="radio">
-														<label>
-															<input type="radio" name="dashboard_temp" value="c" <?php if ($dashboardTemp == "c") : ?>checked=""<?php endif; ?> />
-															Celsius (C°)
-														</label>                                                
-														<label>
-															<input type="radio" name="dashboard_temp" value="f" <?php if ($dashboardTemp == "f") : ?>checked=""<?php endif; ?> />
-															Fahrenheit (F°)
-														</label>                                                
-													</div>
-												</div>
-				
-												<!-- Refresh time -->
-												<div class="form-group">
-													<label>Refresh time</label>
-													<p>Select automatic refresh time interval.</p>
-													<div class="margin-bottom">
-														<input type="text" name="dashboard_refresh_time" id="option-dashboard-refresh-time" class="refresh-time" value="" data-saved-refresh-time="<?php echo (isset($dashboard_refresh_time)) ? $dashboard_refresh_time : 60; ?>" />
-													</div>
-												</div>
-												
-												<!-- Skin colors -->
-												<div class="form-group">
-													<label>Skin</label>
-													<p>Select your favorite skin for your controller.</p>
-													<select name="dashboard_skin" id="dashboard-skin" class="form-control">
-														<option value="black" <?php if ($dashboardSkin == "black") : ?>selected<?php endif; ?>>Black</option>
-														<option value="blue" <?php if ($dashboardSkin == "blue") : ?>selected<?php endif; ?>>Blue</option>
-													</select>
-												</div>
-												
-												<!-- Records per page -->
-												<div class="form-group">
-													<label>Data tables</label>
-													<p>Default records per page</p>
-													<select name="dashboard_table_records" id="dashboard-table-records" class="form-control">
-														<option value="5" <?php if ($dashboardTableRecords == "5") : ?>selected<?php endif; ?>>5</option>
-														<option value="10" <?php if ($dashboardTableRecords == "10") : ?>selected<?php endif; ?>>10</option>
-														<option value="25" <?php if ($dashboardTableRecords == "25") : ?>selected<?php endif; ?>>25</option>
-														<option value="50" <?php if ($dashboardTableRecords == "50") : ?>selected<?php endif; ?>>50</option>
-													</select>
-												</div>
-				                            </div>
-			                            </div>
-		                            </div>
-		                        </div>
-							</section>
-						
-							<section class="right-section col-xs-12 col-md-6">			
-													
-								<!-- Panels box -->
-								<div class="box box-primary" id="top-bar-box">
-								    <div class="box-header">
-								    	<!-- tools box -->
-			                            <div class="pull-right box-tools">
-			                                <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-			                            </div><!-- /. tools -->
-			                            <i class="fa fa-map-signs"></i>
-			                            
-			                            <h3 class="box-title">Dashboard panels</h3>
-			                        </div>
-								    
-			                        <div class="box-body">								    		
-							    		<!-- Local device tree -->
-										<div class="form-group">
-											<label>Section panels</label>
-											<p>Select what section you want enable/disable in the dashboard.</p>
-											<table class="box-panels">
-												<tr>
-													<td><input type="checkbox" name="dashboard_box_profit" value="1" <?php if ($dashboardBoxProfit) : ?>checked=""<?php endif; ?> /> Mining profitability</td>
-													<td><input type="checkbox" name="dashboard_box_local_miner" value="1" <?php if ($dashboardBoxLocalMiner) : ?>checked=""<?php endif; ?> /> Local miner</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox" name="dashboard_box_local_pools" value="1" <?php if ($dashboardBoxLocalPools) : ?>checked=""<?php endif; ?> /> Local pools</td>
-													<td><input type="checkbox" name="dashboard_box_network_details" value="1" <?php if ($dashboardBoxNetworkDetails) : ?>checked=""<?php endif; ?> /> Network miners</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox" name="dashboard_box_network_pools_details" value="1" <?php if ($dashboardBoxNetworkPoolsDetails) : ?>checked=""<?php endif; ?> /> Network pools</td>
-													<td><input type="checkbox" name="dashboard_box_chart_shares" value="1" <?php if ($dashboardBoxChartShares) : ?>checked=""<?php endif; ?> /> Shares chart</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox" name="dashboard_box_chart_system_load" value="1" <?php if ($dashboardBoxChartSystemLoad) : ?>checked=""<?php endif; ?> /> System load</td>
-													<td><input type="checkbox" name="dashboard_box_chart_hashrates" value="1" <?php if ($dashboardBoxChartHashrates) : ?>checked=""<?php endif; ?> /> Hashrates chart</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox" name="dashboard_box_scrypt_earnings" value="1" <?php if ($dashboardBoxScryptEarnings) : ?>checked=""<?php endif; ?> /> Scrypt earnings</td>
-													<td><input type="checkbox" name="dashboard_box_log" value="1" <?php if ($dashboardBoxLog) : ?>checked=""<?php endif; ?> /> Miner log</td>
-												</tr>
-												<tr>
-													<td><input type="checkbox" name="dashboard_devicetree" value="1" <?php if ($dashboardDevicetree) : ?>checked=""<?php endif; ?> /> Device tree</td>
-													<td></td>
-												</tr>
-											</table>
-										</div>
-			                        </div>
-			                    </div>
-                            
-							</section><!-- End right section -->
-
-						</div><!-- End row -->
+						<input type="hidden" name="save_settings" value="1" />
 						                            	                          
 						<!-- Pools box -->
                         <div class="box box-primary" id="pools-box">
@@ -202,19 +77,6 @@
 
 							<div class="box-body">
 								<p>Pools are taken in the order you put them, the first one is the main pool, all the others ones are failovers.</p>
-								<!-- Global pool proxy -->
-								<div class="form-group">
-									<div class="row">
-										<div class="col-xs-6">
-											<label>Global pool proxy</label>
-											<p>Set socks proxy (host:port) for all pools without a proxy specified.</p>
-											<div class="input-group">
-								    			<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-								    			<input type="text" class="form-control" name="pool_global_proxy" placeholder="socks5|http://proxy:port" value="<?php echo (isset($globalPoolProxy)) ? $globalPoolProxy : ''; ?>" />
-								    		</div>
-										</div>
-									</div>
-								</div>
 
 								<div class="form-group">
                                     <div class="row">
@@ -227,15 +89,12 @@
 										<div class="col-xs-2">
 											<strong>Pool Password</strong>
 										</div>
-										<div class="col-xs-3">
-											<strong>Pool Proxy</strong>
-										</div>
                                     </div>
 								</div>
 								<!-- Main Pool -->
 								<div class="poolSortable ui-sortable">
 									<?php $savedPools = json_decode($minerdPools); $donationPool = false; ?>
-									<?php $s = (count($savedPools) == 0) ? 3 : count($savedPools); ?>
+									<?php $s = (count($savedPools) == 0) ? 2 : count($savedPools); ?>
 									<?php $donationHelp = '<h6><strong>Minera pool</strong></h6>
 														<p><small>You can always remove the Minera donation pool clicking the button below, but if you hadn\'t issue with it and you like Minera, you should think to keep it as failover pool because your support is really needed to continue developing Minera. So please, before clicking the button below, consider keeping the donation pool as at least your latest failover. Thanks for your support. (If you have enabled time donation, this pool is automatically added.)</small></p>
 														<p><button class="btn btn-danger btn-xs del-pool-row" name="del-row" value="1"><i class="fa fa-times"></i> Remove donation pool </button></p>'; ?>
@@ -265,12 +124,6 @@
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 										    			<input type="text" class="form-control" name="pool_password[]" data-ismain="0" value="x" readonly />
-										    		</div>
-										    	</div>
-										    	<div class="col-xs-3">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-										    			<input type="text" class="form-control" name="pool_proxy[]" data-ismain="0" value="" readonly />
 										    		</div>
 										    	</div>
 										    	<div class="col-xs-1">
@@ -305,12 +158,6 @@
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 										    			<input type="text" class="form-control pool_password" placeholder="password" name="pool_password[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->password)) ? $savedPools[$i]->password : ''; ?>"  />
-										    		</div>
-										    	</div>
-										    	<div class="col-xs-3">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-														<input type="text" class="form-control pool_proxy" placeholder="socks5|http://proxy:port" name="pool_proxy[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->proxy)) ? $savedPools[$i]->proxy : ''; ?>"  />
 										    		</div>
 										    	</div>
 										    	<div class="col-xs-1">
@@ -404,337 +251,11 @@
 									
 								</div><!-- sortable -->
 								<div>
-									<button class="btn btn-default btn-sm add-pool-row" name="add-row" value="1"><i class="fa fa-plus"></i> Add row</button><?php if (!$donationPool) : ?>&nbsp;<button class="btn btn-success btn-sm add-donation-pool-row" name="add-row" value="1"><i class="fa fa-gift"></i> Add donation pool</button><?php endif; ?>
+									<button class="btn btn-default btn-sm add-pool-row" name="add-row" value="1"><i class="fa fa-plus"></i> Add row</button>
 								</div>
                             </div>
                         </div>
-                        
-                        <!-- Custom miners box -->
-						<div class="box box-primary" id="customer-miners-box">
-						    <div class="box-header">
-						    	<!-- tools box -->
-	                            <div class="pull-right box-tools">
-	                                <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-	                            </div><!-- /. tools -->
-	                            <i class="fa fa-desktop"></i>
-	                            
-	                            <h3 class="box-title">Custom miners</h3>
-	                        </div>
-						    
-	                        <div class="box-body">
-						    	<p>Here you can add your own custom miners to be used with Minera, before you start please read this <a href="#" class="open-readme-custom-miners">FAQ</a>.</p>
-						    	
-						    	<div class="callout callout-info">
-							    	<?php if (count($customMiners) > 0) : ?>
-										<p class="margin-bottom">I found the following custom miners available, to add or remove just select on or off and save. You'll find them in the preferred miners select below.</p>
-							    		<?php foreach ($customMiners as $customMiner) : $disabled = false; $customLabel = "primary"; ?>
-							    			<?php if (strtolower($customMiner) == "bfgminer" || strtolower($customMiner) == "cpuminer" || strtolower($customMiner) == "cgminer" || strtolower($customMiner) == "cgminer-dmaxl-zeus") : $disabled = true; $disabledMsg = "You can't use an existent name, change your filename"; $customLabel = "default"; endif; ?>
-											<?php if (preg_match("/.*[\.|-]$/", $customMiner) || preg_match("/\\s/", $customMiner) || preg_match("/\//", $customMiner)) : $disabled = true; $disabledMsg = "Filename is not good, avoid symbols at the end of the name, spaces or slashes everywhere"; $customLabel = "default"; endif; ?>
-								    		<div class="input-group margin-bottom">
-									    		<span class="btn btn-danger btn-xs del-custom-miner" data-custom-miner="<?php echo $customMiner ?>" data-toggle="tooltip" data-title="Completely remove the custom miner, this also DELETE the file!" data-trigger="hover"><i class="fa fa-times"></i></span>&nbsp;
-												<label>
-													<input type="checkbox" 
-														name="active_custom_miners[]" 
-														value="<?php echo $customMiner ?>" 
-														<?php if ($activeCustomMiners && in_array($customMiner, $activeCustomMiners)) : ?>checked<?php endif; ?> 
-														<?php if ($disabled) : ?>disabled<?php endif; ?> 
-													/>
-													&nbsp;<span class="label label-<?php echo $customLabel ?>"><?php echo $customMiner ?></span><?php if ($disabled) : ?> <small style="font-weight: normal">(<?php echo $disabledMsg ?>)</small><?php endif; ?> 
-												</label>
-								    		</div>
-							    		<?php endforeach; ?>
-							    	<?php else : ?>
-							    		<p><h6>It seems you haven't any custom miner. If you wanna add it, you need to build your binary and put it in the custom miner folder:</h6> <code><?php echo FCPATH.'minera-bin/custom/'; ?></code></p>
-							    	<?php endif; ?>
-						    	</div>
 
-						    	<h6>* Don't call your custom binary file as "bfgminer", "cgminer" or any other existent (built-in) miner. Minera won't permit you to use it. If this happens change the filename.</h6>
-
-								<h6>** After you turn on your custom miner and save, you need to select it from your preferred miner below and remember to setup it.</h6>
-								
-						    	<div class="callout callout-grey readme-custom-miners" style="display:none;">
-					    		    <h6><strong>How can I upload my own custom miner?</strong></h6>
-					    		    <p><small>You can't upload the binary file by web interface, it's not logic building the miner on another system and upload it to Minera, it's better building it in Minera itself.</small></p>
-					    		    
-					    		    <h6><strong>So, what are the steps to do it?</strong></h6>
-					    		    <p><small><strong>SSH</strong> into Minera, <strong>build</strong> your custom miner in any directory you want, "<strong>sudo make install</strong>" it (so libraries get installed correctly), <strong>copy</strong> ONLY the binary file into <code><?php echo FCPATH ?>minera-bin/custom</code> directory, <strong>refresh</strong> this page you'll find your custom miner here.</small></p>
-					    		    
-					    		    <h6><strong>Can I use any miner binary?</strong></h6>
-
-					    		    <p><strong>NO!</strong> <small>Miners must be forks of CGminer or BFGminer, there are small probability you can add different miners than those, the main problem is how the miner send stats and it must be compatibile to Minera.</small></p>
-
-					    		    <h6><strong>My miner should be compatible but it isn't working</strong></h6>
-					    		    <p><small>Check your binary works on your Minera system, SSH into it and try to launch it manually, probably it lacks on missing external libraries, try to recompile it on Minera and do "sudo make install" at the end.</small></p>
-					    		    
-					    		    <h6><strong>Can I use this feature if I'm completely newbie to mining and Linux?</strong></h6>
-					    		    <p><small>Well, short answer should be "No", the long one is: you could try, but it needs a lot of skills to do this and if you are a newbie it's recommended you start with a pre-compiled miner software, Minera has 4 built-in, start with them, then try to <a href="https://bitcointalk.org/index.php?topic=596620.0">ask to the forum</a> before playing with this feature.</small></p>
-					    		    
-					    		    <h6><strong>Can I completely brake my Minera using this feature?</strong></h6>
-					    		    <p><small>No, you can always rollback to a built-in miner, just select it from your preferred miners below (you can also save each config and re-load them when you need, check the Import/export section below).</small></p>
-					    		    
-					    		    <h6><strong>Is this feature stable enough to be used without any issue?</strong></h6>
-					    		    <p><strong>NO!</strong> <small>This is intended as "beta" feature, if you wanna live happy with your Minera, save/export always your settings before doing something like enabling this.</small></p>
-					    		</div>
-
-	                        </div>
-	                    </div>
-	                    
-						<!-- Miner box -->
-                        <div class="box box-primary" id="local-miner-box">
-							<div class="box-header">
-								<!-- tools box -->
-                                <div class="pull-right box-tools">
-                                    <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-                                </div><!-- /. tools -->
-                                <i class="fa fa-gear"></i>
-                                
-                                <h3 class="box-title">Local Miner Settings</h3>
-                            </div>
-
-                                <div class="box-body">
-									
-									<div class="callout callout-grey">
-										<h4>Select your preferred miner software</h4>
-										<div class="form-group group-minerdsoftware">
-                                            <label>Currently selected: <span class="badge bg-green"><?php echo $minerdSoftware ?></span></label>
-											<select name="minerd_software" id="minerd-software" class="form-control">
-												<option value="cpuminer" <?php if ($minerdSoftware == "cpuminer") : ?>selected<?php endif; ?>>CPUminer (GC3355 fork)</option>
-												<option value="bfgminer" <?php if ($minerdSoftware == "bfgminer") : ?>selected<?php endif; ?>>BFGminer 5.x (Official)</option>
-												<option value="cgminer" <?php if ($minerdSoftware == "cgminer") : ?>selected<?php endif; ?>>CGminer 4.x (Official)</option>
-												<option value="cgdmaxlzeus" <?php if ($minerdSoftware == "cgdmaxlzeus") : ?>selected<?php endif; ?>>CGminer (Dmaxl Zeus fork)</option>
-												<?php if ($activeCustomMiners) : ?>
-													<?php foreach ($activeCustomMiners as $activeCustomMiner) : ?>
-														<option value="<?php echo $activeCustomMiner ?>" <?php if ($minerdSoftware == $activeCustomMiner) : ?>selected<?php endif; ?>>[Custom Miner] <?php echo $activeCustomMiner ?></option>
-													<?php endforeach; ?>
-												<?php endif; ?>
-											</select>
-											<h6>Pay attention: Minera is not responsible of any problem related to the miner software you are using. Minera acts only as frontend to manage the miner software. Please refer to miner software's related authors if you have question about them and how to use them.</h6>
-											<div>
-												<select name="miners_conf" id="miners-conf" class="form-control">
-													<option value="">--- Preconfigured miner options ---</option>
-													<?php foreach ($builtInMinersConf as $minerPreConf) : ?>
-														<option value="<?php echo $minerPreConf->miner_options ?>" data-miner-id="<?php echo $minerPreConf->miner ?>"><?php echo $minerPreConf->miner_name." - ".$minerPreConf->miner_device ?></option>
-													<?php endforeach; ?>
-												</select>
-												<h6>If you use preconfigured options check them before starting the miner, some of them require manual input in the manual options textarea below</h6>
-												<p class="miners-conf-box mt10 mb10"></p>
-											</div>
-										</div>
-									</div>
-
-									<div class="options-selection">
-										<p>Select the options to launch the miner command.</p>
-
-										<div class="row row-btn-options">
-											<div class="col-xs-2">
-												<a href="#"><button class="btn btn-default btn-sm <?php if ($minerdGuidedOptions) : ?>disabled<?php endif; ?> btn-guided-options">Guided</button></a>&nbsp;
-												<a href="#"><button class="btn btn-default btn-sm <?php if ($minerdManualOptions) : ?>disabled<?php endif; ?> btn-manual-options">Manual</button></a>
-											</div>
-											<div class="col-xs-10"></div>
-										</div>
-										<input type="hidden" id="guided_options" name="guided_options" value="<?php echo $minerdGuidedOptions ?>" />
-										<input type="hidden" id="manual_options" name="manual_options" value="<?php echo $minerdManualOptions ?>" />
-									</div>
-									<hr />
-									
-									<!-- General options -->
-									<div class="general-options">
-										<!-- Logging -->
-										<div class="form-group" id="minerd-log">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="minerd_log" value="1" <?php if ($minerdLog) : ?>checked=""<?php endif; ?> />
-													Enable logging <small class="legend-option-log"></small>
-												</label>                                                
-											</div>
-										</div>
-										
-										<!-- Append miner conf -->
-										<div class="form-group">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="minerd_append_conf" value="1" <?php if ($minerdAppendConf) : ?>checked=""<?php endif; ?> />
-													Append JSON conf <small>(-c /var/www/minera/conf/miner_conf.json)</small>
-												</label>                                                
-											</div>
-										</div>
-									</div>
-									
-									<div class="guided-options">
-
-										<!-- Scrypt -->
-										<div class="form-group" id="minerd-scrypt">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="minerd_scrypt" value="1" <?php if ($minerdScrypt) : ?>checked=""<?php endif; ?> />
-													Enable scrypt algo <small>you should select this if you are mining alternate crypto currencies (--scrypt)</small>
-												</label>                                                
-											</div>
-										</div>
-										
-										<!-- Auto-Detect -->
-										<div class="form-group">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="minerd_autodetect" value="1" <?php if ($minerdAutodetect) : ?>checked=""<?php endif; ?> />
-													Enable device auto detection <small class="legend-option-autodetect"></small>
-												</label>                                                
-											</div>
-										</div>
-										
-										<!-- Debug -->
-										<div class="form-group">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="minerd_debug" value="1" <?php if ($minerdDebug) : ?>checked=""<?php endif; ?> />
-													Enable debug <small>(--debug)</small>
-												</label>                                                
-											</div>
-										</div>									
-
-										<!-- Auto-Tune -->
-										<div class="form-group" id="minerd-autotune">
-											<div class="checkbox">
-												<label>
-													<input type="checkbox" name="minerd_autotune" value="1" <?php if ($minerdAutotune) : ?>checked=""<?php endif; ?> />
-													Enable frequency auto tuning <small>(--gc3355-autotune)</small>
-												</label>                                                
-											</div>
-										</div>
-										
-										<!-- Start Frequency -->												
-										<div class="form-group" id="minerd-startfreq">
-											<label>Select starting frequency</label>
-											<div class="margin-bottom" style="width:50%">
-												<input type="text" name="minerd_startfreq" id="ion-startfreq" value="" data-saved-startfreq="<?php echo (isset($minerdStartfreq)) ? $minerdStartfreq : 800; ?>"/>
-											</div>
-											<h6>You can select a default frequency value to start with.</h6>
-										</div>
-
-                                        <!-- Minerd extra options -->
-                                        <div class="form-group">
-                                            <label>Extra options</label>
-											<div class="input-group">
-												<span class="input-group-addon"><i class="fa fa-cogs"></i></span>
-												<input type="text" class="form-control" placeholder="Extra options" name="minerd_extraoptions" value="<?php echo $minerdExtraoptions ?>" />
-											</div>
-                                            <h6>Write here any other option you want to include. (suggested: --retries=1)</h6>
-                                        </div>	                                        
-                                        
-									</div>
-                                    
-                                    <!-- Minerd manual options config -->
-                                    <div class="form-group manual-options">
-                                        <label>Manual options</label>
-                                        <p>You have chosen to add all options manually, I will only add for you the pools list, you have to take care of the rest.</p>
-                                        <textarea name="minerd_manual_settings" class="form-control manual-settings" rows="5" placeholder="Example: --gc3355-detect --gc3355-autotune --freq=850 --retries=1" class="minerd_manual_settings"><?php echo $minerdManualSettings ?></textarea>
-										<h6>Please do not include the command name or the pools (they are automatically added).</h6>
-									</div>
-									
-									<!-- Minerd API Allow -->
-                                    <div class="form-group" id="minerd-api-allow">
-                                        <label>API Allow</label>
-										<div class="row">
-											<div class="col-xs-12 col-md-4">
-												<div class="input-group margin-bottom">
-													<span class="input-group-addon"><i class="fa fa-crosshairs"></i></span>
-													<input type="text" class="form-control" placeholder="" readonly="readonly" name="minerd_api_allow" value="W:127.0.0.1" />
-												</div>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-crosshairs"></i></span>
-													<input type="text" class="form-control" placeholder="[W:]IP[/Prefix] address[/subnets]" name="minerd_api_allow_extra" value="<?php echo $minerApiAllowExtra ?>" />
-												</div>
-											</div>
-										</div>
-										<h6>If you need to allow API to listen to more ip/networks you can add them here. (First one must stay for Minera)</h6>
-                                    </div>
-                                    											
-									<!-- Minerd delay time option -->
-                                    <div class="form-group">
-                                        <label>Autostart Delay Time</label>
-										<div class="input-group">
-											<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-											<input type="text" class="form-control" placeholder="Delay time" name="minerd_delaytime" value="<?php echo $minerdDelaytime ?>" style="width:90px"/>
-										</div>
-										<h6>Seconds to wait before starting minerd (on boot).</h6>
-                                    </div>
-                                    
-                                    <!-- Minerd autorestart -->
-                                    <div class="form-group">
-                                        <label>Autorestart if devices are possible dead</label>
-                                        <div class="checkbox">
-											<label>
-												<input type="checkbox" class="minerd-autorestart" name="minerd_autorestart" value="1" <?php if ($minerdAutorestart) : ?>checked=""<?php endif; ?> />
-												Enable miner auto-restart <small>(if there are more or equal devices dead it will restart the miner software.)</small>
-											</label>                                                
-										</div>
-										<div class="row">
-											<div class="col-xs-3 col-md-2">
-												<small>Number of Dead devices</small>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="glyphicon glyphicon-hdd"></i></span>
-													<input type="text" class="form-control" placeholder="Devices" name="minerd_autorestart_devices" value="<?php echo $minerdAutorestartDevices ?>" style="width:90px"/>
-												</div>
-											</div>
-											<div class="col-xs-3 col-md-2">
-												<small>Seconds to wait</small>
-												<div class="input-group">
-													<span class="input-group-addon"><i class="fa fa-clock-o"></i></span>
-													<input type="text" class="form-control" placeholder="Seconds" name="minerd_autorestart_time" value="<?php echo ($minerdAutorestartTime>0) ? $minerdAutorestartTime : 600; ?>" style="width:90px"/>
-												</div>
-											</div>
-										</div>
-										<h6>Check based on last share time (seconds selected without any share sent triggers the restart)</h6>
-                                    </div>
-									
-									<!-- Auto-recover -->
-									<div class="form-group">
-										<label>Miner Autorecover</label>
-										<div class="checkbox">
-											<label>
-												<input type="checkbox" name="minerd_autorecover" value="1" <?php if ($minerdAutorecover) : ?>checked=""<?php endif; ?> />
-												Enable auto-recover mode <small>(If minerd process dies Minera restarts it)</small>
-											</label>                                                
-										</div>
-									</div>
-									
-									<!-- Use root -->
-									<div class="form-group">
-										<label>Miner superuser (root)</label>
-										<div class="checkbox">
-											<label>
-												<input type="checkbox" name="minerd_use_root" value="1" <?php if ($minerdUseRoot) : ?>checked=""<?php endif; ?> />
-												Enable superuser mode <small>(<strong>If your devices cannot get recognised please try enabling this option.</strong> The miner process will start with superuser/root rights, useful for some kind of devices.</small>)
-											</label>                                                
-										</div>
-									</div>
-									
-									<hr />
-									
-                                    <!-- Minerd final config -->
-                                    <h3><i class="fa fa-check"></i> Check your miner settings</h3>
-									<div class="callout callout-info">
-										<h4>Miner will start with this syntax:</h4>
-										<h5><i><?php echo $this->config->item("screen_command") ?> <?php echo $this->config->item("minerd_command")."</i> <strong>".$minerdSettings ?></strong></h5>
-										<?php if ($minerdAppendConf) : ?>
-											<h4>JSON Conf:</h4>
-											<pre style="font-size:10px;"><?php $jsonConf =  json_decode($minerdJsonSettings); echo json_encode($jsonConf, JSON_PRETTY_PRINT); ?></pre>
-										<?php else: ?>
-											<h4 class="text-red">Warning you selected to not append the JSON conf.</h4>
-										<?php endif; ?>
-									</div>
-
-									<?php if ($minerdSoftware == "cpuminer" && $savedFrequencies) : ?>
-										<h3>Saved frequencies</h3>
-										<div class="callout callout-light">
-											<h6>Here is the string you can add to the extra options, but remember to uncheck the autotune option:</h6>
-											<pre  id="miner-freq" style="font-size:10px">--gc3355-freq=<?php echo $savedFrequencies ?></pre>
-										</div>
-									<?php endif; ?>
-										
-                            </div>
-                        </div>
-	                    
 	                    <!-- Network Miners box -->
 						<div class="box box-primary" id="network-miners-box">
 						    <div class="box-header">

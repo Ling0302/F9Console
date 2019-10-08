@@ -332,7 +332,8 @@ class Util_model extends CI_Model {
 				foreach ($stats->devs[0]->DEVS as $device) {
 					$d++; $c = 0; $tcfrequency = 0; $tcaccepted = 0; $tcrejected = 0; $tchwerrors = 0; $tcshares = 0; $tchashrate = 0; $tclastshares = array();
 									
-					$name = $device->Name.$d;
+					//$name = $device->Name.$d;
+                    $name = "Board-".$d;
 
 					$return['devices'][$name]['temperature'] = (isset($device->Temperature)) ? $device->Temperature : false;
 					$return['devices'][$name]['frequency'] = (isset($device->Frequency)) ? $device->Frequency : false;
@@ -1067,7 +1068,7 @@ class Util_model extends CI_Model {
 
 		$i = 1; $sum = 0; $ltc = 0;
 		
-		if (count($profits) > 0) {
+		if (is_array($profits) && count($profits) > 0) {
 		    foreach($profits as $k => $v )
 		    {
 			    if (isset($v->btc_profitability) && $v->symbol === "ltc")

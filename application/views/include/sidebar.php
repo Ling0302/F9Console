@@ -412,11 +412,6 @@
                                 		<i class="fa fa-file"></i> Log
                                 	</a>
                                 </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/dashboard#box-donation") ?>" class="menu-donation-box ml10">
-                                		<i class="fa fa-gift"></i> Donation
-                                	</a>
-                                </li>
                             </ul>
                         </li>
                         <li class="sidebar-charts" data-toggle="tooltip" title="" data-original-title="Go to the charts page">
@@ -431,32 +426,13 @@
                                 <i class="treeview-menu-settings-icon fa pull-right fa-angle-left"></i>
                         	</a>
                         	<ul class="treeview-menu treeview-menu-settings" style="display: none;">
-	                        	<li>
-                                	<a href="<?php echo site_url("app/settings") ?>" class="menu-donation-box ml10">
-                                		<i class="fa fa-gear"></i> General
-                                	</a>
-                                </li>
 
-                                <li>
-                                	<a href="<?php echo site_url("app/settings") ?>" class="menu-donation-box ml10">
-                                		<i class="fa fa-gift"></i> Donation
-                                	</a>
-                                </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/settings#dashboard-box") ?>" class="menu-dashboard-box ml10">
-                                		<i class="fa fa-dashboard"></i> Dashboard
-                                	</a>
-                                </li>
                                 <li>
                                 	<a href="<?php echo site_url("app/settings#pools-box") ?>" class="menu-pools-box ml10">
                                 		<i class="fa fa-cloud"></i> Pools
                                 	</a>
                                 </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/settings#customer-miners-box") ?>" class="menu-customer-miners-box ml10">
-                                		<i class="fa fa-desktop"></i> Custom Miners
-                                	</a>
-                                </li>
+
                                 <li>
                                 	<a href="<?php echo site_url("app/settings#local-miner-box") ?>" class="menu-local-miner-box ml10">
                                 		<i class="fa fa-gear"></i> Local Miner

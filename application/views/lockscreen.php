@@ -10,10 +10,10 @@
         <div class="center">            
 	        <div class="lockscreen-cover"></div>
             <div class="toptime headline text-center" id="time"></div>
-            
+
             <!-- User name -->
             <div class="lockscreen-name">Hello Miner</div>
-            
+
             <!-- START LOCK SCREEN ITEM -->
             <div class="lockscreen-item">
                 <!-- lockscreen image -->
@@ -39,16 +39,17 @@
             </div><!-- /.lockscreen-item -->
 			
 			<div class="lockscreen-link">
-				Welcome to Minera
 				<div class="mt20">
 			        <p class="terminal-font">System: <?php echo gethostname() ?></p>
 					<p class="terminal-font">Ip Address: <?php echo $_SERVER['SERVER_ADDR'] ?></p>
-					<p class="terminal-font">Minera Version: <?php echo $minera_version ?></p>
 				</div>
 			</div> 
 
 			<div class="lockscreen-link">
 				<?php if ($isOnline) : ?><i class="fa fa-circle text-success"></i> Online<?php else: ?><i class="fa fa-circle text-muted"></i> Offline<?php endif; ?>
-			</div> 
+			</div>
+            <div class="lockscreen-link">
+                <img width="100" height="100" src="<?php echo base_url("assets/img/wechat-offical-account.jpg") ?>" alt="wechat qr code"/>
+            </div>
 						
         </div><!-- /.center -->
