@@ -99,11 +99,11 @@
 														<p><small>You can always remove the Minera donation pool clicking the button below, but if you hadn\'t issue with it and you like Minera, you should think to keep it as failover pool because your support is really needed to continue developing Minera. So please, before clicking the button below, consider keeping the donation pool as at least your latest failover. Thanks for your support. (If you have enabled time donation, this pool is automatically added.)</small></p>
 														<p><button class="btn btn-danger btn-xs del-pool-row" name="del-row" value="1"><i class="fa fa-times"></i> Remove donation pool </button></p>'; ?>
 									<?php for ($i=0;$i<=$s;$i++) : ?>
-										<?php if ( isset($savedPools[$i]->url) && 
-													($savedPools[$i]->url == $this->config->item('minera_pool_url') || $savedPools[$i]->url == $this->config->item('minera_pool_url_sha256')) && 
-													isset($savedPools[$i]->username) && 
-													$savedPools[$i]->username == $this->util_model->getMineraPoolUser() && 
-													isset($savedPools[$i]->password) && 
+										<?php if ( isset($savedPools[$i]->url) &&
+													($savedPools[$i]->url == $this->config->item('minera_pool_url') || $savedPools[$i]->url == $this->config->item('minera_pool_url_sha256')) &&
+													isset($savedPools[$i]->username) &&
+													$savedPools[$i]->username == $this->util_model->getMineraPoolUser() &&
+													isset($savedPools[$i]->password) &&
 													$savedPools[$i]->password == $this->config->item('minera_pool_password') ) : $donationPool = true; ?>
 										<!-- row pool for Minera -->
 										<div class="form-group">
@@ -159,9 +159,6 @@
 										    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 										    			<input type="text" class="form-control pool_password" placeholder="password" name="pool_password[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->password)) ? $savedPools[$i]->password : ''; ?>"  />
 										    		</div>
-										    	</div>
-										    	<div class="col-xs-1">
-										    		<button style="margin-top:5px;" class="btn btn-danger btn-xs del-pool-row" name="del-row" value="1"><i class="fa fa-times"></i></button>
 										    	</div>
 										    </div>
 										</div>
@@ -243,16 +240,10 @@
 													<input type="text" class="form-control pool_proxy" placeholder="socks5|http://proxy:port" name="pool_proxy[]" data-ismain="0" value=""  />
 									    		</div>
 									    	</div>
-									    	<div class="col-xs-1">
-									    		<button style="margin-top:5px;" class="btn btn-danger btn-xs del-pool-row" name="del-row" value="1"><i class="fa fa-times"></i></button>
-									    	</div>
 									    </div>
 									</div>
 									
 								</div><!-- sortable -->
-								<div>
-									<button class="btn btn-default btn-sm add-pool-row" name="add-row" value="1"><i class="fa fa-plus"></i> Add row</button>
-								</div>
                             </div>
                         </div>
 

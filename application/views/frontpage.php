@@ -5,7 +5,6 @@
 					<h1>Mining <small>Dashboard</small></h1>
 					<ol class="breadcrumb">
 						<li><button class="btn btn-default btn-xs view-raw-stats"><i class="fa fa-list"></i> raw stats</button></li>
-						<li><a href="<?php echo site_url("app/settings") ?>"><i class="fa fa-gear"></i> Settings</a></li>
 					</ol>
 				</section>
 
@@ -374,7 +373,6 @@
 													</tbody>
 												</table><!-- /.table -->
 												<div class="pools-addbox">
-													<button class="btn btn-xs btn-primary toggle-add-pool" data-open="0"><i class="fa fa-plus"></i> Add pool</button>
 													<div class="form-group mt10" style="display:none;">
 														<?php if ($minerdRunning != 'cpuminer') : ?>
 															<div class="row sort-attach">

@@ -273,66 +273,17 @@
 	                        </script>
 							<!-- END: Underscore Template Definition. -->
 						</li>
-                        
+
 					    <!-- Donate/Help dropdown -->
 					    <li class="dropdown user user-menu">
 					        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
 					            <i class="glyphicon glyphicon-gift"></i>
-					            <span>Help <i class="caret"></i></span>
-				                	<?php if ($mineraUpdate) : ?><span class="label label-danger"><i class="fa fa-info"></i></span><?php endif; ?>
+					            <span><i class="caret"></i></span>
 					        </a>
 					        <ul class="dropdown-menu">
 					            <!-- User image -->
 					            <li class="user-header bg-dark-grey">
-					            	<p><i class="glyphicon glyphicon-heart"></i></p>
-					                <p>
-					                    <small>Made with love</small>
-					                    Minera is a free and open source software
-					                    <small>Please help Minera: spread it, share, donate</small>
-					                </p>
-					                <div style="margin:22px;">
-										<a href="https://www.facebook.com/sharer/sharer.php?u=http://getminera.com" target="_blank"><button class="btn bg-light-blue btn-circle"><i class="fa fa-facebook"></i></button></a>
-										<a href="https://twitter.com/home?status=Try%20Minera%20for%20your%20%23bitcoin%20mining%20monitor%20http://getminera.com &#64;michelem" target="_blank"><button class="btn bg-aqua btn-circle"><i class="fa fa-twitter"></i></button></a>
-										<a href="https://plus.google.com/share?url=http://getminera.com" target="_blank"><button class="btn bg-red btn-circle"><i class="fa fa-google-plus"></i></button></a>
-									</div>
-					            </li>
-					            <!-- Menu Body -->
-					            <li class="user-body">
-					                <div class="col-xs-4 text-center">
-										<a href="https://github.com/getminera/minera" target="_blank">Github</a>
-									</div>
-					                <div class="col-xs-4 text-center">
-										<a href="https://bitcointalk.org/index.php?topic=596620.0" target="_blank">Forum</a>
-									</div>
-					                <div class="col-xs-4 text-center">
-					                    <a href="http://twitter.com/michelem" target="_blank">Follow</a>					
-									</div>
-					            </li>
-					            <!-- Menu Footer-->
-					            <li class="user-footer">
-					                <div class="pull-left">
-					                    <a href="http://getminera.com" class="btn btn-default btn-flat">Get Minera</a>
-					                </div>
-					                <div class="pull-right">
-					                	<?php if ($mineraUpdate) : ?>
-						                    <a href="<?php echo site_url("app/update") ?>" class="btn btn-danger btn-flat" style="color:#fff;">Ver. <?php echo $this->util_model->currentVersion() ?></a>
-										<?php else: ?>
-						                    <a href="<?php echo base_url("minera.json") ?>" class="btn btn-default btn-flat">Ver. <?php echo $this->util_model->currentVersion() ?></a>
-										<?php endif; ?>
-					                </div>
-					            </li>
-			                	<?php if ($mineraUpdate) : ?>
-				                <li class="user-footer">
-				                	<div class="col-xs-12 text-center">
-				                		<small><a href="<?php echo site_url("app/update") ?>">There is a new version available</a></small>
-				                		<p><a href="<?php echo site_url("app/update") ?>"><button class="btn btn-danger btn-xs" data-toggle="tooltip" title="" data-original-title="Update Minera">Update Now! <i class="fa fa-download"></i></button></a></p>
-				                	</div>
-				                </li>
-								<?php endif; ?>
-					            <li>
-					                <div class="col-xs-4 text-center" style="background: green; height: 3px;"></div>
-					                <div class="col-xs-4 text-center" style="background: white; height: 3px;"></div>
-					                <div class="col-xs-4 text-center" style="background: red; height: 3px;"></div>
+                                    <a href="http://getminera.com" class="btn btn-default btn-flat">Logout</a>
 					            </li>
 					        </ul>
 					    </li>

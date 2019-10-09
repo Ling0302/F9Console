@@ -139,46 +139,6 @@ function saveSettings(hide, saveonly)
 	});
 }
 
-function changeDonationWorth(profitability, value) 
-{
-
-	var amount = (profitability / 24 / 60 * value), string = (value > 0) ? 'about' : 'exactly', h = 0, new_value = 0, period = 0;
-
-	if (value >= 60)
-	{
-		h = Math.floor(value / 60);
-		new_value = value % 60;
-    	period = h + ' hour(s) ' + ((new_value > 0) ? ' and ' + new_value + ' minute(s)' : '');
-	}
-	else
-	{
-    	period = value + ' minutes';
-	}
-	
-	$('.donation-worth').html('<small>Mining for ' + period + ' in a day your donation per MH/s worths ' + string + ':</small> <span class="label label-success"><i class="fa fa-btc"></i>&nbsp;' + amount.toFixed(8) + '</span>');
-	
-	if (value > 0 && value < 90)
-	{
-		$('.donation-mood').html('<i class="fa fa-smile-o"></i> Your support is much appreciate. Thank you!').removeClass().addClass('donation-mood badge bg-blue');
-	}
-	else if (value >= 90 && value < 180)
-	{
-		$('.donation-mood').html('<i class="fa fa-sun-o"></i> WOW that\'s really cool! Thank you!').removeClass().addClass('donation-mood badge bg-green');
-	}
-	else if (value >= 180 && value < 270)
-	{
-		$('.donation-mood').html('<i class="fa fa-star"></i> That\'s amazing! You are a star! Thank you!').removeClass().addClass('donation-mood badge bg-yellow');
-	}
-	else if (value >= 270 && value <= 360 )
-	{
-		$('.donation-mood').html('<i class="fa fa-heart"></i> You are my hero! You really rock! Thank you so much!').removeClass().addClass('donation-mood badge bg-red');
-	}
-	else
-	{
-		$('.donation-mood').html('<i class="fa fa-frown-o"></i> Time donation is disabled').removeClass().addClass('donation-mood badge');
-	}
-}
-
 // Show or Hide the options related to the selected miner software
 function showHideMinerOptions(change)
 {	
@@ -527,18 +487,6 @@ $(function() {
 	
 	var thisSection = $('.header').data('this-section');
 	
-	/*
-	if (thisSection === 'settings') {
-		jQuery.ajax({
-			url: 'https://www.coinbase.com/assets/button.js',
-			dataType: 'script',
-			cache: true
-		}).done(function() {
-			console.log('Coinbase loaded');
-		});
-	}
-	*/
-	
 	$('body').tooltip({ selector: '[data-toggle="tooltip"]', trigger: 'hover' });
 	$('body').popover({ selector: '[data-toggle="popover"]', trigger: 'hover' });
 	
@@ -581,24 +529,7 @@ $(function() {
 			Cookies.remove('promoModal');
 	  		setPromoInterval();
 		});
-		
-		/*
-		var overiFrame = -1;
-	    $('.promo-iframe').hover( function() {
-	        overiFrame = $(this).closest('.banner').attr('bannerid');
-	    }, function() {
-	        overiFrame = -1;
-	    });
 
-	    $(window).blur( function() {
-	        if( overiFrame !== -1 ) {
-				$('#modal-promo').modal('hide');
-				Cookies.set('promoClicked', true);
-				Cookies.remove('promoModal');
-		  		setPromoInterval();
-			}
-	    });
-	    */
 	} else {
 		Cookies.remove('promoModal');
 		Cookies.remove('promoClicked');
@@ -808,21 +739,6 @@ $(function() {
         
         if ($('body').data('timer')) { timer(); }
 
-        /* CENTER ELEMENTS IN THE SCREEN */
-        /*
-		$('.center').center();
-        $(window).resize(function() {
-            $('.center').center();
-        });
-		jQuery.fn.center = function() {
-            this.css('position', 'absolute');
-            this.css('top', Math.max(0, (($(window).height() - $(this).outerHeight()) / 2) +
-                    $(window).scrollTop()) - 30 + 'px');
-            this.css('left', Math.max(0, (($(window).width() - $(this).outerWidth()) / 2) +
-                    $(window).scrollLeft()) + 'px');
-            return this;
-        }*/
-		
 	} else if (thisSection === 'settings') {
 
 		// Settings Scripts
@@ -1139,43 +1055,6 @@ $(function() {
 	    $('.sort-attach').css('cursor','move');
 	    
 	    // Initialize options sliders
-	    $('.open-readme-donation').click(function(e) {
-			e.preventDefault();
-			$('.readme-donation').fadeToggle();
-	    });
-	    
-	    $('.view-stored-donations').click(function(e) {
-			e.preventDefault();
-			$('#stored-donation-table_wrapper').toggle();
-			$('#stored-donation-table').fadeToggle();
-	    });
-	    
-		$('#stored-donation-table').dataTable({bFilter: false, bInfo: false, bPaginate: true, 'dom': '<"top"i>rt<"bottom"flp><"clear">'});
-		$('#stored-donation-table_wrapper').hide();
-	    	    
-	    var donationProfitability = $('#option-minera-donation-time').data('donation-profitability'),
-	    	savedDonationTime = $('#option-minera-donation-time').data('saved-donation-time');
-	    
-	    $('#option-minera-donation-time').ionRangeSlider({
-			min: 0,
-			max: 360,
-			from: (savedDonationTime) ? savedDonationTime : 0,
-			type: 'single',
-			step: 10,
-			postfix: ' Mins',
-			grid: true,
-			onStart: function (obj) {
-				changeDonationWorth(donationProfitability, obj.from);
-			},
-			onChange: function (obj) {
-				if (obj.from > 0)
-				{
-					$('#option-minera-donation-time').ionRangeSlider('update', { to: 0 });
-				}
-				changeDonationWorth(donationProfitability, obj.from);
-			}
-		});
-		
 	    $('#ion-startfreq').ionRangeSlider({
 			min: 600,
 			max: 1400,
@@ -1210,38 +1089,7 @@ $(function() {
 			e.preventDefault();
 			$('.minera-pool-help').fadeToggle();
 	    });
-	
-	    $(document).on('click', '.del-pool-row', function(e) {
-			e.preventDefault();
-			$(this).closest('.form-group').remove();
-	    });
-	    		    
-	    $(document).on('click', '.add-pool-row', function(e) {
-			e.preventDefault();
-			if ($(this).data('network')) {
-				$('.pool-'+$(this).data('networkminer')).first().clone().appendTo('.net-'+$(this).data('networkminer'));
-				$('.pool-'+$(this).data('networkminer')).last().css('display', 'block').removeClass('.pool-'+$(this).data('networkminer'));
-			} else {
-				$('.pool-group-master').first().clone().appendTo('.poolSortable');
-				$('.pool-group-master').last().css('display', 'block').removeClass('pool-group-master');
-			}
-	    });
-	
-		$('.form-donation').prop('disabled', true);
-		
-	    $(document).on('click', '.add-donation-pool-row', function(e) {
-			e.preventDefault();
-			if ($(this).data('network')) {
-				$('.form-donation').prop('readonly', true).prop('disabled', false);
-				$('.pool-net-donation-'+$(this).data('networkminer')).css('display', 'block').removeClass('.pool-net-donation-'+$(this).data('networkminer'));
-			} else {
-				$('.form-donation').prop('readonly', true).prop('disabled', false);
-				$('.pool-donation-group').css('display', 'block').removeClass('pool-donation-group');
-			}
-			
-			$(this).fadeOut();
-	    });
-	    
+
 	    // Custom miners
 	     // Initialize options sliders
 	    $('.open-readme-custom-miners').click(function(e) {
@@ -1883,88 +1731,9 @@ $(document).on('click', '.add-net-pool', function(e) {
 	}
 });
 
-$(document).on('click', '.add-net-donation-pool', function(e) {
-
-	e.preventDefault();
-	$('.overlay').show();
-	var netMiner = $(this).data('netminer'),
-		donationUrl = ($(this).data('netcoin') === 'SHA-256') ? $('.app_data').data('minera-pool-url-sha256') : $('.app_data').data('minera-pool-url-scrypt'),
-		params = {
-			command: 'add_pool',
-			url: donationUrl,
-			user: $('.app_data').data('minera-pool-username'),
-			pass: 'x',
-			network: $(this).data('network')
-		},
-		query = $.param(params);
-
-	$.ajax(_baseUrl+'/app/api?'+query, {
-        dataType: 'text',
-        success: function (dataP) {
-        	if (dataP)
-        	{
-        		var dataJ = $.parseJSON(dataP);
-        		//console.log(dataJ);
-    			getStats(true);
-    			if (dataJ)
-    			{
-    				$('.net-pool-alert-'+netMiner).html('Miner response: <pre style="font-size:10px;margin-top:10px;">'+dataP+'</pre>');
-    				setTimeout(function() {
-						$('.net-pool-alert-'+netMiner).html('');
-	    			}, 30000);
-    			}
-    			$('.pool_url_'+netMiner).val('').addClass('error');
-				$('.pool_username_'+netMiner).val('').addClass('error');
-				$('.pool_password_'+netMiner).val('').addClass('error');
-    		}
-        }
-    });
-});
-
 // ****************************** //
 //  LOCAL miners pools functions  //
 // ****************************** //
-
-// Select Pool on the fly
-$(document).on('click', '.select-pool', function(e) {
-
-	e.preventDefault();
-	$('.overlay').show();
-    var poolId = $(this).data('pool-id');
-    $.ajax(_baseUrl+'/app/api?command=select_pool&poolId='+poolId, {
-        dataType: 'text',
-        success: function (dataP) {
-        	if (dataP)
-        	{
-        		var dataJ = $.parseJSON(dataP);
-        		
-    			getStats(true);
-    			if (dataJ)
-    			{
-    				$('.pool-alert').html('CG/BFGminer could take some minutes to complete the switching process, try to <a href="#" class="refresh-btn">refresh the dashboard</a>.. <pre style="font-size:10px;margin-top:10px;">'+dataP+'</pre>').fadeIn();
-    				
-    				setTimeout(function() {
-						$('.pool-alert').html('');
-	    			}, 30000);
-    			}
-    		}
-        }
-    });
-});
-
-// Toggle local pool on the fly
-$(document).on('click', '.toggle-add-pool', function(e) {
-
-	e.preventDefault();
-	//$('.overlay').show();
-	if ($(this).data('open')) {
-		$(this).nextAll('.form-group').fadeOut();
-		$(this).data('open', false);
-	} else {
-		$(this).nextAll('.form-group').fadeIn();
-		$(this).data('open', true);
-	}
-});
 
 $(document).on('click', '.add-pool', function(e) {
 
@@ -2588,8 +2357,6 @@ function getStats(refresh)
 						$('.widget-last-share').html(parseInt(last_share_secs) + ' secs');
 						$('.widget-hwre-rates').html(parseFloat(percentageHw).toFixed(2) + '<sup style="font-size: 20px">%</sup> / ' + parseFloat(percentageRe).toFixed(2) + '<sup style="font-size: 20px">%</sup>');
 						dev_serial = '';
-						//Sidebar hashrate
-						//$('.sidebar-hashrate').html("@ "+convertHashrate(items[index].hash));
 					}
 					
 					var devRow = '<tr class="dev-'+index+'"><td class="devs_table_name"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;'+index+dev_serial+'</td><td class="devs_table_temp">'+ items[index].temp + '</td><td class="devs_table_freq">'+ items[index].fr + 'MHz</td><td class="devs_table_hash"><strong>'+ convertHashrate(items[index].hash) +'</strong></td><td class="devs_table_sh">'+ items[index].sh +'</td><td class="devs_table_ac">'+ items[index].ac +'</td><td><small class="text-muted">'+parseFloat(percentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ items[index].re +'</td><td><small class="text-muted">'+parseFloat(percentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ items[index].hw +'</td><td><small class="text-muted">'+parseFloat(percentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(last_share_secs) +' secs ago</td><td><small class="text-muted">'+share_date.toUTCString()+'</small></td></tr>';
@@ -2783,15 +2550,6 @@ function getStats(refresh)
 									dev_serial = 'serial: '+networkMiners[netKey][index].serial;
 								}
 
-								/*
-								// Widgets
-								$('.widget-last-share').html(parseInt(last_share_secs) + ' secs');
-								$('.widget-hwre-rates').html(parseFloat(percentageHw).toFixed(2) + '<sup style="font-size: 20px">%</sup> / ' + parseFloat(percentageRe).toFixed(2) + '<sup style="font-size: 20px">%</sup>');
-								dev_serial = '';
-								//Sidebar hashrate
-								//$('.sidebar-hashrate').html('@ '+convertHashrate(items[index].hash));
-								*/
-								
 								if ( $.fn.dataTable.isDataTable('#network-miner-table-details') )
 								{
 									// New add rows via datatable
@@ -2909,7 +2667,7 @@ function getStats(refresh)
 										puserlabel = 'navy';
 										purlicon = '<i class="fa fa-gift"></i>&nbsp;';
 										pdonationUrl = true;
-										$('.net-pools-addbox-'+md5(netKey)+' .add-net-donation-pool').fadeOut();
+										$('.net-pools-addbox-'+md5(netKey)).fadeOut();
 									}
 				
 									// Main pool
@@ -2983,7 +2741,7 @@ function getStats(refresh)
 								});
 								
 								if (pdonationUrl === false) {
-									$('.net-pools-addbox-'+md5(netKey)+' .add-net-donation-pool').fadeIn();
+									$('.net-pools-addbox-'+md5(netKey)).fadeIn();
 								}
 							}
 							else
@@ -3102,7 +2860,6 @@ function getStats(refresh)
 				}
 				
 				sys_temp_box = parseFloat(sys_temp).toFixed(2)+'&deg;'+$('.app_data').data('dashboard-temp');
-				//<div class="progress xs progress-striped active"><div class="progress-bar progress-bar-'+temp_bar+'" role="progressbar" aria-valuenow="'+parseInt(sys_temp)+'" aria-valuemin="0" aria-valuemax="100" style="width: '+parseInt(sys_temp)+'%"></div></div>';
 				$('.sys-temp-box').addClass(temp_bar);
 				$('.sys-temp-footer').html(temp_text+' <i class="fa fa-arrow-circle-right">');
 				$('.widget-sys-temp').html(sys_temp_box);
@@ -3111,176 +2868,6 @@ function getStats(refresh)
 			{
 				$('.widget-sys-temp').html('N.a.');
 				$('.sys-temp-footer').html('Temperature not available <i class="fa fa-arrow-circle-right">');
-			}
-			
-			// Get profitability stats
-			if (data.profits)
-			{
-				var btcPrice = (data.btc_rates && data.btc_rates.last) ? data.btc_rates.last : 0,
-					btcEurPrice = (data.btc_rates && data.btc_rates.last_eur) ? data.btc_rates.last_eur : 0;
-
-				if ( !$.fn.dataTable.isDataTable('#profit-table-details') )
-				{
-					// Initialize the profit datatable	
-					$('#profit-table-details').dataTable({
-						'bAutoWidth': false,
-						'lengthChange': false,
-						'paging': false,
-						'searching': false,
-						'info': false,
-						'stateSave': true,
-						'order': [[ 6, 'desc' ]],
-						'aoColumnDefs': [{
-							'aTargets': [ 3 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return '<small>'+data.blocks+'</span>';
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 4 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return (data > 0) ? '<span class="badge bg-light-blue">'+convertHashrate(data)+'</span>' : '<span class="badge badge-muted">n.a.</span>';
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 5 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									if ( full[3].coin === 'btc') {
-										return (btcPrice && btcEurPrice) ? btcPrice + ' <i class="fa fa-dollar"></i> <span class="small">(' + btcEurPrice + ' <i class="fa fa-eur"></i>)' : data;
-									} else
-										return '<i class="fa fa-btc"></i> '+data;
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 6 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return '<i class="fa fa-btc"></i> <strong>'+data+'</strong>';
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 7 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return '<i class="fa fa-btc"></i> '+data;
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 1 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return '<small>'+data+'</small>';
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 8 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return '<small>'+data+'</small>';
-								}
-								return data;
-							},
-						},{
-							'aTargets': [ 9 ],	
-							'mRender': function ( data, type, full ) {
-								if (type === 'display')
-								{
-									return '<small class="label label-primary">' + data.toUpperCase() + '</small>';
-								}
-								return data;
-							},
-						}],
-					});	
-				}
-
-				// Update datatable profit function
-				var updateProfitDataTable = function (data, currentProfitData) {
-					// Add profit data
-
-					$('#profit-table-details').dataTable().fnClearTable();
-					var thisHash = (data.totals && data.totals.hashrate) ? data.totals.hashrate/1000 : 0;
-					$('.profit_local_hashrate').html( ($('.profit_hashrate').val() > 0) ? $('.profit_hashrate').val()+$('.profit_unit').find('option:selected').data('profit-unit') : convertHashrate(thisHash));
-					$('.profit_local_period').html($('.profit_period').find('option:selected').data('profit-period'));
-					$('.profit_local_algo').html($('.profit_algo').data('profit-algo'));
-						
-					$.each( data.profits, function( coin, profit ) 
-					{
-						if ( $.fn.dataTable.isDataTable('#profit-table-details') && !profit.error )
-						{
-							// Add profit rows via datatable
-							$('#profit-table-details').dataTable().fnAddData( [
-								'<span class="label label-dark" data-toggle="tooltip" data-title="'+profit.coin.charAt(0).toUpperCase() + profit.coin.slice(1)+'">'+ profit.symbol.toUpperCase() +'</span>',
-								profit.difficulty.toFixed(2),
-								profit.reward.toFixed(2),
-								{blocks: profit.blocks.toFixed(0), max: maxProfit.symbol, coin: profit.symbol},
-								(profit.networkhashps) ? profit.networkhashps/1000 : 0,
-								(profit.price) ? profit.price.toFixed(8) : 0,
-								(currentProfitData.hash*profit.btc_profitability).toFixed(8),
-								(profit.algo === 'scrypt') ? profit.btc_profitability.toFixed(8) : (profit.btc_profitability * 1000).toFixed(8),
-								(profit.algo === 'scrypt') ? profit.coin_profitability.toFixed(8) : (profit.coin_profitability * 1000).toFixed(8),
-								profit.algo
-							] );
-						}
-						
-					});
-
-					maxProfit = _.max(data.profits, function (v) { return (currentProfitData.hash*v.btc_profitability); });
-				};	
-
-				var btc = _.filter(data.profits, function (v) { return v.symbol === 'btc'; });
-				btc = (btc[0]) ? btc[0] : 0;
-				
-				var totalHash = (data.totals && data.totals.hashrate) ? data.totals.hashrate : 0,
-					selHashrate = ($('.profit_hashrate').val() > 0) ? $('.profit_hashrate').val() : 0,
-					selUnit = $('.profit_unit').val(),
-					selPeriod = $('.profit_period').val(),
-					currentProfitData = { hash: (selHashrate > 0) ? selUnit*selHashrate*selPeriod : totalHash/1000000 },
-					maxProfit = _.max(data.profits, function (v) { return (currentProfitData.hash*v.btc_profitability); });
-
-				currentProfitData.hash = (data.totals && data.totals.hashrate) ? data.totals.hashrate/1000000 : currentProfitData.hash;
-				if (!selHashrate) selHashrate = 1000000;
-				updateProfitDataTable(data, currentProfitData);
-
-				// Recalculate value when user change input elements
-				$('.profit_data').change(function (e) {
-					selHashrate = ($('.profit_hashrate').val() > 0) ? $('.profit_hashrate').val() : 0;
-					selUnit = $('.profit_unit').val();
-					selPeriod = $('.profit_period').val();
-					
-					currentProfitData.hash = (selHashrate > 0) ? selUnit*selHashrate*selPeriod : totalHash/1000000;
-					updateProfitDataTable(data, currentProfitData);
-				});
-				
-				$('.profit_hashrate').change(function (e) {
-					selHashrate = ($('.profit_hashrate').val() > 0) ? $('.profit_hashrate').val() : 0;
-					selUnit = $('.profit_unit').val();
-					selPeriod = $('.profit_period').val();
-
-					currentProfitData.hash = (selHashrate > 0) ? selUnit*selHashrate*selPeriod : totalHash/1000000;
-					updateProfitDataTable(data, currentProfitData);
-				});
-				
-				$('.profit-table-details-error').html('');
-			}
-			else
-			{
-				$('.profit-table-details-error').html('<div class="alert alert-warning"><i class="fa fa-warning"></i><strong>No coins</strong> data available, please wait and try to refresh.</div>');
 			}
 						
 			// Add Miner Uptime widget
@@ -3445,9 +3032,6 @@ function getStats(refresh)
 			{
 				$('.chart').css({'height': '100%', 'overflow': 'visible', 'margin-top': '10px'}).html('<div class="alert alert-warning"><i class="fa fa-warning"></i><b>Oops!</b> <small>No data collected, You need at least 5 minutes of data to see the chart.</small></div>');	
 			}
-			
-			//$('.overlay').hide();
-			//$('.loading-img').hide();
 			
 		}); //End get stored stats
 	}
