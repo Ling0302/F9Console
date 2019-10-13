@@ -235,9 +235,6 @@
 									</div><!-- /.row - inside box -->
 								</div><!-- /.box-body -->
 								<div class="box-footer">
-									<div class="legend pull-right">
-								 		<h6>Colors based on last share time: <i class="fa fa-circle text-success"></i> Good&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-warning"></i> Warning&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-danger"></i> Critical&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-muted"></i> Possibly dead</h6>
-								 	</div>
 								 	<?php if ($savedFrequencies && $minerdRunning == "cpuminer") : ?>
 								 	<button class="btn btn-primary btn-sm btn-saved-freq" data-toggle="tooltip" title="" data-original-title="Look at saved frequencies"><i class="fa fa-eye"></i> Saved frequencies</button>
 								 	<?php else: ?>

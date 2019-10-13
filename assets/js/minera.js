@@ -1398,7 +1398,7 @@ $(function() {
 		var log_url = $('.app_data').data('minerd-log');
 		var fix_rn = true;
 		var load_log = 1 * 1024; /* 30KB */
-		var poll = 1000; /* 1s */
+		var poll = 30000; /* 30s */
 		
 		var kill = false;
 		var loading = false;
@@ -1447,8 +1447,8 @@ $(function() {
 		                if (isNaN(size))
 		                    throw 'Invalid Content-Range size';
 		            } else if (xhr.status === 200) {
-		                if (log_size > 1)
-		                    throw 'Expected 206 Partial Content';
+		                //if (log_size > 1)
+		                 //   throw 'Expected 206 Partial Content';
 		
 		                size = data.length;
 		            }
@@ -1548,7 +1548,7 @@ $(function() {
 			else
 			{
 				kill = false;
-				//get_log();
+				get_log();
 				$(this).html('<i class="fa fa-pause"></i>');	
 				$(this).attr('data-original-title', 'Pause log');
 			}
@@ -1556,7 +1556,7 @@ $(function() {
 			e.preventDefault();
 		});
 		
-		//get_log();
+		get_log();
 		$('.pause-log').click();
 		
 		/*

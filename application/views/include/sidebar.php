@@ -2,7 +2,7 @@
 		<div class="app_data"
 			data-refresh-time="<?php echo ($dashboard_refresh_time) ? $dashboard_refresh_time : 60; ?>"
 			data-records-per-page="<?php echo ($dashboardTableRecords) ? $dashboardTableRecords : 5; ?>"
-			data-minerd-log="<?php echo ($minerdLog) ? base_url($this->config->item("minerd_log_url")) : null; ?>"
+			data-minerd-log="<?php echo base_url($this->config->item("minerd_log_url")); ?>"
 			data-device-tree="<?php echo $dashboardDevicetree ?>"
 			data-dashboard-temp="<?php echo ($this->redis->get("dashboard_temp")) ? $this->redis->get("dashboard_temp") : "c"; ?>"
 			data-miner-status="<?php echo ($this->redis->get("minerd_status")) ? 1 : 0; ?>"
@@ -280,7 +280,7 @@
 					        <ul class="dropdown-menu">
 					            <!-- User image -->
 					            <li class="user-header bg-dark-grey">
-                                    <a href="<?php echo site_url("app/index") ?>" class="btn btn-danger btn-flat">Logout</a>
+                                    <a href="<?php echo site_url("app/index") ?>" style="color: #ffffff;" class="btn btn-danger btn-flat">Logout</a>
 					            </li>
 					        </ul>
 					    </li>
@@ -413,11 +413,6 @@
                                 <i class="fa pull-right fa-angle-left"></i>
                             </a>
                             <ul class="treeview-menu" style="display: none;">
-                                <li data-toggle="tooltip" title="" data-original-title="Open Minera's terminal">
-                                	<a href="#" class="system-open-terminal" style="margin-left: 10px;">
-                                		<i class="fa fa-terminal"></i> Open terminal
-                                	</a>
-                                </li>
                                 <li data-toggle="tooltip" title="" data-original-title="Reboot Minera">
                                 	<a href="<?php echo site_url("app/reboot") ?>" style="margin-left: 10px;">
                                 		<i class="fa fa-flash"></i> Reboot
