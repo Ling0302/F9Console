@@ -2017,8 +2017,10 @@ function getStats(refresh)
 				{
 					// Initialize the pools datatable	
 					$('#pools-table-details').dataTable({
-						'lengthMenu': [ 5, 10, 25, 50 ],
-						'pageLength': $('.app_data').data('records-per-page'),
+						'paging':false,
+						"bFilter": false,
+						"bLengthChange": false,
+						"info": false,
 						'stateSave': true,
 						'stateSaveCallback': function (settings, data) {
 
@@ -2193,8 +2195,10 @@ function getStats(refresh)
 				{
 					// Initialize the miner datatable	
 					$('#miner-table-details').dataTable({
-						'lengthMenu': [ 5, 10, 25, 50 ],
-						'pageLength': $('.app_data').data('records-per-page'),
+						'paging':false,
+						"bFilter": false,
+						"bLengthChange": false,
+						"info": false,
 						'stateSave': true,
 						'bAutoWidth': false,
 						'aoColumnDefs': [
@@ -2282,7 +2286,6 @@ function getStats(refresh)
 				
 				for (var index in items) 
 				{
-									
 					// Add per device rows in system table
 					var devData = {}; devData.hash = items[index].hash;
 					var share_date = new Date(items[index].ls*1000);
@@ -2290,6 +2293,7 @@ function getStats(refresh)
 
 					var last_share_secs = (items[index].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
 					if (last_share_secs < 0) last_share_secs = 0;
+					console.log(last_share_secs);
 
 					var totalWorkedShares = (parseFloat(items[index].ac) + parseFloat(items[index].re) + parseFloat(items[index].hw));
 					var percentageAc = parseFloat(100*items[index].ac/totalWorkedShares);
@@ -2393,8 +2397,10 @@ function getStats(refresh)
 					{
 						// Initialize the miner datatable	
 						$('#network-miner-table-details').dataTable({
-							'lengthMenu': [ 5, 10, 25, 50 ],
-							'pageLength': $('.app_data').data('records-per-page'),
+							'paging':false,
+							"bFilter": false,
+							"bLengthChange": false,
+							"info": false,
 							'stateSave': true,
 							'bAutoWidth': false,
 							'aoColumnDefs': [
@@ -2550,8 +2556,10 @@ function getStats(refresh)
 								{
 									// Initialize the pools datatable	
 									$('#net-pools-table-details-'+md5(netKey)).dataTable({
-										'lengthMenu': [ 5, 10, 25, 50 ],
-										'pageLength': $('.app_data').data('records-per-page'),
+										'paging':false,
+										"bFilter": false,
+										"bLengthChange": false,
+										"info": false,
 										'stateSave': true,
 										'bAutoWidth': false,
 										//'sDom': 't',
