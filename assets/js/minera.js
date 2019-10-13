@@ -1089,6 +1089,17 @@ $(function() {
 			e.preventDefault();
 			$('.minera-pool-help').fadeToggle();
 	    });
+	    		    
+	    $(document).on('click', '.add-pool-row', function(e) {
+			e.preventDefault();
+			if ($(this).data('network')) {
+				$('.pool-'+$(this).data('networkminer')).first().clone().appendTo('.net-'+$(this).data('networkminer'));
+				$('.pool-'+$(this).data('networkminer')).last().css('display', 'block').removeClass('.pool-'+$(this).data('networkminer'));
+			} else {
+				$('.pool-group-master').first().clone().appendTo('.poolSortable');
+				$('.pool-group-master').last().css('display', 'block').removeClass('pool-group-master');
+			}
+	    });
 
 	    // Custom miners
 	     // Initialize options sliders

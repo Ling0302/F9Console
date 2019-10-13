@@ -58,7 +58,7 @@ class App extends CI_Controller {
 	*/
 	public function login()
 	{	
-		/*$storedp = $this->redis->get('minera_password');
+		$storedp = $this->redis->get('minera_password');
 		if (preg_match('/^[0-9a-f]{40}$/', $storedp)) {
 			$storedp = $storedp;
 		} elseif (preg_match('/^[a-f0-9]{32}$/', $storedp)) {
@@ -67,18 +67,16 @@ class App extends CI_Controller {
 				$this->redis->set('minera_password', $storedp);
 			}
 		} else {
-			$storedp = sha1($this->redis->get('minera_password'));
+			$storedp = sha1($this->redis->get('mineraminera'));
 			$this->redis->set('minera_password', $storedp);
 		}
 
 		if ($this->input->post('password', true) && sha1($this->input->post('password')) == $storedp) {
-			$this->session->set_userdata("loggedin", $storedp);*/
-            $this->session->set_userdata("loggedin", $this->input->post('password'));
-            $this->redis->set('minera_password', $this->input->post('password'));
+			$this->session->set_userdata("loggedin", $storedp);
 			redirect('app/dashboard');
-		/*}
+		}
 		else
-			redirect('app/index');*/
+			redirect('app/index');
 	}
 	
 	/*

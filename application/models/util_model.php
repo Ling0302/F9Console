@@ -19,12 +19,12 @@ class Util_model extends CI_Model {
 
 	public function isLoggedIn() 
 	{
-		/*$storedp = $this->redis->get('minera_password');
+		$storedp = $this->redis->get('minera_password');
 
 		if ($this->session->userdata("loggedin") !== $storedp) {
 			redirect('app/index');
 			return false;
-		}*/
+		}
 		
 		return true;
 	}

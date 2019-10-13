@@ -341,18 +341,6 @@
                                 		<i class="fa fa-cloud"></i> Local Pools
                                 	</a>
                                 </li>
-                                <?php if (is_array($netMiners) && count($netMiners) > 0) : ?>
-                                <li>
-                                	<a href="<?php echo site_url("app/dashboard#box-network-details") ?>" class="menu-network-miners-box ml10">
-                                		<i class="fa fa-server"></i> Network miners
-                                	</a>
-                                </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/dashboard#box-network-pools-details") ?>" class="menu-network-pools-box ml10">
-                                		<i class="fa fa-cloud"></i> Network Pools
-                                	</a>
-                                </li>
-                                <?php endif; ?>
                                 <li>
                                 	<a href="<?php echo site_url("app/dashboard#box-charts") ?>" class="menu-charts-box ml10">
                                 		<i class="fa fa-bar-chart"></i> Charts
@@ -384,26 +372,6 @@
                                 	</a>
                                 </li>
 
-                                <li>
-                                	<a href="<?php echo site_url("app/settings#local-miner-box") ?>" class="menu-local-miner-box ml10">
-                                		<i class="fa fa-gear"></i> Local Miner
-                                	</a>
-                                </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/settings#network-miners-box") ?>" class="menu-network-miners-box ml10">
-                                		<i class="fa fa-server"></i> Network Miners
-                                	</a>
-                                </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/settings#system-box") ?>" class="menu-system-box ml10">
-                                		<i class="fa fa-rocket"></i> System
-                                	</a>
-                                </li>
-                                <li>
-                                	<a href="<?php echo site_url("app/settings#importexport-box") ?>" class="menu-importexport-box ml10">
-                                		<i class="fa fa-code-fork"></i> Import/Export/Share
-                                	</a>
-                                </li>
                                 <li>
                                 	<a href="<?php echo site_url("app/settings#user-box") ?>" class="menu-user-box ml10">
                                 		<i class="fa fa-user"></i> User

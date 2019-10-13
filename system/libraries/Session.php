@@ -159,21 +159,21 @@ class CI_Session {
 		$session = substr($session, 0, $len);
 
 		// Time-attack-safe comparison
-		//$hmac_check = hash_hmac('sha1', $session, $this->encryption_key);
-		//$diff = 0;
+		$hmac_check = hash_hmac('sha1', $session, $this->encryption_key);
+		$diff = 0;
 
-		//for ($i = 0; $i < 40; $i++)
-		//{
-		//	$xor = ord($hmac[$i]) ^ ord($hmac_check[$i]);
-		//	$diff |= $xor;
-		//}
+		for ($i = 0; $i < 40; $i++)
+		{
+			$xor = ord($hmac[$i]) ^ ord($hmac_check[$i]);
+			$diff |= $xor;
+		}
 
-		//if ($diff !== 0)
-		//{
-		//	log_message('error', 'Session: HMAC mismatch. The session cookie data did not match what was expected.');
-		//	$this->sess_destroy();
-		//	return FALSE;
-	        //}
+		if ($diff !== 0)
+		{
+			log_message('error', 'Session: HMAC mismatch. The session cookie data did not match what was expected.');
+			$this->sess_destroy();
+			return FALSE;
+		}
 
 		// Decrypt the cookie data
 		if ($this->sess_encrypt_cookie == TRUE)
@@ -182,7 +182,6 @@ class CI_Session {
 		}
 
 		// Unserialize the session array
-        log_message('debug', '11111'. $session);
 		$session = $this->_unserialize($session);
 
 		// Is the session data we unserialized an array with the correct format?
@@ -674,10 +673,9 @@ class CI_Session {
 		{
 			$cookie_data = $this->CI->encrypt->encode($cookie_data);
 		}
-                
-	       // �//$cookie_data .= hash_hmac('sha1', $cookie_data, $this->encryption_key);
-                //$cookie_data .= hash('md5', $cookie_data);
-                 
+
+		$cookie_data .= hash_hmac('sha1', $cookie_data, $this->encryption_key);
+
 		$expire = ($this->sess_expire_on_close === TRUE) ? 0 : $this->sess_expiration + time();
 
 		// Set the cookie
