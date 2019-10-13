@@ -484,57 +484,10 @@ Number.prototype.noExponents= function()
 */
 $(function() {
 
-	
 	var thisSection = $('.header').data('this-section');
 	
 	$('body').tooltip({ selector: '[data-toggle="tooltip"]', trigger: 'hover' });
 	$('body').popover({ selector: '[data-toggle="popover"]', trigger: 'hover' });
-	
-	var timeNow = new Date().getTime(), promoInterval = 3600000, theInterval = null, adsFree = $('.app_data').data('ads-free');
-	
-	if (!adsFree) {			
-		var setPromoInterval = function () {
-			if (theInterval) {
-				//console.log('Clear');
-				clearInterval(theInterval);
-			}
-			Cookies.remove('promoClicked');
-			if (!Cookies.get('timestamp') || new Date().getTime() >= parseInt(Cookies.get('timestamp')) && !Cookies.get('promoModal')) {
-				//console.log('Set');
-				Cookies.set('timestamp', new Date().getTime()+promoInterval);
-			}
-			
-			if (!Cookies.get('promoModal')) {
-				theInterval = setInterval(function () {
-					//console.log('Start');
-					$('#modal-promo').modal('show');
-					Cookies.set('promoModal', true);
-					setPromoInterval();
-				}, Cookies.get('timestamp')-new Date().getTime());
-			}
-		};
-
-		// Promo ads
-		if (new Date().getTime() >= parseInt(Cookies.get('timestamp')) && !Cookies.get('promoClicked')) {
-			//console.log('Go');
-			$('#modal-promo').modal('show');
-		} else {
-			setPromoInterval();
-		}
-		
-		$('.modal-promo-hide').click(function(e){
-	       	e.preventDefault();
-			$('#modal-promo').modal('hide');
-			Cookies.set('promoClicked', true);
-			Cookies.remove('promoModal');
-	  		setPromoInterval();
-		});
-
-	} else {
-		Cookies.remove('promoModal');
-		Cookies.remove('promoClicked');
-		Cookies.remove('timestamp');
-	}
 
 	// Show/hide coinhive info
 	$('.open-browser-mining-info').on('click', function () {

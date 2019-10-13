@@ -7,9 +7,7 @@ class App extends CI_Controller {
 		parent::__construct();
 
 		// Set the general timezone
-		$timezone = ($this->redis->get("minera_timezone")) ? $this->redis->get("minera_timezone") : 'Europe/Rome';
-		date_default_timezone_set($timezone);
-
+		date_default_timezone_set('Asia/Shanghai');
 	}
 	
 	/*
