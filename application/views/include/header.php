@@ -21,7 +21,7 @@
 		$medias = json_decode(file_get_contents(base_url('assets/media.json')));
 		foreach ($medias->css as $css) : 
 		?>
-			<link href="<?php echo base_url($css) ?>" rel="stylesheet" type="text/css" />
+			<link href="<?php echo base_url($css) ?>?time=<?php echo $now ?>" rel="stylesheet" type="text/css" />
 		<?php endforeach; ?>
 	<?php else : ?>
 		<link href="<?php echo base_url('assets/css/application.min.css') ?>" rel="stylesheet" type="text/css" />
