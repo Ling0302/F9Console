@@ -206,9 +206,6 @@
 
 						<!-- BTC/USD rates -->
 						<li class="messages-menu messages-btc-rates">
-							<a href="#" class="dropdown-toggle dropdown-btc-rates" data-toggle="dropdown">
-	                            <i class="fa fa-btc"></i> <span class="avg-1min">Getting data...</span>
-							</a>
 							<!-- BEGIN: Underscore Template Definition. -->
 							<script type="text/template" class="btc-rates-template">
 	                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -268,7 +265,7 @@
 	                                            </a>
 	                                        </li>
 	                                    </ul>                                </li>
-	                                <li class="footer"><a href="https://www.bitstamp.net">Go to Bitstamp</a></li>
+	                                
 	                            </ul>
 	                        </script>
 							<!-- END: Underscore Template Definition. -->
@@ -277,13 +274,13 @@
 					    <!-- Donate/Help dropdown -->
 					    <li class="dropdown user user-menu">
 					        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					            <i class="glyphicon glyphicon-gift"></i>
+					            <i class="glyphicon glyphicon-user"></i>
 					            <span><i class="caret"></i></span>
 					        </a>
 					        <ul class="dropdown-menu">
 					            <!-- User image -->
 					            <li class="user-header bg-dark-grey">
-                                    <a href="http://getminera.com" class="btn btn-default btn-flat">Logout</a>
+                                    <a id="logoutButton" class="btn btn-default btn-flat">Logout</a>
 					            </li>
 					        </ul>
 					    </li>
