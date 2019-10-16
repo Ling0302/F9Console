@@ -2288,10 +2288,10 @@ function getStats(refresh)
 				{
 					// Add per device rows in system table
 					var devData = {}; devData.hash = items[index].hash;
-					var share_date = new Date(items[index].ls*1000);
+					var share_date = new Date(items['total'].ls*1000);
 					var rightnow = new Date().getTime();
 
-					var last_share_secs = (items[index].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
+					var last_share_secs = (items['total'].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
 					if (last_share_secs < 0) last_share_secs = 0;
 					console.log(last_share_secs);
 
@@ -2493,10 +2493,10 @@ function getStats(refresh)
 							{
 								// Add per device rows in system table
 								var devData = {}; devData.hash = networkMiners[netKey][index].hash;
-								var share_date = new Date(networkMiners[netKey][index].ls*1000);
+								var share_date = new Date(networkMiners[netKey]['total'].ls*1000);
 								var rightnow = new Date().getTime();
 		
-								var last_share_secs = (networkMiners[netKey][index].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
+								var last_share_secs = (networkMiners[netKey]['total'].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
 								if (last_share_secs < 0) last_share_secs = 0;
 		
 								var totalWorkedShares = (networkMiners[netKey][index].ac+networkMiners[netKey][index].re+networkMiners[netKey][index].hw);
