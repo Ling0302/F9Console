@@ -300,7 +300,7 @@
                     <div class="user-panel">
                         <div class="pull-left info">
 							<?php if ($isOnline) : ?>
-	                            <a href="<?php echo site_url("app/dashboard") ?>"><i class="fa fa-circle text-success"></i> Online <?php if ($minerdRunning) : ?><small class="pull-right badge bg-green"><?php echo $minerdRunning ?></small><?php endif; ?></a>
+	                            <a href="<?php echo site_url("app/dashboard") ?>"><i class="fa fa-circle text-success"></i> Online </a>
 	                        <?php else: ?>
 	                            <a href="<?php echo site_url("app/settings") ?>" data-toggle="tooltip" title="" data-original-title="Go to the settings page"><i class="fa fa-circle text-muted"></i> Offline <?php if ($minerdSoftware) : ?><small class="pull-right badge bg-muted"><?php echo $minerdSoftware ?></small><?php endif; ?></a>
 							<?php endif; ?>

@@ -2049,7 +2049,7 @@ function getStats(refresh)
 							'mRender': function ( data, type, full ) {
 								if (type === 'display')
 								{
-									return '<small class="text-muted">'+ data +'</small>';
+									return '<small class="">'+ data +'</small>';
 								}
 								return data;
 							},
@@ -2253,7 +2253,7 @@ function getStats(refresh)
 							'mRender': function ( data, type, full ) {
 								if (type === 'display')
 								{
-									return '<small class="text-muted">' + data + '%</small>';
+									return '<small class="">' + data + '%</small>';
 								}
 								return data;
 							}
@@ -2327,7 +2327,7 @@ function getStats(refresh)
 						dev_serial = '';
 					}
 					
-					var devRow = '<tr class="dev-'+index+'"><td class="devs_table_name"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;'+index+dev_serial+'</td><td class="devs_table_temp">'+ items[index].temp + '</td><td class="devs_table_freq">'+ items[index].fr + 'MHz</td><td class="devs_table_hash"><strong>'+ convertHashrate(items[index].hash) +'</strong></td><td class="devs_table_sh">'+ items[index].sh +'</td><td class="devs_table_ac">'+ items[index].ac +'</td><td><small class="text-muted">'+parseFloat(percentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ items[index].re +'</td><td><small class="text-muted">'+parseFloat(percentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ items[index].hw +'</td><td><small class="text-muted">'+parseFloat(percentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(last_share_secs) +' secs ago</td><td><small class="text-muted">'+share_date.toUTCString()+'</small></td></tr>';
+					var devRow = '<tr class="dev-'+index+'"><td class="devs_table_name"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;'+index+dev_serial+'</td><td class="devs_table_temp">'+ items[index].temp + '</td><td class="devs_table_freq">'+ items[index].fr + 'MHz</td><td class="devs_table_hash"><strong>'+ convertHashrate(items[index].hash) +'</strong></td><td class="devs_table_sh">'+ items[index].sh +'</td><td class="devs_table_ac">'+ items[index].ac +'</td><td><small class="">'+parseFloat(percentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ items[index].re +'</td><td><small class="">'+parseFloat(percentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ items[index].hw +'</td><td><small class="">'+parseFloat(percentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(last_share_secs) +' secs ago</td><td><small class="">'+share_date.toUTCString()+'</small></td></tr>';
 				
 					if (index === 'total')
 					{
@@ -2352,7 +2352,7 @@ function getStats(refresh)
 								items[index].hw,
 								parseFloat(percentageHw).toFixed(2),
 								parseInt(last_share_secs),
-								'<small class="text-muted">'+share_date.toUTCString()+'</small>'
+								'<small class="">'+share_date.toUTCString()+'</small>'
 							] );
 						}
 					}
@@ -2455,7 +2455,7 @@ function getStats(refresh)
 								'mRender': function ( data, type, full ) {
 									if (type === 'display')
 									{
-										return '<small class="text-muted">' + data + '%</small>';
+										return '<small class="">' + data + '%</small>';
 									}
 									return data;
 								}
@@ -2536,7 +2536,7 @@ function getStats(refresh)
 										networkMiners[netKey][index].hw,
 										parseFloat(percentageHw).toFixed(2),
 										parseInt(last_share_secs),
-										'<small class="text-muted">'+share_date.toUTCString()+'</small>'
+										'<small class="">'+share_date.toUTCString()+'</small>'
 									] );
 								}
 							}								
@@ -2585,7 +2585,7 @@ function getStats(refresh)
 											'mRender': function ( data, type, full ) {
 												if (type === 'display')
 												{
-													return '<small class="text-muted">'+ data +'</small>';
+													return '<small class="">'+ data +'</small>';
 												}
 												return data;
 											},
@@ -2763,14 +2763,14 @@ function getStats(refresh)
 							
 						if (tot_last_share_secs < 0) tot_last_share_secs = 0;
 						
-						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>'+ convertHashrate(netHashrates) +'</strong></td><td class="devs_table_sh">'+ networkMiners.total.sh +'</td><td class="devs_table_ac">'+ networkMiners.total.ac +'</td><td><small class="text-muted">'+parseFloat(tPercentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ networkMiners.total.re +'</td><td><small class="text-muted">'+parseFloat(tPercentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ networkMiners.total.hw +'</td><td><small class="text-muted">'+parseFloat(tPercentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(tot_last_share_secs) +' secs ago</td><td><small class="text-muted">'+new Date(tot_last_share_date).toUTCString()+'</small></td></tr>';				
+						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>'+ convertHashrate(netHashrates) +'</strong></td><td class="devs_table_sh">'+ networkMiners.total.sh +'</td><td class="devs_table_ac">'+ networkMiners.total.ac +'</td><td><small class="">'+parseFloat(tPercentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ networkMiners.total.re +'</td><td><small class="">'+parseFloat(tPercentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ networkMiners.total.hw +'</td><td><small class="">'+parseFloat(tPercentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(tot_last_share_secs) +' secs ago</td><td><small class="">'+new Date(tot_last_share_date).toUTCString()+'</small></td></tr>';				
 						
 						// Network Widgets
 						$('.network-widget-last-share').html(parseInt(tot_last_share_secs) + ' secs');
 						$('.network-widget-hwre-rates').html(parseFloat(tPercentageHw).toFixed(2) + '<sup style="font-size: 20px">%</sup> / ' + parseFloat(tPercentageRe).toFixed(2) + '<sup style="font-size: 20px">%</sup>');
 						
 					} else {
-						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>-</strong></td><td class="devs_table_sh">-</td><td class="devs_table_ac">-</td><td><small class="text-muted">-</small></td><td class="devs_table_re">-</td><td><small class="text-muted">-</small></td><td class="devs_table_hw">-</td><td><small class="text-muted">-</small></td><td class="devs_table_ls">-</td><td><small class="text-muted">-</small></td></tr>';
+						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>-</strong></td><td class="devs_table_sh">-</td><td class="devs_table_ac">-</td><td><small class="">-</small></td><td class="devs_table_re">-</td><td><small class="">-</small></td><td class="devs_table_hw">-</td><td><small class="">-</small></td><td class="devs_table_ls">-</td><td><small class="">-</small></td></tr>';
 						
 						// Network Widgets
 						$('.network-widget-last-share').html('&infin; secs');
