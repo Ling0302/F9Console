@@ -6,7 +6,6 @@
 			data-device-tree="<?php echo $dashboardDevicetree ?>"
 			data-dashboard-temp="<?php echo ($this->redis->get("dashboard_temp")) ? $this->redis->get("dashboard_temp") : "c"; ?>"
 			data-miner-status="<?php echo ($this->redis->get("minerd_status")) ? 1 : 0; ?>"
-			data-miner-running="<?php echo $minerdRunning; ?>"
 			data-minera-pool-username="<?php echo $this->util_model->getMineraPoolUser(); ?>"
 			data-minera-pool-url-scrypt="<?php echo $this->config->item('minera_pool_url') ?>"
 			data-minera-pool-url-sha256="<?php echo $this->config->item('minera_pool_url_sha256') ?>"
