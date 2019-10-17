@@ -201,7 +201,7 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-desktop"></i>
 
-									<h3 class="box-title" id="miner-details">Local Miner details <small><?php echo ($minerdRunning) ? '('.$minerdRunning.')' : ''; ?></small></h3>
+									<h3 class="box-title" id="miner-details">Local Miner details</h3>
 								</div>
 								<div class="box-body">
 									<div class="row">
@@ -260,7 +260,7 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-cloud"></i>
 
-									<h3 class="box-title" id="pools-details">Local Pools details <small><?php echo ($minerdRunning) ? '('.$minerdRunning.')' : ''; ?></small></h3>
+									<h3 class="box-title" id="pools-details">Local Pools details</h3>
 								</div>
 								<div class="box-body">
 									<div class="row">
