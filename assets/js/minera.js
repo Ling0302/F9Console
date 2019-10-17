@@ -484,57 +484,10 @@ Number.prototype.noExponents= function()
 */
 $(function() {
 
-	
 	var thisSection = $('.header').data('this-section');
 	
 	$('body').tooltip({ selector: '[data-toggle="tooltip"]', trigger: 'hover' });
 	$('body').popover({ selector: '[data-toggle="popover"]', trigger: 'hover' });
-	
-	var timeNow = new Date().getTime(), promoInterval = 3600000, theInterval = null, adsFree = $('.app_data').data('ads-free');
-	
-	if (!adsFree) {			
-		var setPromoInterval = function () {
-			if (theInterval) {
-				//console.log('Clear');
-				clearInterval(theInterval);
-			}
-			Cookies.remove('promoClicked');
-			if (!Cookies.get('timestamp') || new Date().getTime() >= parseInt(Cookies.get('timestamp')) && !Cookies.get('promoModal')) {
-				//console.log('Set');
-				Cookies.set('timestamp', new Date().getTime()+promoInterval);
-			}
-			
-			if (!Cookies.get('promoModal')) {
-				theInterval = setInterval(function () {
-					//console.log('Start');
-					$('#modal-promo').modal('show');
-					Cookies.set('promoModal', true);
-					setPromoInterval();
-				}, Cookies.get('timestamp')-new Date().getTime());
-			}
-		};
-
-		// Promo ads
-		if (new Date().getTime() >= parseInt(Cookies.get('timestamp')) && !Cookies.get('promoClicked')) {
-			//console.log('Go');
-			$('#modal-promo').modal('show');
-		} else {
-			setPromoInterval();
-		}
-		
-		$('.modal-promo-hide').click(function(e){
-	       	e.preventDefault();
-			$('#modal-promo').modal('hide');
-			Cookies.set('promoClicked', true);
-			Cookies.remove('promoModal');
-	  		setPromoInterval();
-		});
-
-	} else {
-		Cookies.remove('promoModal');
-		Cookies.remove('promoClicked');
-		Cookies.remove('timestamp');
-	}
 
 	// Show/hide coinhive info
 	$('.open-browser-mining-info').on('click', function () {
@@ -1445,7 +1398,7 @@ $(function() {
 		var log_url = $('.app_data').data('minerd-log');
 		var fix_rn = true;
 		var load_log = 1 * 1024; /* 30KB */
-		var poll = 1000; /* 1s */
+		var poll = 30000; /* 30s */
 		
 		var kill = false;
 		var loading = false;
@@ -1494,8 +1447,8 @@ $(function() {
 		                if (isNaN(size))
 		                    throw 'Invalid Content-Range size';
 		            } else if (xhr.status === 200) {
-		                if (log_size > 1)
-		                    throw 'Expected 206 Partial Content';
+		                //if (log_size > 1)
+		                 //   throw 'Expected 206 Partial Content';
 		
 		                size = data.length;
 		            }
@@ -1595,7 +1548,7 @@ $(function() {
 			else
 			{
 				kill = false;
-				//get_log();
+				get_log();
 				$(this).html('<i class="fa fa-pause"></i>');	
 				$(this).attr('data-original-title', 'Pause log');
 			}
@@ -1603,7 +1556,7 @@ $(function() {
 			e.preventDefault();
 		});
 		
-		//get_log();
+		get_log();
 		$('.pause-log').click();
 		
 		/*
@@ -2064,8 +2017,10 @@ function getStats(refresh)
 				{
 					// Initialize the pools datatable	
 					$('#pools-table-details').dataTable({
-						'lengthMenu': [ 5, 10, 25, 50 ],
-						'pageLength': $('.app_data').data('records-per-page'),
+						'paging':false,
+						"bFilter": false,
+						"bLengthChange": false,
+						"info": false,
 						'stateSave': true,
 						'stateSaveCallback': function (settings, data) {
 
@@ -2094,7 +2049,7 @@ function getStats(refresh)
 							'mRender': function ( data, type, full ) {
 								if (type === 'display')
 								{
-									return '<small class="text-muted">'+ data +'</small>';
+									return '<small class="">'+ data +'</small>';
 								}
 								return data;
 							},
@@ -2240,8 +2195,10 @@ function getStats(refresh)
 				{
 					// Initialize the miner datatable	
 					$('#miner-table-details').dataTable({
-						'lengthMenu': [ 5, 10, 25, 50 ],
-						'pageLength': $('.app_data').data('records-per-page'),
+						'paging':false,
+						"bFilter": false,
+						"bLengthChange": false,
+						"info": false,
 						'stateSave': true,
 						'bAutoWidth': false,
 						'aoColumnDefs': [
@@ -2296,7 +2253,7 @@ function getStats(refresh)
 							'mRender': function ( data, type, full ) {
 								if (type === 'display')
 								{
-									return '<small class="text-muted">' + data + '%</small>';
+									return '<small class="">' + data + '%</small>';
 								}
 								return data;
 							}
@@ -2329,14 +2286,14 @@ function getStats(refresh)
 				
 				for (var index in items) 
 				{
-									
 					// Add per device rows in system table
 					var devData = {}; devData.hash = items[index].hash;
-					var share_date = new Date(items[index].ls*1000);
+					var share_date = new Date(items['total'].ls*1000);
 					var rightnow = new Date().getTime();
 
-					var last_share_secs = (items[index].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
+					var last_share_secs = (items['total'].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
 					if (last_share_secs < 0) last_share_secs = 0;
+					console.log(last_share_secs);
 
 					var totalWorkedShares = (parseFloat(items[index].ac) + parseFloat(items[index].re) + parseFloat(items[index].hw));
 					var percentageAc = parseFloat(100*items[index].ac/totalWorkedShares);
@@ -2370,7 +2327,7 @@ function getStats(refresh)
 						dev_serial = '';
 					}
 					
-					var devRow = '<tr class="dev-'+index+'"><td class="devs_table_name"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;'+index+dev_serial+'</td><td class="devs_table_temp">'+ items[index].temp + '</td><td class="devs_table_freq">'+ items[index].fr + 'MHz</td><td class="devs_table_hash"><strong>'+ convertHashrate(items[index].hash) +'</strong></td><td class="devs_table_sh">'+ items[index].sh +'</td><td class="devs_table_ac">'+ items[index].ac +'</td><td><small class="text-muted">'+parseFloat(percentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ items[index].re +'</td><td><small class="text-muted">'+parseFloat(percentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ items[index].hw +'</td><td><small class="text-muted">'+parseFloat(percentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(last_share_secs) +' secs ago</td><td><small class="text-muted">'+share_date.toUTCString()+'</small></td></tr>';
+					var devRow = '<tr class="dev-'+index+'"><td class="devs_table_name"><i class="glyphicon glyphicon-hdd"></i>&nbsp;&nbsp;'+index+dev_serial+'</td><td class="devs_table_temp">'+ items[index].temp + '</td><td class="devs_table_freq">'+ items[index].fr + 'MHz</td><td class="devs_table_hash"><strong>'+ convertHashrate(items[index].hash) +'</strong></td><td class="devs_table_sh">'+ items[index].sh +'</td><td class="devs_table_ac">'+ items[index].ac +'</td><td><small class="">'+parseFloat(percentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ items[index].re +'</td><td><small class="">'+parseFloat(percentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ items[index].hw +'</td><td><small class="">'+parseFloat(percentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(last_share_secs) +' secs ago</td><td><small class="">'+share_date.toUTCString()+'</small></td></tr>';
 				
 					if (index === 'total')
 					{
@@ -2395,7 +2352,7 @@ function getStats(refresh)
 								items[index].hw,
 								parseFloat(percentageHw).toFixed(2),
 								parseInt(last_share_secs),
-								'<small class="text-muted">'+share_date.toUTCString()+'</small>'
+								'<small class="">'+share_date.toUTCString()+'</small>'
 							] );
 						}
 					}
@@ -2440,8 +2397,10 @@ function getStats(refresh)
 					{
 						// Initialize the miner datatable	
 						$('#network-miner-table-details').dataTable({
-							'lengthMenu': [ 5, 10, 25, 50 ],
-							'pageLength': $('.app_data').data('records-per-page'),
+							'paging':false,
+							"bFilter": false,
+							"bLengthChange": false,
+							"info": false,
 							'stateSave': true,
 							'bAutoWidth': false,
 							'aoColumnDefs': [
@@ -2496,7 +2455,7 @@ function getStats(refresh)
 								'mRender': function ( data, type, full ) {
 									if (type === 'display')
 									{
-										return '<small class="text-muted">' + data + '%</small>';
+										return '<small class="">' + data + '%</small>';
 									}
 									return data;
 								}
@@ -2534,10 +2493,10 @@ function getStats(refresh)
 							{
 								// Add per device rows in system table
 								var devData = {}; devData.hash = networkMiners[netKey][index].hash;
-								var share_date = new Date(networkMiners[netKey][index].ls*1000);
+								var share_date = new Date(networkMiners[netKey]['total'].ls*1000);
 								var rightnow = new Date().getTime();
 		
-								var last_share_secs = (networkMiners[netKey][index].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
+								var last_share_secs = (networkMiners[netKey]['total'].ls > 0) ? (rightnow - share_date.getTime())/1000 : 0;
 								if (last_share_secs < 0) last_share_secs = 0;
 		
 								var totalWorkedShares = (networkMiners[netKey][index].ac+networkMiners[netKey][index].re+networkMiners[netKey][index].hw);
@@ -2577,7 +2536,7 @@ function getStats(refresh)
 										networkMiners[netKey][index].hw,
 										parseFloat(percentageHw).toFixed(2),
 										parseInt(last_share_secs),
-										'<small class="text-muted">'+share_date.toUTCString()+'</small>'
+										'<small class="">'+share_date.toUTCString()+'</small>'
 									] );
 								}
 							}								
@@ -2597,8 +2556,10 @@ function getStats(refresh)
 								{
 									// Initialize the pools datatable	
 									$('#net-pools-table-details-'+md5(netKey)).dataTable({
-										'lengthMenu': [ 5, 10, 25, 50 ],
-										'pageLength': $('.app_data').data('records-per-page'),
+										'paging':false,
+										"bFilter": false,
+										"bLengthChange": false,
+										"info": false,
 										'stateSave': true,
 										'bAutoWidth': false,
 										//'sDom': 't',
@@ -2624,7 +2585,7 @@ function getStats(refresh)
 											'mRender': function ( data, type, full ) {
 												if (type === 'display')
 												{
-													return '<small class="text-muted">'+ data +'</small>';
+													return '<small class="">'+ data +'</small>';
 												}
 												return data;
 											},
@@ -2802,14 +2763,14 @@ function getStats(refresh)
 							
 						if (tot_last_share_secs < 0) tot_last_share_secs = 0;
 						
-						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>'+ convertHashrate(netHashrates) +'</strong></td><td class="devs_table_sh">'+ networkMiners.total.sh +'</td><td class="devs_table_ac">'+ networkMiners.total.ac +'</td><td><small class="text-muted">'+parseFloat(tPercentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ networkMiners.total.re +'</td><td><small class="text-muted">'+parseFloat(tPercentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ networkMiners.total.hw +'</td><td><small class="text-muted">'+parseFloat(tPercentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(tot_last_share_secs) +' secs ago</td><td><small class="text-muted">'+new Date(tot_last_share_date).toUTCString()+'</small></td></tr>';				
+						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>'+ convertHashrate(netHashrates) +'</strong></td><td class="devs_table_sh">'+ networkMiners.total.sh +'</td><td class="devs_table_ac">'+ networkMiners.total.ac +'</td><td><small class="">'+parseFloat(tPercentageAc).toFixed(2)+'%</small></td><td class="devs_table_re">'+ networkMiners.total.re +'</td><td><small class="">'+parseFloat(tPercentageRe).toFixed(2)+'%</small></td><td class="devs_table_hw">'+ networkMiners.total.hw +'</td><td><small class="">'+parseFloat(tPercentageHw).toFixed(2)+'%</small></td><td class="devs_table_ls">'+ parseInt(tot_last_share_secs) +' secs ago</td><td><small class="">'+new Date(tot_last_share_date).toUTCString()+'</small></td></tr>';				
 						
 						// Network Widgets
 						$('.network-widget-last-share').html(parseInt(tot_last_share_secs) + ' secs');
 						$('.network-widget-hwre-rates').html(parseFloat(tPercentageHw).toFixed(2) + '<sup style="font-size: 20px">%</sup> / ' + parseFloat(tPercentageRe).toFixed(2) + '<sup style="font-size: 20px">%</sup>');
 						
 					} else {
-						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>-</strong></td><td class="devs_table_sh">-</td><td class="devs_table_ac">-</td><td><small class="text-muted">-</small></td><td class="devs_table_re">-</td><td><small class="text-muted">-</small></td><td class="devs_table_hw">-</td><td><small class="text-muted">-</small></td><td class="devs_table_ls">-</td><td><small class="text-muted">-</small></td></tr>';
+						netDevRow = '<tr class="dev-total"><td class="devs_table_name"><i class="gi gi-server"></i>&nbsp;&nbsp;Total</td><td class="devs_table_temp">-</td><td class="devs_table_freq">-</td><td class="devs_table_hash"><strong>-</strong></td><td class="devs_table_sh">-</td><td class="devs_table_ac">-</td><td><small class="">-</small></td><td class="devs_table_re">-</td><td><small class="">-</small></td><td class="devs_table_hw">-</td><td><small class="">-</small></td><td class="devs_table_ls">-</td><td><small class="">-</small></td></tr>';
 						
 						// Network Widgets
 						$('.network-widget-last-share').html('&infin; secs');

@@ -415,6 +415,7 @@ class App extends CI_Controller {
 			
 			// General options
 			// CPUMiner specific
+			/*
 			if ($minerSoftware == "cpuminer")
 			{
 				// Logging
@@ -450,6 +451,7 @@ class App extends CI_Controller {
 					$this->redis->del('minerd_log');
 				}
 			}
+			*/
 										
 			// Append JSON conf
 			$this->redis->set('minerd_append_conf', $this->input->post('minerd_append_conf'));
@@ -586,28 +588,28 @@ class App extends CI_Controller {
 			$this->redis->set("dashboard_table_records", $dashboardTableRecords);
 			$dataObj->dashboard_table_records = $dashboardTableRecords;
 			
-			$this->redis->set("dashboard_devicetree", $dashboardDevicetree);
-			$dataObj->dashboard_devicetree = $dashboardDevicetree;
-			$this->redis->set("dashboard_box_profit", $dashboardBoxProfit);
-			$dataObj->dashboard_box_profit = $dashboardBoxProfit;
-			$this->redis->set("dashboard_box_local_miner", $dashboardBoxLocalMiner);
-			$dataObj->dashboard_box_local_miner = $dashboardBoxLocalMiner;
-			$this->redis->set("dashboard_box_local_pools", $dashboardBoxLocalPools);
-			$dataObj->dashboard_box_local_pools = $dashboardBoxLocalPools;
-			$this->redis->set("dashboard_box_network_details", $dashboardBoxNetworkDetails);
-			$dataObj->dashboard_box_network_details = $dashboardBoxNetworkDetails;
-			$this->redis->set("dashboard_box_network_pools_details", $dashboardBoxNetworkPoolsDetails);
-			$dataObj->dashboard_box_network_pools_details = $dashboardBoxNetworkPoolsDetails;
-			$this->redis->set("dashboard_box_chart_shares", $dashboardBoxChartShares);
-			$dataObj->dashboard_box_chart_shares = $dashboardBoxChartShares;
-			$this->redis->set("dashboard_box_chart_system_load", $dashboardBoxChartSystemLoad);
-			$dataObj->dashboard_box_chart_system_load = $dashboardBoxChartSystemLoad;
-			$this->redis->set("dashboard_box_chart_hashrates", $dashboardBoxChartHashrates);
-			$dataObj->dashboard_box_chart_hashrates = $dashboardBoxChartHashrates;
-			$this->redis->set("dashboard_box_scrypt_earnings", $dashboardBoxScryptEarnings);
-			$dataObj->dashboard_box_scrypt_earnings = $dashboardBoxScryptEarnings;
-			$this->redis->set("dashboard_box_log", $dashboardBoxLog);
-			$dataObj->dashboard_box_log = $dashboardBoxLog;
+			//$this->redis->set("dashboard_devicetree", $dashboardDevicetree);
+			//$dataObj->dashboard_devicetree = $dashboardDevicetree;
+			//$this->redis->set("dashboard_box_profit", $dashboardBoxProfit);
+			//$dataObj->dashboard_box_profit = $dashboardBoxProfit;
+			//$this->redis->set("dashboard_box_local_miner", $dashboardBoxLocalMiner);
+			//$dataObj->dashboard_box_local_miner = $dashboardBoxLocalMiner;
+			//$this->redis->set("dashboard_box_local_pools", $dashboardBoxLocalPools);
+			//$dataObj->dashboard_box_local_pools = $dashboardBoxLocalPools;
+			//$this->redis->set("dashboard_box_network_details", $dashboardBoxNetworkDetails);
+			//$dataObj->dashboard_box_network_details = $dashboardBoxNetworkDetails;
+			//$this->redis->set("dashboard_box_network_pools_details", $dashboardBoxNetworkPoolsDetails);
+			//$dataObj->dashboard_box_network_pools_details = $dashboardBoxNetworkPoolsDetails;
+			//$this->redis->set("dashboard_box_chart_shares", $dashboardBoxChartShares);
+			//$dataObj->dashboard_box_chart_shares = $dashboardBoxChartShares;
+			//$this->redis->set("dashboard_box_chart_system_load", $dashboardBoxChartSystemLoad);
+			//$dataObj->dashboard_box_chart_system_load = $dashboardBoxChartSystemLoad;
+			//$this->redis->set("dashboard_box_chart_hashrates", $dashboardBoxChartHashrates);
+			//$dataObj->dashboard_box_chart_hashrates = $dashboardBoxChartHashrates;
+			//$this->redis->set("dashboard_box_scrypt_earnings", $dashboardBoxScryptEarnings);
+			//$dataObj->dashboard_box_scrypt_earnings = $dashboardBoxScryptEarnings;
+			//$this->redis->set("dashboard_box_log", $dashboardBoxLog);
+			//$dataObj->dashboard_box_log = $dashboardBoxLog;
 			
 			if ($this->redis->get("dashboard_coin_rates") !== json_encode($coinRates)) {
 				$this->redis->set("dashboard_coin_rates", json_encode($coinRates));
@@ -1127,17 +1129,13 @@ class App extends CI_Controller {
 
     public function varLog()
     {
+		
+		$str = file_get_contents('/var/log/messages');
 
-        $cmd = 'cat /var/log/messages >> log_file.log 2>&1 &';
-
-        $res = exec($cmd);
-        print_r($res);
-
-
-/*
-        $this->output
-            ->set_content_type('application/text')
-            ->set_output($log);*/
+		$this->output
+			->set_content_type('application/json')
+			->set_output($str);
+      
     }
 	
 	/*
@@ -1217,9 +1215,9 @@ class App extends CI_Controller {
 		}
 		
 		// Store coins profitability
-		if ($profit = $this->util_model->getProfitability()) {
-			$this->redis->set("coins_profitability", $profit);
-		}
+		//if ($profit = $this->util_model->getProfitability()) {
+		//	$this->redis->set("coins_profitability", $profit);
+		//}
 		
 		// Activate/Deactivate time donation pool if enable
 		if ($this->util_model->isOnline() && isset($stats->pool_donation_id))

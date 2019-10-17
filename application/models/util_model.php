@@ -52,9 +52,9 @@ class Util_model extends CI_Model {
 			$this->config->set_item('screen_command', '/usr/bin/screen -dmS cgminer');
 			$this->config->set_item('screen_command_stop', '/usr/bin/screen -S cgminer -X quit');
 			$this->config->set_item('minerd_command', FCPATH.'minera-bin/cgminer');
-			$this->config->set_item('minerd_log_file', '/var/log/messages');
+			$this->config->set_item('minerd_log_file', 'index.php/app/varLog');
 			$this->config->set_item('minerd_special_log', true);
-			$this->config->set_item('minerd_log_url', '/var/log/messages');
+			$this->config->set_item('minerd_log_url', 'index.php/app/varLog');
 			$this->load->model('cgminer_model', 'miner');
 		}
 		else
@@ -64,9 +64,9 @@ class Util_model extends CI_Model {
 			$this->config->set_item('screen_command', '/usr/bin/screen -dmS '.$this->_minerdSoftware);
 			$this->config->set_item('screen_command_stop', '/usr/bin/screen -S '.$this->_minerdSoftware.' -X quit');
 			$this->config->set_item('minerd_command', FCPATH.'minera-bin/custom/'.$this->_minerdSoftware);
-			$this->config->set_item('minerd_log_file', '/var/log/messages');
+			$this->config->set_item('minerd_log_file', 'index.php/app/varLogs');
 			$this->config->set_item('minerd_special_log', true);
-			$this->config->set_item('minerd_log_url', '../../var/log/messages');
+			$this->config->set_item('minerd_log_url', 'index.php/app/varLog');
 			$this->load->model('cgminer_model', 'miner');
 		}
 		
@@ -1838,7 +1838,12 @@ class Util_model extends CI_Model {
 		$this->redis->set("dashboard_temp", "c");
 		$this->redis->set("dashboard_table_records", 10);
 		$this->redis->set("minera_timezone", "GMT");
-		$this->redis->set("dashboard_devicetree", 0);
+		$this->redis->set("dashboard_box_chart_hashrates", 1);
+		$this->redis->set("dashboard_box_chart_shares", 1);
+		$this->redis->set("dashboard_box_chart_system_load", 1);
+		$this->redis->set("dashboard_box_local_miner", 1);
+		$this->redis->set("dashboard_box_local_pools", 1);
+		$this->redis->set("dashboard_box_log", 1);
 		$this->redis->set("minerd_software", "cgminer");
 		$this->redis->set("manual_options", 0);
 		$this->redis->set("minerd_autorecover", 0);

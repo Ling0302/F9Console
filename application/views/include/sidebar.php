@@ -2,7 +2,7 @@
 		<div class="app_data"
 			data-refresh-time="<?php echo ($dashboard_refresh_time) ? $dashboard_refresh_time : 60; ?>"
 			data-records-per-page="<?php echo ($dashboardTableRecords) ? $dashboardTableRecords : 5; ?>"
-			data-minerd-log="<?php echo ($minerdLog) ? base_url($this->config->item("minerd_log_url")) : null; ?>"
+			data-minerd-log="<?php echo base_url($this->config->item("minerd_log_url")); ?>"
 			data-device-tree="<?php echo $dashboardDevicetree ?>"
 			data-dashboard-temp="<?php echo ($this->redis->get("dashboard_temp")) ? $this->redis->get("dashboard_temp") : "c"; ?>"
 			data-miner-status="<?php echo ($this->redis->get("minerd_status")) ? 1 : 0; ?>"
@@ -206,9 +206,6 @@
 
 						<!-- BTC/USD rates -->
 						<li class="messages-menu messages-btc-rates">
-							<a href="#" class="dropdown-toggle dropdown-btc-rates" data-toggle="dropdown">
-	                            <i class="fa fa-btc"></i> <span class="avg-1min">Getting data...</span>
-							</a>
 							<!-- BEGIN: Underscore Template Definition. -->
 							<script type="text/template" class="btc-rates-template">
 	                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -268,7 +265,7 @@
 	                                            </a>
 	                                        </li>
 	                                    </ul>                                </li>
-	                                <li class="footer"><a href="https://www.bitstamp.net">Go to Bitstamp</a></li>
+	                                
 	                            </ul>
 	                        </script>
 							<!-- END: Underscore Template Definition. -->
@@ -277,13 +274,13 @@
 					    <!-- Donate/Help dropdown -->
 					    <li class="dropdown user user-menu">
 					        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-					            <i class="glyphicon glyphicon-gift"></i>
+					            <i class="glyphicon glyphicon-user"></i>
 					            <span><i class="caret"></i></span>
 					        </a>
 					        <ul class="dropdown-menu">
 					            <!-- User image -->
 					            <li class="user-header bg-dark-grey">
-                                    <a href="http://getminera.com" class="btn btn-default btn-flat">Logout</a>
+                                    <a href="<?php echo site_url("app/index") ?>" style="color: #ffffff;" class="btn btn-danger btn-flat">Logout</a>
 					            </li>
 					        </ul>
 					    </li>
@@ -303,7 +300,7 @@
                     <div class="user-panel">
                         <div class="pull-left info">
 							<?php if ($isOnline) : ?>
-	                            <a href="<?php echo site_url("app/dashboard") ?>"><i class="fa fa-circle text-success"></i> Online <?php if ($minerdRunning) : ?><small class="pull-right badge bg-green"><?php echo $minerdRunning ?></small><?php endif; ?></a>
+	                            <a href="<?php echo site_url("app/dashboard") ?>"><i class="fa fa-circle text-success"></i> Online </a>
 	                        <?php else: ?>
 	                            <a href="<?php echo site_url("app/settings") ?>" data-toggle="tooltip" title="" data-original-title="Go to the settings page"><i class="fa fa-circle text-muted"></i> Offline <?php if ($minerdSoftware) : ?><small class="pull-right badge bg-muted"><?php echo $minerdSoftware ?></small><?php endif; ?></a>
 							<?php endif; ?>
@@ -416,11 +413,6 @@
                                 <i class="fa pull-right fa-angle-left"></i>
                             </a>
                             <ul class="treeview-menu" style="display: none;">
-                                <li data-toggle="tooltip" title="" data-original-title="Open Minera's terminal">
-                                	<a href="#" class="system-open-terminal" style="margin-left: 10px;">
-                                		<i class="fa fa-terminal"></i> Open terminal
-                                	</a>
-                                </li>
                                 <li data-toggle="tooltip" title="" data-original-title="Reboot Minera">
                                 	<a href="<?php echo site_url("app/reboot") ?>" style="margin-left: 10px;">
                                 		<i class="fa fa-flash"></i> Reboot

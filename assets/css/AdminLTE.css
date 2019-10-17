@@ -843,7 +843,7 @@ body > .header .logo .icon {
   border-radius: 0;
   padding: 1px 0 0 0;
   border-top-width: 0;
-  width: 280px;
+/*  width: 100px;*/
 }
 .navbar-nav > .user-menu > .dropdown-menu:after {
   bottom: 100%;
@@ -860,8 +860,8 @@ body > .header .logo .icon {
   margin-left: -10px;
 }
 .navbar-nav > .user-menu > .dropdown-menu > li.user-header {
-  height: 175px;
-  padding: 10px;
+  /*height: 175px;
+  padding: 10px;*/
   background: #3c8dbc;
   text-align: center;
 }
