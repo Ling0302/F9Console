@@ -52,7 +52,7 @@ $autoload['packages'] = array();
 |	$autoload['libraries'] = array('database', 'session', 'xmlrpc');
 */
 
-$autoload['libraries'] = array('session', 'redis', 'CI_i18n');
+$autoload['libraries'] = array('session', 'redis');
 
 
 /*
@@ -64,7 +64,7 @@ $autoload['libraries'] = array('session', 'redis', 'CI_i18n');
 |	$autoload['helper'] = array('url', 'file');
 */
 
-$autoload['helper'] = array('url', 'cookie', 'CI_i18n');
+$autoload['helper'] = array('url', 'cookie');
 
 
 /*

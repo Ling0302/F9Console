@@ -12,7 +12,7 @@
             <div class="toptime headline text-center" id="time"></div>
 
             <!-- User name -->
-            <div class="lockscreen-name"><?php echo _t('miner.welcome_miner'); ?></div>
+            <div class="lockscreen-name"><?php echo lang("app.hello") ?></div>
 
             <!-- START LOCK SCREEN ITEM -->
             <div class="lockscreen-item">

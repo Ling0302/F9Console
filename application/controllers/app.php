@@ -5,11 +5,26 @@ class App extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
+		self::__initLanguage();
 
 		// Set the general timezone
 		$timezone = ($this->redis->get("minera_timezone")) ? $this->redis->get("minera_timezone") : 'Europe/Rome';
 		date_default_timezone_set($timezone);
-		$this->ci_i18n->load('miner');
+		//$this->ci_i18n->load('miner');
+	}
+
+
+	private function __initLanguage(){
+		$lang_support = config_item('support_language');
+		$lang_url    = $this->uri->segment(1);
+		$lang_default = config_item('language');
+		$lang_current = ( FALSE !== in_array($lang_url, $lang_support) ) ? $lang_url : $lang_default;
+
+		$this->config->set_item('language', $lang_current);
+		$this->lang->load('app', $lang_current);
+		$this->load->helper('language');
+		
+		return;
 	}
 	
 	/*
@@ -21,6 +36,8 @@ class App extends CI_Controller {
 		// Always try to assign the mineraId if not present
 		$mineraSystemId = $this->util_model->generateMineraId();
 		$this->redis->del("minera_update");
+
+		//var_dump($this->lang->line('app.hello'));
 		
 		//$this->util_model->checkUpdate();
 		
