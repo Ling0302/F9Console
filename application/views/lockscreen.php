@@ -12,7 +12,7 @@
             <div class="toptime headline text-center" id="time"></div>
 
             <!-- User name -->
-            <div class="lockscreen-name"><?php echo lang("app.hello") ?></div>
+            <div class="lockscreen-name"><?php echo lang("app.welcome_miner") ?></div>
 
             <!-- START LOCK SCREEN ITEM -->
             <div class="lockscreen-item">
@@ -39,8 +39,8 @@
 			
 			<div class="lockscreen-link">
 				<div class="mt20">
-			        <p class="terminal-font">System: <?php echo gethostname() ?></p>
-					<p class="terminal-font">Ip Address: <?php echo $_SERVER['SERVER_ADDR'] ?></p>
+			        <p class="terminal-font"><?php echo lang("app.system") ?>: <?php echo gethostname() ?></p>
+					<p class="terminal-font"><?php echo lang("app.ip_address") ?>: <?php echo $_SERVER['SERVER_ADDR'] ?></p>
 				</div>
 			</div> 
 
