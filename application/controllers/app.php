@@ -10,7 +10,6 @@ class App extends CI_Controller {
 		// Set the general timezone
 		$timezone = ($this->redis->get("minera_timezone")) ? $this->redis->get("minera_timezone") : 'Europe/Rome';
 		date_default_timezone_set($timezone);
-		//$this->ci_i18n->load('miner');
 	}
 
 
@@ -26,6 +25,22 @@ class App extends CI_Controller {
 		
 		return;
 	}
+
+	/*
+	 * switch lanuage
+	 */
+    public function switchLanguage()
+    {
+        $lang_default = config_item('language');
+        $lang_switch  = empty($this->input->get('lang')) ? $this->input->get('lang') : $lang_default;
+        $lang_current = empty($this->session->userdata("language")) ? $this->session->userdata("language") : $lang_default;
+
+        if($lang_switch != $lang_current)
+        {
+            $this->session->set_userdata("language", $lang_switch);
+        }
+        redirect('app/index'); // redirect to index
+    }
 	
 	/*
 	// Index/lock screen controller
