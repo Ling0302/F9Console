@@ -12,7 +12,7 @@
             <div class="toptime headline text-center" id="time"></div>
 
             <!-- User name -->
-            <div class="lockscreen-name">Hello Miner</div>
+            <div class="lockscreen-name"><?php echo _t('miner.welcome_miner'); ?></div>
 
             <!-- START LOCK SCREEN ITEM -->
             <div class="lockscreen-item">
@@ -26,7 +26,6 @@
 	                <div class="lockscreen-credentials">   
 	
 	                    <div class="input-group">
-	
 	                        <input type="password" name="password" class="pass-form form-control" placeholder="password" />
 	                        <div class="input-group-btn">
 	                            <button class="btn btn-flat"><i class="fa fa-arrow-right text-muted"></i></button>

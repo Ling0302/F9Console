@@ -9,7 +9,7 @@ class App extends CI_Controller {
 		// Set the general timezone
 		$timezone = ($this->redis->get("minera_timezone")) ? $this->redis->get("minera_timezone") : 'Europe/Rome';
 		date_default_timezone_set($timezone);
-
+		$this->ci_i18n->load('miner');
 	}
 	
 	/*
@@ -21,6 +21,7 @@ class App extends CI_Controller {
 		// Always try to assign the mineraId if not present
 		$mineraSystemId = $this->util_model->generateMineraId();
 		$this->redis->del("minera_update");
+		
 		//$this->util_model->checkUpdate();
 		
 		// Remove old Minera pool
