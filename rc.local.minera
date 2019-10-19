@@ -13,6 +13,6 @@
 
 # Tell Minera minerd is started
 sleep 10
-redis-cli set minerd_status 1    testsssfffff
+redis-cli set minerd_status 1
 redis-cli del cron_lock
 
