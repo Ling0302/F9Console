@@ -279,7 +279,7 @@
 					        <ul class="dropdown-menu">
 					            <!-- User image -->
 					            <li class="user-header bg-dark-grey">
-                                    <a href="<?php echo site_url("app/index") ?>" style="color: #ffffff;" class="btn btn-danger btn-flat">Logout</a>
+                                    <a href="<?php echo site_url("app/logout") ?>" style="color: #ffffff;" class="btn btn-danger btn-flat">Logout</a>
 					            </li>
 					        </ul>
 					    </li>

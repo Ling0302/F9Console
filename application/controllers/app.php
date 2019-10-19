@@ -78,6 +78,20 @@ class App extends CI_Controller {
 		else
 			redirect('app/index');
 	}
+
+	/*
+	// Logout controller
+	*/
+	public function logout()
+	{	
+		if ($this->session->set_userdata("loggedin", null)) {
+			redirect('app/index');
+		} else
+		{
+			redirect('app/dashboard');
+		}
+		
+	}
 	
 	/*
 	// Dashboard controller
