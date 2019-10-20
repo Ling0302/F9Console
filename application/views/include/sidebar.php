@@ -1,4 +1,5 @@
     <body class="skin-<?php echo $dashboardSkin ?>" onload="getStats(false);">
+		<div style="display:none" id="_lang"><?php echo $this->session->userdata("language") ?></div>
 		<div class="app_data"
 			data-refresh-time="<?php echo ($dashboard_refresh_time) ? $dashboard_refresh_time : 60; ?>"
 			data-records-per-page="<?php echo ($dashboardTableRecords) ? $dashboardTableRecords : 5; ?>"

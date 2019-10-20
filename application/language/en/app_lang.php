@@ -81,7 +81,21 @@ $lang['app.pools_settings']  = "Pools Settings";
 $lang['app.pool_url']  = "Pool URL";
 $lang['app.pool_username']  = "Pool Username";
 $lang['app.pool_password']  = "Pool Password";
-
+$lang['app.change_password']  = "Change the Minera lock screen password";
+$lang['app.username']  = "username";
+$lang['app.password']  = "password";
+$lang['app.setting_tips']  ="Pools are taken in the order you put them, the first one is the main pool, all the others ones are failovers.";
+$lang['app.setting_main']  ="Main";
+$lang['app.setting_failover']  ="Failover";
+$lang['app.setting_url']  =" url";
+$lang['app.setting_trouble_tips']  ="If you are in trouble or you wanna start over, you can resets some of the stored data or reset everything to factory default.";
+$lang['app.setting_reset_chart']  ="Reset Charts data";
+$lang['app.setting_reset_chart_tips']  ="This resets all the stored stats needed by the charts, so charts will start from zero.";
+$lang['app.setting_clear_miner_log']  ="Clear the Minera logs";
+$lang['app.setting_clear_miner_log_tips']  ="This will delete everything inside application/logs. This includes all Minera application logs and also all the Miner logs.";
+$lang['app.setting_reset_factory']  ="Reset to factory default";
+$lang['app.setting_reset_factory_tips']  ="This will reset your Minera to the factory default settings (it doesn't change anything at system level, only the web interface with all the relative data will be reset, this includes: lock password, stats, charts, miner settings, saved miner configs, pools, etc...)";
+$lang['app.setting_reset_footer_tips']  ="Clicking the reset buttons resets data immediately, there isn't any confirmation to do. Reset actions aren't recoverable, data will be lost.";
 
 
 

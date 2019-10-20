@@ -533,11 +533,9 @@
 									<h3 class="box-title" id="pools-details"><?php echo lang('app.miner_real_time_log') ?></h3>
 								</div>
 								<div class="box-body">
-									<?php if ($minerdLog) :?>
+						
 										<pre class="log-box" id="real-time-log-data"><?php echo lang('app.log_pause_tips') ?></pre>
-									<?php else: ?>
-										<pre><?php echo lang('app.enable_logging_tips') ?></pre>
-									<?php endif; ?>
+									
 								</div><!-- /.box-body -->
 								<div class="box-footer">
 									<h6><?php echo lang('app.download_log_tips_1') ?> <a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank"><?php echo lang('app.download_log_tips_2') ?></a>.</h6>

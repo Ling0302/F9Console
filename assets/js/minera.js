@@ -1,6 +1,41 @@
 'use strict';
 
 var _baseUrl = window._baseUrl;
+var lang = $("#_lang").text();
+
+var i18n = {};
+
+i18n.en = new function(){
+	this.fiveminute='5 Minutes';
+	this.fifteenminute='15 Minutes';
+	this.oneHour='1 Hour';
+	this.oneday='1 Day';
+	this.selectThis='Select This';
+	this.Alive='Alive';
+	this.Dead='Dead';
+	this.selected='Selected';
+	this.failover='failover';
+	this.active='active';
+	this.opps='Oops!';
+	this.pre_text_period_tips='No data collected, wait at least ';
+	this.post_text_period_tips=' to see the chart.';
+}
+
+i18n.cn = new function(){
+	this.fiveminute='5分钟';
+	this.fifteenminute='15分钟';
+	this.oneHour='1小时';
+	this.oneday='1天';
+	this.selectThis='选中这个';
+	this.Alive='活跃';
+	this.Dead='死亡';
+	this.selected='已选中';
+	this.failover='故障转移';
+	this.active='激活';
+	this.opps='天啊！';
+	this.pre_text_period_tips='没有采集到数据，等待至少';
+	this.post_text_period_tips='再看图形。';
+}
 
 function loadScript(url, callback)
 {
@@ -300,9 +335,8 @@ function createChart(period, text_period)
 		}
 		else
 		{
-			$('#hashrate-chart-'+period).css({'height': '100%', 'overflow': 'visible', 'margin-top': '20px'}).html('<div class="alert alert-warning"><i class="fa fa-warning"></i><b>Oops!</b> <small>No data collected, wait at least '+text_period+' to see the chart.</small></div>');	
-			$('#rehw-chart-'+period).css({'height': '100%', 'overflow': 'visible', 'margin-top': '20px'}).html('<div class="alert alert-warning"><i class="fa fa-warning"></i><b>Oops!</b> <small>No data collected, wait at least '+text_period+' to see the chart.</small></div>');	
-
+			$('#hashrate-chart-'+period).css({'height': '100%', 'overflow': 'visible', 'margin-top': '20px'}).html('<div class="alert alert-warning"><i class="fa fa-warning"></i><b>'+ i18n[lang].opps +'</b> <small>'+ i18n[lang].pre_text_period_tips +text_period+ i18n[lang].post_text_period_tips + '</small></div>');	
+			$('#rehw-chart-'+period).css({'height': '100%', 'overflow': 'visible', 'margin-top': '20px'}).html('<div class="alert alert-warning"><i class="fa fa-warning"></i><b>'+ i18n[lang].opps +'</b> <small>'+ i18n[lang].pre_text_period_tips +text_period+ i18n[lang].post_text_period_tips + '</small></div>');	
 		}
 		
 		$('.overlay').hide();
@@ -677,12 +711,13 @@ $(function() {
 	});
 	
 	if (thisSection === 'charts') {
-	    
+		
 		// Chart Scripts
-		createChart('hourly', '5 minutes');		    
-		createChart('daily', '15 minutes');
-		createChart('monthly', '1 hour');
-		createChart('yearly', '1 day');
+		createChart('hourly', i18n[lang].fiveMinute);		    
+		createChart('daily', i18n[lang].fifteenMinute);
+		createChart('monthly', i18n[lang].oneHour);
+		createChart('yearly', i18n[lang].oneday);
+
 
 	} else if (thisSection === 'lockscreen') {
 		
@@ -2070,14 +2105,14 @@ function getStats(refresh)
 				{
 					var parser = document.createElement('a'),
 						picon = 'download',
-						ptype = 'failover',
+						ptype = i18n[lang].failover,
 						pclass = 'bg-light',
 						plabel = 'light',
 						pactivelabclass = '',
 						paliveclass = '',
 						palivelabel = '',
 						puserlabel = '',
-						pactivelab = 'Select This',
+						pactivelab = i18n[lang].selectThis,
 						purlicon = '',
 						purl = pval.url,
 						pshorturl = purl,
@@ -2094,12 +2129,12 @@ function getStats(refresh)
 					if (pval.alive)
 					{
 						paliveclass = 'success';
-						palivelabel = 'Alive';
+						palivelabel = i18n[lang].Alive;
 					}
 					else
 					{
 						paliveclass = 'danger';
-						palivelabel = 'Dead';
+						palivelabel = i18n[lang].Dead;
 					}
 					
 					puserlabel = 'blue';
@@ -2116,11 +2151,11 @@ function getStats(refresh)
 						pool_shares_seconds = parseFloat((now/1000)-pval.start_time);
 						pool_shares = pval.shares;
 						picon = 'upload';
-						ptype = 'active';
+						ptype = i18n[lang].active;
 						pclass = 'bg-dark';
 						plabel = 'primary';
 						pactivelabclass = 'disabled';
-						pactivelab = 'Selected';
+						pactivelab = i18n[lang].selected;
 						pshorturl = '<strong>'+pshorturl+'</strong>';
 					}
 					
@@ -2600,14 +2635,14 @@ function getStats(refresh)
 								{
 									var parser = document.createElement('a'),
 										picon = 'download',
-										ptype = 'failover',
+										ptype = i18n[lang].failover,
 										pclass = 'bg-light',
 										plabel = 'light',
 										pactivelabclass = '',
 										paliveclass = '',
 										palivelabel = '',
 										puserlabel = '',
-										pactivelab = 'Select This',
+										pactivelab = i18n[lang].selectThis,
 										purlicon = '',
 										purl = pval.url,
 										pshorturl = purl,
@@ -2624,12 +2659,12 @@ function getStats(refresh)
 									if (pval.alive)
 									{
 										paliveclass = 'success';
-										palivelabel = 'Alive';
+										palivelabel = i18n[lang].Alive;
 									}
 									else
 									{
 										paliveclass = 'danger';
-										palivelabel = 'Dead';
+										palivelabel = i18n[lang].Dead;
 									}
 									
 									puserlabel = 'blue';
@@ -2652,7 +2687,7 @@ function getStats(refresh)
 										pclass = 'bg-dark';
 										plabel = 'primary';
 										pactivelabclass = 'disabled';
-										pactivelab = 'Selected';
+										pactivelab = i18n[lang].selected;
 										pshorturl = '<strong>'+pshorturl+'</strong>';
 									}
 									

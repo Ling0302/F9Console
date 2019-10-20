@@ -76,7 +76,7 @@
                             </div>
 
 							<div class="box-body">
-								<p>Pools are taken in the order you put them, the first one is the main pool, all the others ones are failovers.</p>
+								<p><?php echo lang('app.setting_tips') ?></p>
 
 								<div class="form-group">
                                     <div class="row">
@@ -145,19 +145,19 @@
 										    	<div class="col-xs-4">
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-cloud-<?php echo ($i == 0) ? "upload" : "download"; ?>"></i></span>
-										    			<input type="text" class="form-control pool_url" placeholder="<?php echo ($i == 0) ? "Main" : "Failover"; ?> url" name="pool_url[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->url)) ? $savedPools[$i]->url : ''; ?>" />
+										    			<input type="text" class="form-control pool_url" placeholder="<?php echo ($i == 0) ? lang('app.setting_main').lang('app.setting_url'): lang('app.setting_failover').lang('app.setting_url'); ?>" name="pool_url[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->url)) ? $savedPools[$i]->url : ''; ?>" />
 										    		</div>
 										    	</div>
 										    	<div class="col-xs-2">
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										    			<input type="text" class="form-control pool_username" placeholder="username" name="pool_username[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->username)) ? $savedPools[$i]->username : ''; ?>"  />
+										    			<input type="text" class="form-control pool_username" placeholder="<?php echo lang('app.username') ?>" name="pool_username[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->username)) ? $savedPools[$i]->username : ''; ?>"  />
 										    		</div>
 										    	</div>
 										    	<div class="col-xs-2">
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-										    			<input type="text" class="form-control pool_password" placeholder="password" name="pool_password[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->password)) ? $savedPools[$i]->password : ''; ?>"  />
+										    			<input type="text" class="form-control pool_password" placeholder="<?php echo lang('app.password') ?>" name="pool_password[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->password)) ? $savedPools[$i]->password : ''; ?>"  />
 										    		</div>
 										    	</div>
 										    </div>
@@ -225,13 +225,13 @@
 									    	<div class="col-xs-2">
 									    		<div class="input-group">
 									    			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									    			<input type="text" class="form-control pool_username" placeholder="username" name="pool_username[]" data-ismain="0" value=""  />
+									    			<input type="text" class="form-control pool_username" placeholder="<?php echo lang('app.username') ?>" name="pool_username[]" data-ismain="0" value=""  />
 									    		</div>
 									    	</div>
 									    	<div class="col-xs-2">
 									    		<div class="input-group">
 									    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-									    			<input type="text" class="form-control pool_password" placeholder="password" name="pool_password[]" data-ismain="0" value=""  />
+									    			<input type="text" class="form-control pool_password" placeholder="<?php echo lang('app.password') ?>" name="pool_password[]" data-ismain="0" value=""  />
 									    		</div>
 									    	</div>
 									    	<div class="col-xs-3">
@@ -263,7 +263,7 @@
 						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form" id="minerapassword">
 							<input type="hidden" name="save_password" value="1" />
                             <div class="box-body">
-								<p>Change the Minera lock screen password</p>
+								<p><?php echo lang('app.change_password') ?></p>
                                	<label for="password1"><?php echo lang('app.password') ?></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
@@ -271,7 +271,7 @@
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-									<input type="password" class="form-control" name="password2" placeholder="<?php echo lang('app.repeat_lock_screen_password') ?>Repeat the lock screen password">
+									<input type="password" class="form-control" name="password2" placeholder="<?php echo lang('app.repeat_lock_screen_password') ?>">
 								</div>
                             </div>
 							<div class="box-footer">
@@ -296,28 +296,24 @@
                         <div class="box-body">
 	                        <div class="row">
 	                        <div class="col-md-10">
-								<p>If you are in trouble or you wanna start over, you can resets some of the stored data or reset everything to factory default.</p>
+								<p><?php echo lang('app.setting_trouble') ?></p>
 								<div class="form-group">
-	                            	<button type="submit" class="btn btn-warning reset-action" data-reset-action="charts"><i class="fa fa-eraser"></i> Reset Charts data</button>
-	                            	<h6>This resets all the stored stats needed by the charts, so charts will start from zero.</h6>
+	                            	<button type="submit" class="btn btn-warning reset-action" data-reset-action="charts"><i class="fa fa-eraser"></i> <?php echo lang('app.setting_reset_chart') ?></button>
+	                            	<h6><?php echo lang('app.setting_reset_chart_tips') ?></h6>
 								</div>
 								<div class="form-group">
-	                            	<button type="submit" class="btn btn-primary reset-action" data-reset-action="options"><i class="fa fa-eraser"></i> Reset Guided/manual settings</button>
-									<h6>If you have problem choosing between guided/manual options above you can reset them here.</h6>
+	                            	<button type="submit" class="btn btn-warning reset-action" data-reset-action="logs"><i class="fa fa-eraser"></i> <?php echo lang('app.setting_clear_miner_log') ?></button>
+									<h6><?php echo lang('app.setting_clear_miner_log_tips') ?></h6>
 								</div>
 								<div class="form-group">
-	                            	<button type="submit" class="btn btn-warning reset-action" data-reset-action="logs"><i class="fa fa-eraser"></i> Clear the Minera logs</button>
-									<h6>This will delete everything inside application/logs. This includes all Minera application logs and also all the Miner logs.</h6>
-								</div>
-								<div class="form-group">
-	                            	<button type="submit" class="btn btn-danger reset-factory-action"><i class="fa fa-recycle"></i> Reset to factory default</button>
-									<h6>This will reset your Minera to the factory default settings (it doesn't change anything at system level, only the web interface with all the relative data will be reset, this includes: lock password, stats, charts, miner settings, saved miner configs, pools, etc...)</h6>
+	                            	<button type="submit" class="btn btn-danger reset-factory-action"><i class="fa fa-recycle"></i> <?php echo lang('app.setting_reset_factory') ?></button>
+									<h6><?php echo lang('app.setting_reset_factory_tips') ?></h6>
 								</div>
 	                        </div>
 	                        </div>
                         </div>
 						<div class="box-footer">
-							<h6><strong>Clicking the reset buttons resets data immediately, there isn't any confirmation to do. Reset actions aren't recoverable, data will be lost.</strong></h6>
+							<h6><strong><?php echo lang('app.setting_reset_footer_tips') ?></strong></h6>
 						</div>
                     </div>
                 

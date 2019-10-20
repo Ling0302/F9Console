@@ -81,6 +81,25 @@ $lang['app.pools_settings']  = "矿池设置";
 $lang['app.pool_url']  = "矿池地址";
 $lang['app.pool_username']  = "矿工名";
 $lang['app.pool_password']  = "密码";
+$lang['app.change_password']  = "修改矿机锁屏密码";
+$lang['app.username']  = "用户名";
+$lang['app.password']  = "密码";
+$lang['app.setting_tips']  ="按照顺序输入矿池设置，第一个是主矿池，其他是故障转移矿池";
+$lang['app.setting_main']  ="主";
+$lang['app.setting_failover']  ="故障转移";
+$lang['app.setting_url']  ="地址";
+$lang['app.setting_trouble_tips']  ="如果你遇到问题想重新开始，你可以重置部分数据或者重置所有到出厂";
+$lang['app.setting_reset_chart']  ="重置算力曲线图";
+$lang['app.setting_reset_chart_tips']  ="此操作会重置所有的算力曲线图数据，因此曲线图从空开始展示";
+$lang['app.setting_clear_miner_log']  ="清除矿机日志";
+$lang['app.setting_clear_miner_log_tips']  ="此操作会清除所有的应用日志，保护矿机的所有应用日志和系统日志";
+$lang['app.setting_reset_factory']  ="恢复出厂设置";
+$lang['app.setting_reset_factory_tips']  ="此操作将恢复矿机的所有设置到出厂设置";
+$lang['app.setting_reset_footer_tips']  ="点击这里的重置按钮，不会有任何确认提示，重置不可恢复，请谨慎操作。";
+
+
+
+
 
 // Charts Page
 $lang['app.hashrate_history']  = "算力历史曲线";
