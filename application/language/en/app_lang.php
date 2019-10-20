@@ -32,7 +32,6 @@ $lang['app.restart_miner']    = "Restart miner";
 $lang['app.restart_miner_title']    = "Restart your miner";
 
 
-
 // Lock screen page
 $lang['app.welcome_miner'] = "Hello Miner";
 $lang['app.ip_address']    = "Ip Address";
@@ -72,8 +71,30 @@ $lang['app.system_load']  = "System Load";
 $lang['app.local_accepted_rejected_errors']  = "Local Accepted/Rejected/Errors";
 
 
-
 // Setting Page
+$lang['app.save']  = "Save";
+$lang['app.save_and_restart']  = "Save & Restart Miner";
+$lang['app.save_password']  = "Save password";
+$lang['app.lock_screen_password']  = "Lock screen password";
+$lang['app.repeat_lock_screen_password']  = "Repeat the lock screen password";
+$lang['app.pools_settings']  = "Pools Settings";
+$lang['app.pool_url']  = "Pool URL";
+$lang['app.pool_username']  = "Pool Username";
+$lang['app.pool_password']  = "Pool Password";
+
+
+
+
+// Charts Page
+$lang['app.hashrate_history']  = "Hashrate History";
+$lang['app.hourly']  = "Hourly";
+$lang['app.daily']  = "Daily";
+$lang['app.monthly']  = "Monthly";
+$lang['app.yearly']  = "Yearly";
+$lang['app.accepted_rejected_erros']  = "Accepted/Rejected/Errors";
+
+
+
 
 // Miner Page
 

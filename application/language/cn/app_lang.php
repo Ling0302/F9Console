@@ -31,6 +31,7 @@ $lang['app.reboot_title']    = "重启矿机";
 $lang['app.restart_miner']    = "重启矿机";
 $lang['app.restart_miner_title']    = "重启你的矿机";
 
+
 // Lock screen page
 $lang['app.welcome_miner'] = "你好,矿工";
 $lang['app.ip_address'] = "IP 地址";
@@ -70,8 +71,24 @@ $lang['app.system_load']  = "系统加载时长";
 $lang['app.local_accepted_rejected_errors']  = "本地接收/拒绝/错误数";
 
 
-
 // Setting Page
+$lang['app.save']  = "保存";
+$lang['app.save_and_restart']  = "保存 & 重启矿机";
+$lang['app.save_password']  = "保存密码";
+$lang['app.lock_screen_password']  = "锁屏密码";
+$lang['app.repeat_lock_screen_password']  = "重复锁屏密码";
+$lang['app.pools_settings']  = "矿池设置";
+$lang['app.pool_url']  = "矿池地址";
+$lang['app.pool_username']  = "矿工名";
+$lang['app.pool_password']  = "密码";
+
+// Charts Page
+$lang['app.hashrate_history']  = "算力历史曲线";
+$lang['app.hourly']  = "每小时算力曲线";
+$lang['app.daily']  = "每天算力曲线";
+$lang['app.monthly']  = "每月算力曲线";
+$lang['app.yearly']  = "每年算力曲线";
+$lang['app.accepted_rejected_erros']  = "接收/拒绝/错误数";
 
 // Miner Page
 
