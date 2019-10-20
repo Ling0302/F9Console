@@ -2,9 +2,9 @@
 			<aside class="right-side">				   
 				<!-- Content Header (Page header) -->
 				<section class="content-header" data-toggle="dropdown">
-					<h1>Mining <small>Dashboard</small></h1>
+					<h1><?php echo lang('app.mining') ?> <small><?php echo lang('app.dashboard') ?></small></h1>
 					<ol class="breadcrumb">
-						<li><button class="btn btn-default btn-xs view-raw-stats"><i class="fa fa-list"></i> raw stats</button></li>
+						<li><button class="btn btn-default btn-xs view-raw-stats"><i class="fa fa-list"></i> <?php echo lang('app.raw_stats') ?></button></li>
 					</ol>
 				</section>
 
@@ -15,7 +15,7 @@
 						
 						<?php if (is_array($netMiners) && count($netMiners) > 0) : ?>
 						<section class="col-md-12 local-miners-title" style="display:none;">
-							<h4>Local <small>Miner</small></h4>
+							<h4><?php echo lang('app.local') ?> <small><?php echo lang('app.miner') ?></small></h4>
 						</section>
 						<?php endif; ?>
 
@@ -23,7 +23,7 @@
 							<div class="alert alert-info alert-dismissable">
 								<i class="fa fa-list"></i>
 								<button type="button" class="close close-stats" aria-hidden="true">×</button>
-								<p style="margin:20px 0;">The raw JSON parsed to display the dashboard is also available <a href="<?php echo site_url("app/stats") ?>" target="_blank">here</a>.</p>
+								<p style="margin:20px 0;"><?php echo lang('app.raw_stats_tips') ?> <a href="<?php echo site_url("app/stats") ?>" target="_blank"><?php echo lang('app.here') ?></a>.</p>
 								<span></span>
 							</div>
 						</section>
@@ -59,11 +59,11 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-warning"></i>
 
-									<h3 class="box-title">Warning!</h3>
+									<h3 class="box-title"><?php echo lang('app.warning') ?></h3>
 								</div>
 								<div class="box-body warning-message"></div>
 								<div class="box-footer text-center">
-									<a href="<?php site_url("app/dashboard") ?>"><h6>Click here to refresh</h6></a>
+									<a href="<?php site_url("app/dashboard") ?>"><h6><?php echo lang('app.refresh_tips') ?></h6></a>
 								</div>
 							</div><!-- /.miner box -->	
 						
@@ -78,10 +78,10 @@
 									<div class="small-box bg-red">
 										<div class="inner">
 											<h3 class="widget-total-hashrate"><i class="ion spin ion-load-c"></i></h3>
-											<p>Pool Hashrate</p>
+											<p><?php echo lang('app.pool_hashrate') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-ios-speedometer-outline"></i></div>
-										<a href="#hashrate-history" class="small-box-footer">History <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="#hashrate-history" class="small-box-footer"><?php echo lang('app.history') ?> <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 								
@@ -91,10 +91,10 @@
 									<div class="small-box bg-light">
 										<div class="inner">
 											<h3 class="widget-hwre-rates"><i class="ion spin ion-load-c"></i></h3>
-											<p>Error/Rejected rates</p>
+											<p><?php echo lang('app.error_rates') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-alert-circled"></i></div>
-										<a href="#error-history" class="small-box-footer">Details <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="#error-history" class="small-box-footer"><?php echo lang('app.details') ?> <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 								
@@ -107,7 +107,7 @@
 											<p>Last Share</p>
 										</div>
 										<div class="icon"><i class="ion ion-ios-stopwatch-outline"></i></div>
-										<a href="#miner-details" class="small-box-footer">Miner details <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="#miner-details" class="small-box-footer"><?php echo lang('app.miner_details') ?> <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 							</div>							
@@ -120,10 +120,10 @@
 									<div class="small-box bg-red">
 										<div class="inner">
 											<h3 class="widget-warning"><i class="ion spin ion-load-c"></i></h3>
-											<p>Local miner</p>
+											<p><?php echo lang('app.local_miner') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-alert"></i></div>
-										<a href="" class="small-box-footer warning-message" data-toggle="tooltip" title="" data-original-title="Your local miner is offline, try to restart it. If you are in trouble check your logs and settings.">...<i class="fa fa-arrow-circle-right"></i></a>
+										<a href="" class="small-box-footer warning-message" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.warning_message') ?>">...<i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 								
@@ -133,11 +133,11 @@
 									<!-- small box -->
 									<div class="small-box bg-gray">
 										<div class="inner">
-											<h3 class="widget-warning">Offline</h3>
-											<p>Local miner</p>
+											<h3 class="widget-warning"><?php echo lang('app.offline') ?></h3>
+											<p><?php echo lang('app.local_miner') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-power"></i></div>
-										<a href="#" data-miner-action="start" class="miner-action small-box-footer warning-message" data-toggle="tooltip" title="" data-original-title="Your local miner is offline, try to restart it.">Try to start it <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="#" data-miner-action="start" class="miner-action small-box-footer warning-message" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.try_to_start_tips') ?>"><?php echo lang('app.try_to_start') ?> <i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 								<?php endif; ?>
@@ -148,7 +148,7 @@
 									<div class="small-box sys-temp-box bg-blue">
 										<div class="inner">
 											<h3 class="widget-sys-temp"><i class="ion spin ion-load-c"></i></h3>
-											<p>System temperature</p>
+											<p><?php echo lang('app.system_temperature') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-thermometer"></i></div>
 										<a href="#sysload" class="small-box-footer sys-temp-footer">...<i class="fa fa-arrow-circle-right"></i></a>
@@ -161,10 +161,10 @@
 									<div class="small-box bg-dark">
 										<div class="inner">
 											<h3 class="widget-main-pool"><i class="ion spin ion-load-c"></i></h3>
-											<p>Checking...</p>
+											<p><?php echo lang('app.checking') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-ios-cloud-upload-outline"></i></div>
-										<a href="#pools-details" class="small-box-footer">Pools details <i class="fa fa-arrow-circle-right"></i></a>
+										<a href="#pools-details" class="small-box-footer"><?php echo lang('app.pools_details') ?><i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 								
@@ -174,7 +174,7 @@
 									<div class="small-box bg-aqua">
 										<div class="inner">
 											<h3 class="widget-uptime"><i class="ion spin ion-load-c"></i></h3>
-											<p>Miner uptime</p>
+											<p><?php echo lang('app.miner_uptime') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-ios-timer-outline"></i></div>
 										<a href="#miner-details" class="small-box-footer uptime-footer">... <i class="fa fa-arrow-circle-right"></i></a>
@@ -200,7 +200,7 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-desktop"></i>
 
-									<h3 class="box-title" id="miner-details">Local Miner details</h3>
+									<h3 class="box-title" id="miner-details"><?php echo lang('app.local_miner_details') ?></h3>
 								</div>
 								<div class="box-body">
 									<div class="row">
@@ -254,7 +254,7 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-cloud"></i>
 
-									<h3 class="box-title" id="pools-details">Local Pools details</h3>
+									<h3 class="box-title" id="pools-details"><?php echo lang('app.local_pools_details') ?></h3>
 								</div>
 								<div class="box-body">
 									<div class="row">
@@ -340,11 +340,7 @@
 											</div>
 										</div><!-- /.row - inside box -->
 									</div><!-- /.box-body -->
-									<div class="box-footer">
-										<div class="legend pull-right">
-									 		<h6>Colors based on last share time: <i class="fa fa-circle text-success"></i> Good&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-warning"></i> Warning&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-danger"></i> Critical&nbsp;&nbsp;&nbsp;<i class="fa fa-circle text-muted"></i> Possibly dead</h6>
-										</div>
-										<div>&nbsp;</div>
+                                        </div>
 									</div>
 								</div><!-- /.network miner box -->
 								<?php endif; ?>
@@ -457,7 +453,7 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-bullseye"></i>
 									
-									<h3 class="box-title" id="error-history">Local Accepted/Rejected/Errors</h3>
+									<h3 class="box-title" id="error-history"><?php echo lang('app.local_accepted_rejected_errors') ?></h3>
 								</div>
 								<div class="box-body chart-responsive">
 									<div class="chart" id="rehw-chart" style="height:160px;"></div>
@@ -477,7 +473,7 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-tasks"></i>
 
-									<h3 class="box-title" id="sysload">System Load</h3>
+									<h3 class="box-title" id="sysload"><?php echo lang('app.system_load') ?></h3>
 								</div><!-- /.box-header -->
 								<div class="box-body" style="display: block;">
 									<div class="row padding-vert sysload" ></div>
@@ -505,41 +501,12 @@
 									</div><!-- /. tools -->
 									<i class="fa fa-bar-chart-o"></i>
 									
-									<h3 class="box-title" id="hashrate-history">Local Hashrate History</h3>
+									<h3 class="box-title" id="hashrate-history"><?php echo lang('app.local_hashrate_history') ?></h3>
 								</div>
 								<div class="box-body chart-responsive">
 									<div class="chart" id="hashrate-chart" style="height:160px;"></div>
 								</div>
 							</div><!-- /.hashrate box -->
-							<?php endif; ?>
-							
-							<?php if ($dashboardBoxScryptEarnings) : ?>
-							<!-- Profitability box
-							<div class="box box-dark <?php if (isset($boxStatuses['box-scrypt-earnings']) && !$boxStatuses['box-scrypt-earnings']) :?>collapsed-box<?php endif; ?>" id="box-scrypt-earnings">
-								<div class="box-header" style="cursor: move;">
-									 tools box
-									<div class="pull-right box-tools">
-										<button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-									</div> /. tools
-									<i class="fa fa-signal"></i>
-
-									<h3 class="box-title">Scrypt Earnings calculator</h3>
-								</div> /.box-header
-								<div class="box-body" style="display: block;">
-									<div class="profitability-box">
-										<p>Pool profitability in <i class="fa fa-btc"></i>/Day per MH/s <a href="#" class="profitability-question"><small class="badge bg-light"><small><i class="fa fa-question"></i></small></small></a></p>
-										<div class="callout callout-grey profitability-help" style="display:none;">
-											<p><small>If you know the profitability of your pool you can select it sliding the bar to get your possible earnings based on your current pool hashrate. Profitability is usually expressed as <i class="fa fa-btc"></i> per day per MH/s. You can see for example the <a href="http://www.clevermining.com/profits/30-days" target="_blank">Clevermining one, here</a>.</small></p>
-										</div>
-										<div class="margin-bottom">
-											<input type="text" name="default_profitability" id="profitability-slider" value="" />
-										</div>
-									</div>
-								</div> /.box-body
-								<div class="box-footer">
-									<div class="profitability-results"><small>Drag and slide the bar above to set your pool profitability and calculate your current possible earnings.</small></div>
-								</div>
-							</div> /.tree box -->
 							<?php endif; ?>
 						
 						</section><!-- /.left col -->
@@ -551,51 +518,29 @@
 						<!-- Bottom section -->
 						<section class="col-md-12 connectedSortable ui-sortable bottom-section">
 
-							<?php if ($dashboardDevicetree) : ?>
-                            <!-- Tree box
-							<div class="box box-dark <?php if (isset($boxStatuses['box-device-tree']) && !$boxStatuses['box-device-tree']) :?>collapsed-box<?php endif; ?>" id="box-device-tree">
-							   	<div class="overlay"></div>
-							   	<div class="loading-img"></div>
-								<div class="box-header" style="cursor: move;">
-									<!-- tools box
-									<div class="pull-right box-tools">
-										<button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
-									</div><!-- /. tools
-									<i class="fa fa-sitemap"></i>
-
-									<h3 class="box-title">Device Tree</h3>
-								</div><!-- /.box-header
-								<div class="box-body" style="display: block;">
-									<div class="row padding-vert" id="devs-total" ></div>
-									<div class="row padding-vert" id="devs"></div>
-								</div><!-- /.box-body
-							</div><!-- /.tree box-->
-							<?php endif; ?>
-
-
 							<?php if ($dashboardBoxLog) : ?>
 							<!-- Real time log box -->
 							<div class="box box-light <?php if (isset($boxStatuses['box-log']) && !$boxStatuses['box-log']) :?>collapsed-box<?php endif; ?>" id="box-log">
 								<div class="box-header" style="cursor: move;">
 									<!-- tools box -->
 									<div class="pull-right box-tools">
-										<a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank" style="padding-right: 20px;"><button class="btn btn-default btn-xs"><i class="fa fa-briefcase"></i> view raw log</button></a>
+										<a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank" style="padding-right: 20px;"><button class="btn btn-default btn-xs"><i class="fa fa-briefcase"></i> <?php echo lang('app.view_raw_log') ?></button></a>
 										<button class="btn btn-default btn-xs pause-log" data-widget="pause" data-toggle="tooltip" title="" data-original-title="Pause Log"><i class="fa fa-pause"></i></button>
 										<button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
 									</div><!-- /. tools -->
 									<i class="fa fa-file-o"></i>
 
-									<h3 class="box-title" id="pools-details">Miner real time log</h3>
+									<h3 class="box-title" id="pools-details"><?php echo lang('app.miner_real_time_log') ?></h3>
 								</div>
 								<div class="box-body">
 									<?php if ($minerdLog) :?>
-										<pre class="log-box" id="real-time-log-data">Logger is in pause, click play to resume it.</pre>
+										<pre class="log-box" id="real-time-log-data"><?php echo lang('app.log_pause_tips') ?></pre>
 									<?php else: ?>
-										<pre>Please enable logging in the settings page to see the miner log here.</pre>
+										<pre><?php echo lang('app.enable_logging_tips') ?></pre>
 									<?php endif; ?>
 								</div><!-- /.box-body -->
 								<div class="box-footer">
-									<h6>To download the full <a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank">raw log please click this link</a>.</h6>
+									<h6><?php echo lang('app.download_log_tips_1') ?> <a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank"><?php echo lang('app.download_log_tips_2') ?></a>.</h6>
 								</div>
 							</div><!-- /.miner box -->
 							<?php endif; ?>
