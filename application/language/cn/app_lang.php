@@ -31,8 +31,6 @@ $lang['app.reboot_title']    = "重启矿机";
 $lang['app.restart_miner']    = "重启矿机";
 $lang['app.restart_miner_title']    = "重启你的矿机";
 
-
-
 // Lock screen page
 $lang['app.welcome_miner'] = "你好,矿工";
 $lang['app.ip_address'] = "IP 地址";
@@ -41,35 +39,35 @@ $lang['app.password']      = "密码";
 
 // Dashboard page
 $lang['app.mining']  = "挖矿中";
-$lang['app.raw_stats']  = "raw stats";
-$lang['app.raw_stats_tips']  = "The raw JSON parsed to display the dashboard is also available";
-$lang['app.refresh_tips']  = "Click here to refresh";
-$lang['app.here']  = "here";
-$lang['app.warning']  = "Warning!";
-$lang['app.local']  = "Local";
-$lang['app.history']  = "History";
-$lang['app.pool_hashrate']  = "Pool Hashrate";
-$lang['app.details']  = "Details";
-$lang['app.error_rates']  = "Error/Rejected rates";
-$lang['app.last_share']  = "Last Share";
-$lang['app.miner_details']  = "Miner details";
-$lang['app.warning_message']  = "Your local miner is offline, try to restart it. If you are in trouble check your logs and settings.";
-$lang['app.try_to_start']  = "Try to start it";
-$lang['app.try_to_start_tips']  = "Your local miner is offline, try to restart it.";
-$lang['app.system_temperature']  = "System temperature";
-$lang['app.checking']  = "Checking...";
-$lang['app.miner_uptime']  = "Miner uptime";
-$lang['app.local_miner_details'] = "Local Miner details";
-$lang['app.local_pools_details'] = "Local Pools details";
-$lang['app.miner_real_time_log'] = "Miner real time log";
-$lang['app.view_raw_log'] = "view raw log";
-$lang['app.log_pause_tips']  = "Logger is in pause, click play to resume it.";
-$lang['app.enable_logging_tips']  = "Please enable logging in the settings page to see the miner log here.";
-$lang['app.download_log_tips_1']  = "To download the full ";
-$lang['app.download_log_tips_2']  = "raw log please click this link";
-$lang['app.local_hashrate_history']  = "Local Hashrate History";
-$lang['app.system_load']  = "System Load";
-$lang['app.local_accepted_rejected_errors']  = "Local Accepted/Rejected/Errors";
+$lang['app.raw_stats']  = "原始数据";
+$lang['app.raw_stats_tips']  = "亦可查看原始JSON解析数据";
+$lang['app.refresh_tips']  = "点击刷新";
+$lang['app.here']  = "这里";
+$lang['app.warning']  = "警告!";
+$lang['app.local']  = "本地";
+$lang['app.history']  = "历史数据";
+$lang['app.pool_hashrate']  = "矿池算力";
+$lang['app.details']  = "详情";
+$lang['app.error_rates']  = "错误率/拒绝率";
+$lang['app.last_share']  = "最后提交Share";
+$lang['app.miner_details']  = "矿机详情";
+$lang['app.warning_message']  = "矿机已离线，请尝试重启它。";
+$lang['app.try_to_start']  = "尝试启动矿机";
+$lang['app.try_to_start_tips']  = "当前矿机已离线，请尝试重启矿机";
+$lang['app.system_temperature']  = "系统温度";
+$lang['app.checking']  = "校验中...";
+$lang['app.miner_uptime']  = "挖矿时长";
+$lang['app.local_miner_details'] = "矿机设备详情";
+$lang['app.local_pools_details'] = "矿池详情";
+$lang['app.miner_real_time_log'] = "矿机实时日志";
+$lang['app.view_raw_log'] = "查看原始日志";
+$lang['app.log_pause_tips']  = "矿机未开启日志，点击启动日志";
+$lang['app.enable_logging_tips']  = "请在设置界面启动挖矿日志";
+$lang['app.download_log_tips_1']  = "要下载完整";
+$lang['app.download_log_tips_2']  = "原始日志记录请点击此链接";
+$lang['app.local_hashrate_history']  = "算力历史数据";
+$lang['app.system_load']  = "系统加载时长";
+$lang['app.local_accepted_rejected_errors']  = "本地接收/拒绝/错误数";
 
 
 
