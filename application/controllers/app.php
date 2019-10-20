@@ -17,7 +17,8 @@ class App extends CI_Controller {
 		$lang_support = config_item('support_language');
 		$lang_url    = $this->uri->segment(1);
 		$lang_default = config_item('language');
-		$lang_current = ( FALSE !== in_array($lang_url, $lang_support) ) ? $lang_url : $lang_default;
+		//$lang_current = ( FALSE !== in_array($lang_url, $lang_support) ) ? $lang_url : $lang_default;
+		$lang_current = empty($this->session->userdata("language")) ?  $lang_default : $this->session->userdata("language");
 
 		$this->config->set_item('language', $lang_current);
 		$this->lang->load('app', $lang_current);
@@ -31,14 +32,16 @@ class App extends CI_Controller {
 	 */
     public function switchLanguage()
     {
-        $lang_default = config_item('language');
-        $lang_switch  = empty($this->input->get('lang')) ? $this->input->get('lang') : $lang_default;
-        $lang_current = empty($this->session->userdata("language")) ? $this->session->userdata("language") : $lang_default;
+		$lang_default = config_item('language');
 
-        if($lang_switch != $lang_current)
-        {
-            $this->session->set_userdata("language", $lang_switch);
-        }
+        $lang_switch  = empty($this->input->get('lang')) ? $lang_default : $this->input->get('lang');
+		$lang_current = empty($this->session->userdata("language")) ?  $lang_default : $this->session->userdata("language");
+		
+		
+			$this->session->set_userdata("language", $lang_switch);
+			$this->lang->load('app', $lang_switch);
+			//$this->load->helper('language');
+        
         redirect('app/index'); // redirect to index
     }
 	

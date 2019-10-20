@@ -51,7 +51,8 @@
                 <img width="100" height="100" src="<?php echo base_url("assets/img/wechat-offical-account.jpg") ?>" alt="wechat qr code"/>
             </div>
             <div class="lockscreen-link">
-                <div><?php echo lang("app.language") ?>:<a href="<?php echo site_url("app/switchLanguage") . '?lang=cn'?>"><?php echo lang("app.chinese") ?> </a> | <a href="href="<?php echo site_url("app/switchLanguage") . '?lang=en'?>""><?php echo lang("app.english") ?></a></div>
+                <div><?php echo lang("app.language") ?>:<a href="<?php echo site_url("app/switchLanguage") . '?lang=cn'?>"><?php echo lang("app.chinese") ?> </a> 
+													  | <a href="<?php echo site_url("app/switchLanguage") . '?lang=en'?>"><?php echo lang("app.english") ?></a></div>
             </div>
 						
         </div><!-- /.center -->
