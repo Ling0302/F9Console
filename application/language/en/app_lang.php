@@ -69,6 +69,17 @@ $lang['app.download_log_tips_2']  = "raw log please click this link";
 $lang['app.local_hashrate_history']  = "Local Hashrate History";
 $lang['app.system_load']  = "System Load";
 $lang['app.local_accepted_rejected_errors']  = "Local Accepted/Rejected/Errors";
+$lang['app.legend']  = "Legend";
+$lang['app.current_shares']  = "Current Shares";
+$lang['app.previous_shares']  = "Previous shares";
+$lang['app.current_accepted']  = "Current Accepted";
+$lang['app.previous_accepted']  = "Previous Accepted";
+$lang['app.current_rejected']  = "Current Rejected";
+$lang['app.previous_rejected']  = "Previous Rejected";
+$lang['app.current']  = "Current";
+$lang['app.current_explain']  = "is the current or last session";
+$lang['app.previous']  = "Previous";
+$lang['app.previous_explain']  = "is the total of all previous sessions. Pool HashRate is based on shares over the time per session.";
 
 
 // Setting Page

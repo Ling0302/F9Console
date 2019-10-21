@@ -69,6 +69,19 @@ $lang['app.download_log_tips_2']  = "原始日志记录请点击此链接";
 $lang['app.local_hashrate_history']  = "算力曲线";
 $lang['app.system_load']  = "系统加载时长";
 $lang['app.local_accepted_rejected_errors']  = "本地接收/拒绝/错误数";
+$lang['app.legend']  = "注释";
+$lang['app.current_shares']  = "当前share数";
+$lang['app.previous_shares']  = "历史提交share数";
+$lang['app.current_accepted']  = "当前接受数";
+$lang['app.previous_accepted']  = "历史接受数";
+$lang['app.current_rejected']  = "当前拒绝数";
+$lang['app.previous_rejected']  = "历史拒绝数";
+$lang['app.current']  = "当前指";
+$lang['app.current_explain']  = "当前或最近一次session";
+$lang['app.previous']  = "历史指";
+$lang['app.previous_explain']  = "之前所有session总和。矿池上显示的算力是基于每次session产生的shares来统计的。";
+
+
 
 
 // Setting Page
