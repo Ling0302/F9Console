@@ -538,7 +538,7 @@
 									
 								</div><!-- /.box-body -->
 								<div class="box-footer">
-									<h6><?php echo lang('app.download_log_tips_1') ?> <a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank"><?php echo lang('app.download_log_tips_2') ?></a>.</h6>
+									<h6><?php echo lang('app.download_log_tips_1') ?> <a href="<?php echo base_url($this->config->item("minerd_log_url")); ?>" target="_blank" download="raw_log_<?php echo date('Y-m-d_h:i:s', $now) ?>"><?php echo lang('app.download_log_tips_2') ?></a>.</h6>
 								</div>
 							</div><!-- /.miner box -->
 							<?php endif; ?>

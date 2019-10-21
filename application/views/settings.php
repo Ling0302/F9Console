@@ -264,7 +264,6 @@
 							<input type="hidden" name="save_password" value="1" />
                             <div class="box-body">
 								<p><?php echo lang('app.change_password') ?></p>
-                               	<label for="password1"><?php echo lang('app.password') ?></label>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 									<input type="password" class="form-control" name="password" placeholder="<?php echo lang('app.lock_screen_password') ?>">

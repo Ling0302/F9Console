@@ -111,6 +111,12 @@ $lang['app.accepted_rejected_erros']  = "Accepted/Rejected/Errors";
 
 
 // Miner Page
+$lang['app.are_you_sure'] = "Are you sure?";
+$lang['app.wait_while_rebooting'] = "Please wait while I'm rebooting...";
+$lang['app.miner_has_rebooted'] = "The miner has rebooted!";
+$lang['app.yes_reboot'] = " Yes, reboot now";
+$lang['app.no_thanks'] = " No, thanks";
+
 
 
 

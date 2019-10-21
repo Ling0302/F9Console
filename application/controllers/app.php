@@ -924,21 +924,21 @@ class App extends CI_Controller {
 		if ($this->input->get('confirm'))
 		{
 			$data['refreshUrl'] = site_url("app/index");
-			$data['message'] = "Please wait while I'm rebooting...";
+			$data['message'] = lang('app.wait_while_rebooting');;
 			$data['timer'] = true;
 			$this->util_model->reboot();
 		}
 		else
 		{
-			$data['title'] = "Are you sure?";
-			$data['message'] = '<a href="'.site_url("app/reboot").'?confirm=1" class="btn btn-danger btn-lg"><i class="fa fa-check"></i> Yes, reboot now</a>&nbsp;&nbsp;&nbsp;<a href="'.site_url("app/dashboard").'" class="btn btn-primary btn-lg"><i class="fa fa-times"></i> No, thanks</a>';
+			$data['title'] = lang('app.are_you_sure');
+			$data['message'] = '<a href="'.site_url("app/reboot").'?confirm=1" class="btn btn-danger btn-lg"><i class="fa fa-check"></i>' . lang('app.yes_reboot') . '</a>&nbsp;&nbsp;&nbsp;<a href="'.site_url("app/dashboard").'" class="btn btn-primary btn-lg"><i class="fa fa-times"></i>' . lang('app.no_thanks') . '</a>';
 			$data['timer'] = false;
 		}
 		
 		$data['now'] = time();
 		$data['sectionPage'] = 'lockscreen';
 		$data['onloadFunction'] = false;
-		$data['messageEnd'] = "The miner has rebooted!";
+		$data['messageEnd'] = lang('app.miner_has_rebooted');
 		$data['htmlTag'] = "lockscreen";
 		$data['seconds'] = 30;
 		$data['env'] = $this->config->item('ENV');

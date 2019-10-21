@@ -39,7 +39,7 @@ $lang['app.password']      = "密码";
 
 
 // Dashboard page
-$lang['app.mining']  = "挖矿中";
+$lang['app.mining']  = "矿机状态";
 $lang['app.raw_stats']  = "原始数据";
 $lang['app.raw_stats_tips']  = "亦可查看原始JSON解析数据";
 $lang['app.refresh_tips']  = "点击刷新";
@@ -58,15 +58,15 @@ $lang['app.try_to_start_tips']  = "当前矿机已离线，请尝试重启矿机
 $lang['app.system_temperature']  = "系统温度";
 $lang['app.checking']  = "校验中...";
 $lang['app.miner_uptime']  = "挖矿时长";
-$lang['app.local_miner_details'] = "矿机设备详情";
+$lang['app.local_miner_details'] = "设备详情";
 $lang['app.local_pools_details'] = "矿池详情";
-$lang['app.miner_real_time_log'] = "矿机实时日志";
+$lang['app.miner_real_time_log'] = "矿机日志";
 $lang['app.view_raw_log'] = "查看原始日志";
 $lang['app.log_pause_tips']  = "矿机未开启日志，点击启动日志";
 $lang['app.enable_logging_tips']  = "请在设置界面启动挖矿日志";
 $lang['app.download_log_tips_1']  = "要下载完整";
 $lang['app.download_log_tips_2']  = "原始日志记录请点击此链接";
-$lang['app.local_hashrate_history']  = "算力历史数据";
+$lang['app.local_hashrate_history']  = "算力曲线";
 $lang['app.system_load']  = "系统加载时长";
 $lang['app.local_accepted_rejected_errors']  = "本地接收/拒绝/错误数";
 
@@ -81,12 +81,12 @@ $lang['app.pools_settings']  = "矿池设置";
 $lang['app.pool_url']  = "矿池地址";
 $lang['app.pool_username']  = "矿工名";
 $lang['app.pool_password']  = "密码";
-$lang['app.change_password']  = "修改矿机锁屏密码";
+$lang['app.change_password']  = "修改矿机后台锁屏密码";
 $lang['app.username']  = "用户名";
 $lang['app.password']  = "密码";
-$lang['app.setting_tips']  ="按照顺序输入矿池设置，第一个是主矿池，其他是故障转移矿池";
+$lang['app.setting_tips']  ="按照顺序输入矿池设置，第一个是主矿池，其他是备选矿池";
 $lang['app.setting_main']  ="主";
-$lang['app.setting_failover']  ="故障转移";
+$lang['app.setting_failover']  ="备选";
 $lang['app.setting_url']  ="地址";
 $lang['app.setting_trouble_tips']  ="如果你遇到问题想重新开始，你可以重置部分数据或者重置所有到出厂";
 $lang['app.setting_reset_chart']  ="重置算力曲线图";
@@ -110,6 +110,11 @@ $lang['app.yearly']  = "每年算力曲线";
 $lang['app.accepted_rejected_erros']  = "接收/拒绝/错误数";
 
 // Miner Page
+$lang['app.are_you_sure'] = "确定现在重启矿机吗?";
+$lang['app.wait_while_rebooting'] = "请稍候，矿机正在重启中...";
+$lang['app.miner_has_rebooted'] = "矿机已重启!";
+$lang['app.yes_reboot'] = " 是的, 立刻重启";
+$lang['app.no_thanks'] = " 不, 再等等";
 
 
 

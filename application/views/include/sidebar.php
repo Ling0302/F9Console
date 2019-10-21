@@ -388,20 +388,6 @@
                                 <i class="fa pull-right fa-angle-left"></i>
                             </a>
                             <ul class="treeview-menu" style="display: none;">
-                                <li data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.restart_miner_title') ?>">
-                                	<a href="#" class="miner-action" data-miner-action="restart" style="margin-left: 10px;">
-                                		<i class="fa fa-repeat"></i> <?php echo lang('app.restart_miner') ?>
-                                	</a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="treeview">
-                            <a href="#">
-                                <i class="fa fa-rocket"></i>
-                                <span><?php echo lang('app.system') ?></span>
-                                <i class="fa pull-right fa-angle-left"></i>
-                            </a>
-                            <ul class="treeview-menu" style="display: none;">
                                 <li data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.reboot_title') ?>">
                                 	<a href="<?php echo site_url("app/reboot") ?>" style="margin-left: 10px;">
                                 		<i class="fa fa-power-off"></i> <?php echo lang('app.reboot') ?>
@@ -409,6 +395,7 @@
                                 </li>
                             </ul>
                         </li>
+                        
                     </ul>
                 </section>
                 
