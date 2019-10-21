@@ -860,36 +860,14 @@ class Util_model extends CI_Model {
 		return $this->redis->get("minerd_pools");
 	}
 	
-	function parsePools($minerSoftware, $pools)
+	function parsePools($pools)
 	{
 		$poolsArray = array();
 		
 		if (is_array($pools)) {
 			foreach ($pools as $pool)
 			{
-				if ($minerSoftware == "cgminer" OR $minerSoftware == "cgdmaxlzeus")
-				{
-					// CGminer has different method to add proxy pool
-					if (!empty($pool['proxy']))
-					{
-						$poolsArray[] = array("url" => $pool['proxy']."|".$pool['url'], "user" => $pool['username'], "pass" => $pool['password']);	
-					}
-					else
-					{
-						$poolsArray[] = array("url" => $pool['url'], "user" => $pool['username'], "pass" => $pool['password']);
-					}
-				}
-				else
-				{
-					if (!empty($pool['proxy']))
-					{
-						$poolsArray[] = array("url" => $pool['url'], "user" => $pool['username'], "pass" => $pool['password'], "pool-proxy" => $pool['proxy']);	
-					}
-					else
-					{
-						$poolsArray[] = array("url" => $pool['url'], "user" => $pool['username'], "pass" => $pool['password']);
-					}		
-				}
+				$poolsArray[] = array("url" => $pool['url'], "user" => $pool['username'], "pass" => $pool['password']);	
 			}
 		}
 		

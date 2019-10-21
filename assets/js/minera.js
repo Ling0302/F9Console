@@ -28,11 +28,11 @@ i18n.cn = new function(){
 	this.oneday='1天';
 	this.selectThis='选中这个';
 	this.Alive='活跃';
-	this.Dead='死亡';
+	this.Dead='离线';
 	this.selected='已选中';
-	this.failover='故障转移';
+	this.failover='备选';
 	this.active='激活';
-	this.opps='天啊！';
+	this.opps='糟糕！';
 	this.pre_text_period_tips='没有采集到数据，等待至少';
 	this.post_text_period_tips='再看图形。';
 }

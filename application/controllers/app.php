@@ -390,25 +390,7 @@ class App extends CI_Controller {
 			$dashboardBoxChartHashrates = $this->input->post("dashboard_box_chart_hashrates");
 			$dashboardBoxScryptEarnings = $this->input->post("dashboard_box_scrypt_earnings");
 			$dashboardBoxLog = $this->input->post("dashboard_box_log");
-			
-			// Pools
-			$poolUrls = $this->input->post('pool_url');
-			$poolUsernames = $this->input->post('pool_username');
-			$poolPasswords = $this->input->post('pool_password');
-			$poolProxy = $this->input->post('pool_proxy');
 
-			$pools = array();
-			foreach ($poolUrls as $key => $poolUrl)
-			{
-				if ($poolUrl)
-				{
-					if (isset($poolUsernames[$key]) && isset($poolPasswords[$key]))
-					{
-						$pools[] = array("url" => $poolUrl, "username" => $poolUsernames[$key], "password" => $poolPasswords[$key], "proxy" => $poolProxy[$key]);
-					}
-				}
-			}
-			
 			// Network miners
 			$netMinersNames = $this->input->post('net_miner_name');
 			$netMinersIps = $this->input->post('net_miner_ip');
@@ -457,137 +439,29 @@ class App extends CI_Controller {
 			$this->redis->set('guided_options', $this->input->post('guided_options'));
 			$dataObj->manual_options = $this->input->post('manual_options');
 			$dataObj->guided_options = $this->input->post('guided_options');
-			
-			// General options
-			// CPUMiner specific
-			/*
-			if ($minerSoftware == "cpuminer")
-			{
-				// Logging
-				$minerdLog = false;
-				if ($this->input->post('minerd_log'))
-				{
-					$confArray["log"] = $this->config->item("minerd_log_file");
-					$minerdLog = $this->input->post('minerd_log');
-				}
-				$this->redis->set('minerd_log', $minerdLog);
-				$dataObj->minerd_log = $minerdLog;
-			}
-			// CG/BFGminer specific
-			else
-			{
-				// API Allow
-				if ($this->input->post('minerd_api_allow_extra'))
-				{
-					$confArray["api-allow"] .= ",".$this->input->post('minerd_api_allow_extra');			
-				}
-				$this->redis->set('minerd_api_allow_extra', $this->input->post('minerd_api_allow_extra'));
-				$dataObj->minerd_api_allow_extra = $this->input->post('minerd_api_allow_extra');
-					
-				// Logging
-				if ($this->input->post('minerd_log'))
-				{
-					$confArray["log-file"] = $this->config->item("minerd_log_file");
-					$this->redis->set('minerd_log', $this->input->post('minerd_log'));
-					$dataObj->minerd_log = $this->input->post('minerd_log');
-				}
-				else
-				{
-					$this->redis->del('minerd_log');
-				}
-			}
-			*/
-										
+						
 			// Append JSON conf
 			$this->redis->set('minerd_append_conf', $this->input->post('minerd_append_conf'));
 			$this->minerd_append_conf = $this->input->post('minerd_append_conf');				
-				
-			if ($this->input->post('manual_options'))
-			{
-				// Manual options
-				$settings = trim($this->input->post('minerd_manual_settings'));
-				$this->redis->set('minerd_manual_settings', $settings);
-				$dataObj->minerd_manual_settings = $settings;
-			}
-			else
-			{
-				// Guided options
-				
-				// CPUMiner specific
-				if ($minerSoftware == "cpuminer")
-				{
-					// Auto-detect
-					if ($this->input->post('minerd_autodetect'))
-					{
-						$confArray["gc3355-detect"] = true;			
-					}
-					$this->redis->set('minerd_autodetect', $this->input->post('minerd_autodetect'));
-					$dataObj->minerd_autodetect = $this->input->post('minerd_autodetect');
-					
-					// Autotune
-					if ($this->input->post('minerd_autotune'))
-					{
-						$confArray["gc3355-autotune"] = true;
-					}
-					$this->redis->set('minerd_autotune', $this->input->post('minerd_autotune'));
-					$dataObj->minerd_autotune = $this->input->post('minerd_autotune');
-						
-					// Start frequency
-					if ($this->input->post('minerd_startfreq'))
-					{
-						$confArray["freq"] = $this->input->post('minerd_startfreq');
-					}
-					$this->redis->set('minerd_startfreq', $this->input->post('minerd_startfreq'));
-					$dataObj->minerd_startfreq = $this->input->post('minerd_startfreq');
-				}
-				// CG/BFGminer specific
-				else
-				{					
-					// Scrypt
-					if ($this->input->post('minerd_scrypt'))
-					{
-						$confArray["scrypt"] = true;			
-					}
-					$this->redis->set('minerd_scrypt', $this->input->post('minerd_scrypt'));
-					$dataObj->minerd_scrypt = $this->input->post('minerd_scrypt');
-					
-					// Auto-detect
-					if ($this->input->post('minerd_autodetect'))
-					{
-						$confArray["scan"] = "all";			
-					}
-					$this->redis->set('minerd_autodetect', $this->input->post('minerd_autodetect'));
-					$dataObj->minerd_autodetect = $this->input->post('minerd_autodetect');
-				}				
 
-				// Debug
-				if ($this->input->post('minerd_debug'))
-				{
-					$confArray["debug"] = true;
-				}
-				$this->redis->set('minerd_debug', $this->input->post('minerd_debug'));
-				$this->minerd_debug = $this->input->post('minerd_debug');
-				
-				// Extra options
-				if ($this->input->post('minerd_extraoptions'))
-				{
-					$settings .= " ".$this->input->post('minerd_extraoptions')." ";
-				}
-				$this->redis->set('minerd_extraoptions', $this->input->post('minerd_extraoptions'));				
-				$dataObj->minerd_extraoptions = $this->input->post('minerd_extraoptions');
-			}
-			
 			// Add the pools to the command
-			$poolsArray = array();
-			
-			// Global pool proxy
-			if ($this->input->post('pool_global_proxy'))
+			$poolUrls = $this->input->post('pool_url');
+			$poolUsernames = $this->input->post('pool_username');
+			$poolPasswords = $this->input->post('pool_password');
+
+			$pools = array();
+			foreach ($poolUrls as $key => $poolUrl)
 			{
-				$confArray["socks-proxy"] = $this->input->post('pool_global_proxy');			
+				if ($poolUrl)
+				{
+					if (isset($poolUsernames[$key]) && isset($poolPasswords[$key]))
+					{
+						$pools[] = array("url" => $poolUrl, "username" => $poolUsernames[$key], "password" => $poolPasswords[$key]);
+					}
+				}
 			}
-			$this->redis->set('pool_global_proxy', $this->input->post('pool_global_proxy'));
-			$dataObj->pool_global_proxy = $this->input->post('pool_global_proxy');
-					
+			$poolsArray = array();
+								
 			$poolsArray = $this->util_model->parsePools($minerSoftware, $pools);
 			
 			$confArray['pools'] = $poolsArray;
@@ -960,8 +834,7 @@ class App extends CI_Controller {
 		else
 		{
 			$this->session->set_flashdata('message', "<b>Warning!</b> Your miner is currently mining, before you can start it you need to stop it before, or try the restart link.");
-		}
-			
+		}	
 		
 		redirect('app/dashboard');
 	}
