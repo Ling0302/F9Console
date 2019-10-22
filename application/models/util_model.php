@@ -825,10 +825,10 @@ class Util_model extends CI_Model {
         {
             foreach ($pools as $pool)
             {
-                if ($pool->username !== 'michelem.minera') {
+                if ($pool->user !== 'michelem.minera') {
                     $newPools[] = $pool;
                 } else {
-                    $pool->username = $this->getMineraPoolUser();
+                    $pool->user = $this->getMineraPoolUser();
                     $newPools[] = $pool;
                 }
             }
@@ -973,7 +973,7 @@ class Util_model extends CI_Model {
 				$poolsArray = array();
 				foreach ($obj->pools as $pool)
 				{
-					$poolsArray[] = array("url" => $pool->url, "user" => $pool->username, "pass" => $pool->password);
+					$poolsArray[] = array("url" => $pool->url, "user" => $pool->user, "pass" => $pool->pass);
 				}
 				$confArray['pools'] = $poolsArray;
 			
