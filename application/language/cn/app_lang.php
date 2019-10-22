@@ -109,6 +109,7 @@ $lang['app.setting_clear_miner_log_tips']  ="此操作会清除所有的应用�
 $lang['app.setting_reset_factory']  ="恢复出厂设置";
 $lang['app.setting_reset_factory_tips']  ="此操作将恢复矿机的所有设置到出厂设置";
 $lang['app.setting_reset_footer_tips']  ="点击这里的重置按钮，不会有任何确认提示，重置不可恢复，请谨慎操作。";
+$lang['app.save_pools']  = "设置矿池";
 
 
 

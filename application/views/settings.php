@@ -6,14 +6,14 @@
                 <?php echo lang('app.mining') ?>
                 <small><?php echo lang('app.settings') ?></small>
             </h1>
-            <ul class="mini-save-toolbox">
+            <!--<ul class="mini-save-toolbox">
 				<li>
 					<button type="submit" class="btn btn-sm btn-primary save-minera-settings" name="save" value="1"><i class="fa fa-floppy-o"></i> <?php echo lang('app.save') ?></button>
 				</li>
 				<li>
 					<button type="submit" class="btn btn-sm btn-danger save-minera-settings-restart" name="save_restart" value="1"><i class="fa fa-repeat"></i> <?php echo lang('app.save_and_restart') ?></button>
 				</li>
-	    	</ul>
+	    	</ul>-->
             <ol class="breadcrumb">
                 <li><a href="<?php echo site_url("app/dashboard") ?>"><i class="fa fa-dashboard"></i> <?php echo lang('app.dashboard') ?></a></li>
             </ol>
@@ -61,7 +61,7 @@
 						
 					<form action="#" method="post" role="form" id="minersettings" enctype="multipart/form-data">
 												
-						<input type="hidden" name="save_settings" value="1" />
+						<input type="hidden" name="save_miner_pools" value="1" />
 						                            	                          
 						<!-- Pools box -->
                         <div class="box box-primary" id="pools-box">
@@ -93,53 +93,9 @@
 								</div>
 								<!-- Main Pool -->
 								<div class="poolSortable ui-sortable">
-									<?php $savedPools = json_decode($minerdPools); $donationPool = false; ?>
-									<?php $s = (count($savedPools) == 0) ? 2 : count($savedPools); ?>
-									<?php $donationHelp = '<h6><strong>Minera pool</strong></h6>
-														<p><small>You can always remove the Minera donation pool clicking the button below, but if you hadn\'t issue with it and you like Minera, you should think to keep it as failover pool because your support is really needed to continue developing Minera. So please, before clicking the button below, consider keeping the donation pool as at least your latest failover. Thanks for your support. (If you have enabled time donation, this pool is automatically added.)</small></p>
-														<p><button class="btn btn-danger btn-xs del-pool-row" name="del-row" value="1"><i class="fa fa-times"></i> Remove donation pool </button></p>'; ?>
-									<?php for ($i=0;$i<=$s;$i++) : ?>
-										<?php if ( isset($savedPools[$i]->url) &&
-													($savedPools[$i]->url == $this->config->item('minera_pool_url') || $savedPools[$i]->url == $this->config->item('minera_pool_url_sha256')) &&
-													isset($savedPools[$i]->username) &&
-													$savedPools[$i]->username == $this->util_model->getMineraPoolUser() &&
-													isset($savedPools[$i]->password) &&
-													$savedPools[$i]->password == $this->config->item('minera_pool_password') ) : $donationPool = true; ?>
+									<?php $savedPools = json_decode($minerdPools); ?>
+									<?php for ($i=0;$i<=2;$i++) : ?>
 										<!-- row pool for Minera -->
-										<div class="form-group">
-										    <div class="row sort-attach">
-										    	<div class="col-xs-4">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-gift"></i></span>
-										    			<input type="text" class="form-control" name="pool_url[]" data-ismain="0" value="<?php echo $savedPools[$i]->url ?>" readonly />
-										    		</div>
-										    	</div>
-										    	<div class="col-xs-2">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										    			<input type="text" class="form-control" name="pool_username[]" data-ismain="0" value="<?php echo $this->util_model->getMineraPoolUser() ?>" readonly />
-										    		</div>
-										    	</div>
-										    	<div class="col-xs-2">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-										    			<input type="text" class="form-control" name="pool_password[]" data-ismain="0" value="x" readonly />
-										    		</div>
-										    	</div>
-										    	<div class="col-xs-1">
-										    		<button style="margin-top:5px;" class="btn btn-primary btn-xs help-pool-row" name="help-row" value="1"><i class="fa fa-question"></i></button>
-										    	</div>
-										    </div>
-										    <div class="row minera-pool-help" style="display:none;">
-										    	<div class="col-xs-11" style="margin-top:10px">
-											    	<div class="callout callout-info">
-														<?php echo $donationHelp ?>
-													</div>
-										    	</div>
-										    	<div class="col-xs-1">&nbsp;</div>
-										    </div>
-										</div>
-										<?php else : ?>
 										<div class="form-group pool-group">
 										    <div class="row sort-attach pool-row">
 										    	<div class="col-xs-4">
@@ -151,100 +107,27 @@
 										    	<div class="col-xs-2">
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-										    			<input type="text" class="form-control pool_username" placeholder="<?php echo lang('app.username') ?>" name="pool_username[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->username)) ? $savedPools[$i]->username : ''; ?>"  />
+										    			<input type="text" class="form-control pool_username" placeholder="<?php echo lang('app.username') ?>" name="pool_username[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->user)) ? $savedPools[$i]->user : ''; ?>"  />
 										    		</div>
 										    	</div>
 										    	<div class="col-xs-2">
 										    		<div class="input-group">
 										    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-										    			<input type="text" class="form-control pool_password" placeholder="<?php echo lang('app.password') ?>" name="pool_password[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->password)) ? $savedPools[$i]->password : ''; ?>"  />
+										    			<input type="text" class="form-control pool_password" placeholder="<?php echo lang('app.password') ?>" name="pool_password[]" data-ismain="<?php echo ($i == 0) ? "1" : "0"; ?>" value="<?php echo (isset($savedPools[$i]->pass)) ? $savedPools[$i]->pass : ''; ?>"  />
 										    		</div>
 										    	</div>
 										    </div>
 										</div>
-										<?php endif; ?>
-									<?php endfor; ?>
-									<!-- fake donation row pool for Minera -->
-									<div class="form-group pool-donation-group" style="display:none;">
-									    <div class="row sort-attach">
-										    <?php if ($algo === "Scrypt") : ?>
-										    	<div class="col-xs-4">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-gift"></i></span>
-										    			<input type="text" class="form-control form-donation" name="pool_url[]" data-ismain="0" value="<?php echo $this->config->item('minera_pool_url') ?>" readonly />
-										    		</div>
-										    	</div>
-										    <?php else: ?>
-										    	<div class="col-xs-4">
-										    		<div class="input-group">
-										    			<span class="input-group-addon"><i class="fa fa-gift"></i></span>
-										    			<input type="text" class="form-control form-donation" name="pool_url[]" data-ismain="0" value="<?php echo $this->config->item('minera_pool_url_sha256') ?>" readonly />
-										    		</div>
-										    	</div>
-										    <?php endif; ?>
-									    	<div class="col-xs-2">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									    			<input type="text" class="form-control form-donation" name="pool_username[]" data-ismain="0" value="<?php echo $this->util_model->getMineraPoolUser() ?>" readonly />
-									    		</div>
-									    	</div>
-									    	<div class="col-xs-2">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-									    			<input type="text" class="form-control form-donation" name="pool_password[]" data-ismain="0" value="x" readonly />
-									    		</div>
-									    	</div>
-									    	<div class="col-xs-3">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-													<input type="text" class="form-control pool_proxy" placeholder="socks5|http://proxy:port" name="pool_proxy[]" readonly />
-									    		</div>
-									    	</div>
-									    	<div class="col-xs-1">
-									    		<button style="margin-top:5px;" class="btn btn-primary btn-xs help-pool-row" name="help-row" value="1"><i class="fa fa-question"></i></button>
-									    	</div>
-									    </div>
-									    <div class="row minera-pool-help" style="display:none;">
-									    	<div class="col-xs-11" style="margin-top:10px">
-										    	<div class="callout callout-info">
-													<?php echo $donationHelp ?>
-												</div>
-									    	</div>
-									    	<div class="col-xs-1">&nbsp;</div>
-									    </div>
-									</div>
-									<!-- fake row to be cloned -->
-									<div class="form-group pool-group pool-group-master" style="display:none;">
-									    <div class="row sort-attach pool-row">
-									    	<div class="col-xs-4">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-cloud-download"></i></span>
-									    			<input type="text" class="form-control pool_url" placeholder="Failover url" name="pool_url[]" data-ismain="0" value="" />
-									    		</div>
-									    	</div>
-									    	<div class="col-xs-2">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-user"></i></span>
-									    			<input type="text" class="form-control pool_username" placeholder="<?php echo lang('app.username') ?>" name="pool_username[]" data-ismain="0" value=""  />
-									    		</div>
-									    	</div>
-									    	<div class="col-xs-2">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-lock"></i></span>
-									    			<input type="text" class="form-control pool_password" placeholder="<?php echo lang('app.password') ?>" name="pool_password[]" data-ismain="0" value=""  />
-									    		</div>
-									    	</div>
-									    	<div class="col-xs-3">
-									    		<div class="input-group">
-									    			<span class="input-group-addon"><i class="fa fa-certificate"></i></span>
-													<input type="text" class="form-control pool_proxy" placeholder="socks5|http://proxy:port" name="pool_proxy[]" data-ismain="0" value=""  />
-									    		</div>
-									    	</div>
-									    </div>
-									</div>
 									
+									<?php endfor; ?>
+					
 								</div><!-- sortable -->
                             </div>
+
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary save-miner-pools"><?php echo lang('app.save_pools') ?></button>
+							</div>
+
                         </div>
 					</form>
 
@@ -295,15 +178,6 @@
                         <div class="box-body">
 	                        <div class="row">
 	                        <div class="col-md-10">
-								<p><?php echo lang('app.setting_trouble') ?></p>
-								<div class="form-group">
-	                            	<button type="submit" class="btn btn-warning reset-action" data-reset-action="charts"><i class="fa fa-eraser"></i> <?php echo lang('app.setting_reset_chart') ?></button>
-	                            	<h6><?php echo lang('app.setting_reset_chart_tips') ?></h6>
-								</div>
-								<div class="form-group">
-	                            	<button type="submit" class="btn btn-warning reset-action" data-reset-action="logs"><i class="fa fa-eraser"></i> <?php echo lang('app.setting_clear_miner_log') ?></button>
-									<h6><?php echo lang('app.setting_clear_miner_log_tips') ?></h6>
-								</div>
 								<div class="form-group">
 	                            	<button type="submit" class="btn btn-danger reset-factory-action"><i class="fa fa-recycle"></i> <?php echo lang('app.setting_reset_factory') ?></button>
 									<h6><?php echo lang('app.setting_reset_factory_tips') ?></h6>

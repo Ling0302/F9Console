@@ -105,9 +105,9 @@ $lang['app.setting_reset_chart_tips']  ="This resets all the stored stats needed
 $lang['app.setting_clear_miner_log']  ="Clear the Minera logs";
 $lang['app.setting_clear_miner_log_tips']  ="This will delete everything inside application/logs. This includes all Minera application logs and also all the Miner logs.";
 $lang['app.setting_reset_factory']  ="Reset to factory default";
-$lang['app.setting_reset_factory_tips']  ="This will reset your Minera to the factory default settings (it doesn't change anything at system level, only the web interface with all the relative data will be reset, this includes: lock password, stats, charts, miner settings, saved miner configs, pools, etc...)";
+$lang['app.setting_reset_factory_tips']  ="This will reset your Miner firmware to the factory default settings (it doesn't change anything at system level, only the web interface with all the relative data will be reset, this includes: lock password, stats, charts, miner settings, saved miner configs, pools, etc...)";
 $lang['app.setting_reset_footer_tips']  ="Clicking the reset buttons resets data immediately, there isn't any confirmation to do. Reset actions aren't recoverable, data will be lost.";
-
+$lang['app.save_pools']  = "Save Pools";
 
 
 // Charts Page

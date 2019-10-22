@@ -148,7 +148,7 @@ function timer(counter)
 	}, 1000);
 }
 
-function saveSettings(hide, saveonly)
+/*function saveSettings(hide, saveonly)
 {
 
     if (saveonly === false)
@@ -172,7 +172,7 @@ function saveSettings(hide, saveonly)
 			}
 		}
 	});
-}
+}*/
 
 // Show or Hide the options related to the selected miner software
 function showHideMinerOptions(change)
@@ -732,7 +732,7 @@ $(function() {
 		// Settings Scripts
 		$('.box-tools').click( function(e) { e.preventDefault(); });
 		
-		if ($(document).scrollTop() > 64) {
+		/*if ($(document).scrollTop() > 64) {
 			$('.save-toolbox').fadeIn();
 		}
 		$(document).scroll(function() {
@@ -756,7 +756,7 @@ $(function() {
 				nextIcon.removeClass('fa-arrow-left');
 				$('.save-toolbox').css('right', '0');
 			}
-		});
+		});*/
     
 	    if (window.location.href.match(/settings/g))
 	    {
@@ -767,18 +767,18 @@ $(function() {
 	    
 	    $('#progress').hide();
 	    
-	    $('.save-minera-settings').click(function(e) {
+	    /*$('.save-minera-settings').click(function(e) {
 	       	e.preventDefault();
 	       	saveSettings(true, false);
-	    });
-	    $('.save-minera-settings-restart').click(function(e) {
+	    });*/
+	    /*$('.save-minera-settings-restart').click(function(e) {
 	       	e.preventDefault();
 		   	var input = $('<input>')
                .attr('type', 'hidden')
                .attr('name', 'save_restart').val(true);
 			$('#minersettings').append($(input));
 	       	saveSettings(true, false);
-	    });
+	    });*/
 		
 		$('.import-file').fileupload({
 			url: _baseUrl+'/app/api?command=import_file',
@@ -1775,7 +1775,7 @@ $(document).on('click', '.add-pool', function(e) {
 });
 
 // Remove local pool on the fly
-$(document).on('click', '.remove-pool', function(e) {
+/*$(document).on('click', '.remove-pool', function(e) {
 
 	e.preventDefault();
 
@@ -1802,7 +1802,7 @@ $(document).on('click', '.remove-pool', function(e) {
 	} else {
 		$('.pool-alert').html('<pre style="font-size:10px;margin-top:10px;">Sorry, but CPUMiner doesn\'t support remove pool on the fly</pre>').fadeIn();
 	}
-});
+});*/
 
 $(document).on('click', '.cron-unlock', function(e) {
 
