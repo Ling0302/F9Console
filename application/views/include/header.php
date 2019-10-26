@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="<?php echo $htmlTag ?>">
+<html class="<?php echo $htmlTag ?>">
 <head>
 	<?php if (isset($refreshUrl) && $refreshUrl) : ?>
 		<meta http-equiv="refresh" content="<?php echo $seconds+2 ?>;URL='<?php echo $refreshUrl ?>'" />  
@@ -11,8 +11,8 @@
 	<link href="<?php echo base_url('favicon.ico') ?>" rel="icon">
 	<?php if ($this->config->item("ENV") !== "production") : ?>
 		<?php
-		$medias = json_decode(file_get_contents(base_url('assets/media.json')));
-		foreach ($medias->css as $css) : 
+			$medias = json_decode(file_get_contents(base_url('assets/media.json')));
+			foreach ($medias->css as $css) : 
 		?>
 			<link href="<?php echo base_url($css) ?>?time=<?php echo $now ?>" rel="stylesheet" type="text/css" />
 		<?php endforeach; ?>

@@ -38,7 +38,6 @@ class App extends CI_Controller {
         $lang_switch  = empty($this->input->get('lang')) ? $lang_default : $this->input->get('lang');
 		$lang_current = empty($this->session->userdata("language")) ?  $lang_default : $this->session->userdata("language");
 		
-		
 		$this->session->set_userdata("language", $lang_switch);
 		$this->lang->load('app', $lang_switch);
 
@@ -54,8 +53,6 @@ class App extends CI_Controller {
 		// Always try to assign the mineraId if not present
 		$mineraSystemId = $this->util_model->generateMineraId();
 		$this->redis->del("minera_update");
-
-		//var_dump($this->lang->line('app.hello'));
 		
 		//$this->util_model->checkUpdate();
 		
@@ -1378,5 +1375,3 @@ class App extends CI_Controller {
 
 }
 
-/* End of file frontpage.php */
-/* Location: ./application/controllers/frontpage.php */

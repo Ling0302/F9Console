@@ -1,7 +1,7 @@
 'use strict';
 
 var _baseUrl = window._baseUrl;
-var lang = $("#_lang").text();
+var lang = $('.app_data').data('lang');
 
 var i18n = {};
 
