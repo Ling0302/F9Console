@@ -288,7 +288,9 @@ class App extends CI_Controller {
 			$jsonConfFile = json_encode($confArray, JSON_PRETTY_PRINT);
 
 			// Save the JSON conf file
-			file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
+			file_put_contents($this->config->item("minerd_conf_tmp_file"), $jsonConfFile);
+			sleep(1);
+			exec("sudo mv " . $this->config->item('minerd_conf_tmp_file') . " " . $this->config->item('minerd_conf_file'));
 
 			$this->util_model->restartCgminer();
 			$data['message'] = '<b>Success!</b> pools are saved!';

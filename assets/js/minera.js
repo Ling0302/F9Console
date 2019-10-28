@@ -2358,7 +2358,7 @@ function getStats(refresh)
 					{
 						// Widgets
 						$('.widget-last-share').html(parseInt(last_share_secs) + ' secs');
-						$('.widget-hwre-rates').html(parseFloat(percentageHw).toFixed(2) + '<sup style="font-size: 20px">%</sup> / ' + parseFloat(percentageRe).toFixed(2) + '<sup style="font-size: 20px">%</sup>');
+						$('.widget-hwre-rates').html(parseFloat(percentageRe).toFixed(2) + '<sup style="font-size: 20px">%</sup>');
 						dev_serial = '';
 					}
 					

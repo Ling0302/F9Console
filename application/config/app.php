@@ -11,6 +11,7 @@ $config['screen_command_stop'] = '/usr/bin/screen -S cpuminer -X quit';
 $config['minerd_command'] = FCPATH.'minera-bin/minerd';
 $config['minerd_start_script_file'] = FCPATH.'minera-bin/start_minerd';
 $config['minerd_conf_file'] = '/etc/miner_conf.json';
+$config['minerd_conf_temp_file'] = '/tmp/miner_conf.json';
 $config['minerd_log_file'] = 'app/varLog';
 $config['minerd_log_url'] = 'app/varLog';
 $config['tmp_stats_file'] = '/tmp/cm_latest_stats';

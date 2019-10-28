@@ -1601,8 +1601,8 @@ class Util_model extends CI_Model {
 	{
 		exec("sudo killall -9 cgminer"); // kill cgminer
 		sleep(1);
-		exec("sudo /usr/bin/cgminer -c /etc/cgminer.conf --api-listen --api-network --syslog --text-only"); //start cgminer
-					
+		exec("sudo /usr/bin/cgminer -c /etc/cgminer.conf --api-listen --api-network --syslog --text-only"); //restart cgminer
+
 		return true;
 	}
 	

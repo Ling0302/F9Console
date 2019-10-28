@@ -164,7 +164,7 @@
 											<p><?php echo lang('app.checking') ?></p>
 										</div>
 										<div class="icon"><i class="ion ion-ios-cloud-upload-outline"></i></div>
-										<a href="#pools-details" class="small-box-footer"><?php echo lang('app.pools_details') ?><i class="fa fa-arrow-circle-right"></i></a>
+										<a href="#pools-details" class="small-box-footer"><?php echo lang('app.local_pools_details') ?><i class="fa fa-arrow-circle-right"></i></a>
 									</div>
 								</div>
 								
