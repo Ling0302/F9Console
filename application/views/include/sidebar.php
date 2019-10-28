@@ -338,6 +338,11 @@
                                 	<a href="<?php echo site_url("app/settings#user-box") ?>" class="menu-user-box ml10">
                                 		<i class="fa fa-user"></i> <?php echo lang('app.user') ?>
                                 	</a>
+								</li>
+								<li>
+                                	<a href="<?php echo site_url("app/settings#network-box") ?>" class="menu-network-box ml10">
+                                		<i class="fa fa-cloud"></i> 网络设置
+                                	</a>
                                 </li>
                                 <li>
                                 	<a href="<?php echo site_url("app/settings#resets-box") ?>" class="menu-resets-box ml10">

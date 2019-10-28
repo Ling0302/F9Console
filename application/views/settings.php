@@ -87,6 +87,9 @@
 											<strong><?php echo lang('app.pool_username') ?></strong>
 										</div>
 										<div class="col-xs-2">
+											<strong>网络设置</strong>
+										</div>
+										<div class="col-xs-2">
 											<strong><?php echo lang('app.pool_password') ?></strong>
 										</div>
                                     </div>
@@ -158,6 +161,52 @@
                             </div>
 							<div class="box-footer">
 								<button type="submit" class="btn btn-primary save-minera-password"><?php echo lang('app.save_password') ?></button>
+							</div>
+						
+						</form>
+                    </div>
+
+					<!-- 网络设置 -->
+					<div class="box box-primary" id="network-box">
+						<div class="box-header">
+							<!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div><!-- /. tools -->
+                            <i class="fa fa-cloud"></i>
+                            <h3 class="box-title">网络设置</h3>
+                        </div>
+						
+						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form" id="minerapassword">
+							<input type="hidden" name="save_network" value="1" />
+                            <div class="box-body">
+								<p>设置静态/动态IP</p>
+								<div class="input-group">
+									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
+									<select class="form-control" name="network-type">
+										<option value ="static">Static</option>
+										<option value ="dhcp">DHCP</option>
+									</select>
+								</div>
+								<div class="input-group mt10">
+									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
+									<input type="text" class="form-control" name="ip_address" placeholder="IP Address">
+								</div>
+								<div class="input-group mt10">
+									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
+									<input type="text" class="form-control" name="net_mask" placeholder="Network Mask">
+								</div>
+								<div class="input-group mt10">
+									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
+									<input type="text" class="form-control" name="gateway" placeholder="Gateway">
+								</div>
+								<div class="input-group mt10">
+									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
+									<input type="text" class="form-control" name="dns" placeholder="DNS">
+								</div>
+                            </div>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary save-minera-password">Save Network Settings</button>
 							</div>
 						
 						</form>
