@@ -109,6 +109,14 @@ $lang['app.setting_reset_factory_tips']  ="This will reset your Miner firmware t
 $lang['app.setting_reset_footer_tips']  ="Clicking the reset buttons resets data immediately, there isn't any confirmation to do. Reset actions aren't recoverable, data will be lost.";
 $lang['app.save_pools']  = "Save Pools";
 
+$lang['app.network_settings']  = "Network Settings";
+$lang['app.static_dhcp_setting']  = "Set a static / DHCP IP address";
+$lang['app.static']  = "Static";
+$lang['app.dhcp']  = "DHCP";
+$lang['app.network_mask']  = "Network Mask";
+$lang['app.gateway']  = "Gateway";
+$lang['app.dns']  = "DNS";
+$lang['app.save_network_settings']  = "Save Network Settings";
 
 // Charts Page
 $lang['app.hashrate_history']  = "Hashrate History";

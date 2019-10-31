@@ -15,6 +15,7 @@ $config['minerd_conf_temp_file'] = '/tmp/miner_conf.json';
 $config['minerd_log_file'] = 'app/varLog';
 $config['minerd_log_url'] = 'app/varLog';
 $config['tmp_stats_file'] = '/tmp/cm_latest_stats';
+$config['init_console_password'] = 'admin@miner';
 $config['system_user'] = 'minera';
 $config['remote_config_url'] = 'https://raw.githubusercontent.com/getminera/minera/master/minera.json';
 $config['rpi_temp_file'] = '/sys/class/thermal/thermal_zone0/temp';
@@ -29,5 +30,3 @@ $config['minera_pool_url'] = 'stratum+tcp://us.multipool.us:7777';
 $config['minera_pool_url_sha256'] = 'stratum+tcp://us.multipool.us:8888';
 $config['minera_pool_username'] = 'michelem.minera';
 $config['minera_pool_password'] = 'x';
-/* End of file autoload.php */
-/* Location: ./application/config/app.php */

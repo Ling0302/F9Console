@@ -82,8 +82,6 @@ $lang['app.previous']  = "历史指";
 $lang['app.previous_explain']  = "之前所有session总和。矿池上显示的算力是基于每次session产生的shares来统计的。";
 
 
-
-
 // Setting Page
 $lang['app.save']  = "保存";
 $lang['app.save_and_restart']  = "保存 & 重启矿机";
@@ -111,8 +109,14 @@ $lang['app.setting_reset_factory_tips']  ="此操作将恢复矿机的所有设�
 $lang['app.setting_reset_footer_tips']  ="点击这里的重置按钮，不会有任何确认提示，重置不可恢复，请谨慎操作。";
 $lang['app.save_pools']  = "设置矿池";
 
-
-
+$lang['app.network_settings']  = "网络设置";
+$lang['app.static_dhcp_setting']  = "设置静态/动态IP";
+$lang['app.static']  = "静态IP";
+$lang['app.dhcp']  = "动态IP";
+$lang['app.network_mask']  = "网络掩码";
+$lang['app.gateway']  = "网关地址";
+$lang['app.dns']  = "DNS";
+$lang['app.save_network_settings']  = "保存网络设置";
 
 
 // Charts Page

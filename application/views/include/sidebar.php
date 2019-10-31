@@ -341,7 +341,7 @@
 								</li>
 								<li>
                                 	<a href="<?php echo site_url("app/settings#network-box") ?>" class="menu-network-box ml10">
-                                		<i class="fa fa-cloud"></i> 网络设置
+                                		<i class="fa fa-cloud"></i> <?php echo lang('app.network_settings') ?>
                                 	</a>
                                 </li>
                                 <li>

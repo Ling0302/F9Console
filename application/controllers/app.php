@@ -100,7 +100,8 @@ class App extends CI_Controller {
 				$this->redis->set('minera_password', $storedp);
 			}
 		} else {
-			$storedp = sha1($this->redis->get('mineraminera'));
+			$storedp = sha1($this->config->item('init_console_password'));
+			
 			$this->redis->set('minera_password', $storedp);
 		}
 
@@ -523,7 +524,7 @@ class App extends CI_Controller {
 			}*/
 			
 			// Save the JSON conf file
-			file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
+			// file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
 
 			// End command options string			
 
@@ -1028,9 +1029,6 @@ class App extends CI_Controller {
 			break;
 			case "delete_config":
 				$o = json_encode($this->util_model->deleteSavedConfig($this->input->get("id")));
-			break;
-			case "load_config":
-				$o = json_encode($this->util_model->loadSavedConfig($this->input->get("id")));
 			break;
 			case "share_config":
 				$o = json_encode($this->util_model->shareSavedConfig($this->input->post()));

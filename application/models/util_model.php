@@ -812,7 +812,7 @@ class Util_model extends CI_Model {
 		
 		//log_message("error", var_export($conf, true));
 		// Save the JSON conf file
-		file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
+		// file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
 		$this->redis->set("minerd_json_settings", $jsonConfRedis);
 	}
 	
@@ -846,7 +846,7 @@ class Util_model extends CI_Model {
 		$jsonConfFile = json_encode($conf, JSON_PRETTY_PRINT);
 
 		// Save the JSON conf file
-		file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
+		// file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
 		$this->redis->set("minerd_json_settings", $jsonConfRedis);
 	}
 	
@@ -982,7 +982,7 @@ class Util_model extends CI_Model {
 				$jsonConfFile = json_encode($confArray, JSON_PRETTY_PRINT);
 			
 				// Save the JSON conf file
-				file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
+				// file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
 				$this->redis->set("minerd_json_settings", $jsonConfRedis);
 				
 				// Startup script rc.local

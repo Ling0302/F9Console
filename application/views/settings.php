@@ -34,9 +34,7 @@
 
         <!-- Main content -->
         <section class="content">
-
 			<div class="row">
-
                 <?php if ($message) : ?>
                     <section class="col-md-12">
                     	<div class="alert alert-<?php echo $message_type ?> alert-dismissable">
@@ -174,39 +172,39 @@
                                 <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                             </div><!-- /. tools -->
                             <i class="fa fa-cloud"></i>
-                            <h3 class="box-title">网络设置</h3>
+                            <h3 class="box-title"><?php echo lang('app.network_settings') ?></h3>
                         </div>
 						
 						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form" id="minerapassword">
 							<input type="hidden" name="save_network" value="1" />
                             <div class="box-body">
-								<p>设置静态/动态IP</p>
+								<p><?php echo lang('app.static_dhcp_setting') ?></p>
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 									<select class="form-control" name="network-type">
-										<option value ="static">Static</option>
-										<option value ="dhcp">DHCP</option>
+										<option value ="static"><?php echo lang('app.static') ?></option>
+										<option value ="dhcp"><?php echo lang('app.dhcp') ?></option>
 									</select>
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="ip_address" placeholder="IP Address">
+									<input type="text" class="form-control" name="ip_address" placeholder="<?php echo lang('app.ip_address') ?>">
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="net_mask" placeholder="Network Mask">
+									<input type="text" class="form-control" name="net_mask" placeholder="<?php echo lang('app.network_mask') ?>">
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="gateway" placeholder="Gateway">
+									<input type="text" class="form-control" name="gateway" placeholder="<?php echo lang('app.gateway') ?>">
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="dns" placeholder="DNS">
+									<input type="text" class="form-control" name="dns" placeholder="<?php echo lang('app.dns') ?>">
 								</div>
                             </div>
 							<div class="box-footer">
-								<button type="submit" class="btn btn-primary save-minera-password">Save Network Settings</button>
+								<button type="submit" class="btn btn-primary save-minera-password"><?php echo lang('app.save_network_settings') ?></button>
 							</div>
 						
 						</form>
