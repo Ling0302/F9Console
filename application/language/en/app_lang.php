@@ -118,6 +118,10 @@ $lang['app.gateway']  = "Gateway";
 $lang['app.dns']  = "DNS";
 $lang['app.save_network_settings']  = "Save Network Settings";
 
+$lang['app.firmware_upgrade']  = "Firmware upgrade";
+$lang['app.upload_firmware_file']  = "Upload Firmware";
+$lang['app.select_firmware_file']  = "Please select the firmware file to upload";
+
 // Charts Page
 $lang['app.hashrate_history']  = "Hashrate History";
 $lang['app.hourly']  = "Hourly";

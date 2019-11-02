@@ -168,7 +168,7 @@
                             <div class="pull-right box-tools">
                                 <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
                             </div><!-- /. tools -->
-                            <i class="fa fa-cloud"></i>
+                            <i class="fa fa-laptop"></i>
                             <h3 class="box-title"><?php echo lang('app.network_settings') ?></h3>
                         </div>
 						
@@ -202,6 +202,34 @@
                             </div>
 							<div class="box-footer">
 								<button type="submit" class="btn btn-primary save-minera-password"><?php echo lang('app.save_network_settings') ?></button>
+							</div>
+						
+						</form>
+                    </div>
+
+
+					<!-- 固件升级 -->
+					<div class="box box-primary" id="firmware-box">
+						<div class="box-header">
+							<!-- tools box -->
+                            <div class="pull-right box-tools">
+                                <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div><!-- /. tools -->
+                            <i class="fa fa-upload"></i>
+                            <h3 class="box-title"><?php echo lang('app.firmware_upgrade') ?></h3>
+                        </div>
+						
+						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form"  enctype="multipart/form-data" id="firmware_upgrade">
+							<input type="hidden" name="firmware_upgrade" value="1" />
+                            <div class="box-body">
+								<p><?php echo lang('app.select_firmware_file') ?></p>
+								<div class="col-xs-12 input-group mt10">
+									<input type="file" class="form-control" name="upFile"><br>
+								</div>
+								
+                            </div>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary save-firmware_upgrade"><?php echo lang('app.upload_firmware_file') ?></button>
 							</div>
 						
 						</form>

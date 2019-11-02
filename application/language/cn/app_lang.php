@@ -118,6 +118,10 @@ $lang['app.gateway']  = "网关地址";
 $lang['app.dns']  = "DNS";
 $lang['app.save_network_settings']  = "保存网络设置";
 
+$lang['app.firmware_upgrade']  = "固件升级";
+$lang['app.upload_firmware_file']  = "上传固件";
+$lang['app.select_firmware_file']  = "选择固件文件";
+
 
 // Charts Page
 $lang['app.hashrate_history']  = "算力历史曲线";

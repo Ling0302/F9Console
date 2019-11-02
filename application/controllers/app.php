@@ -299,6 +299,21 @@ class App extends CI_Controller {
 			$data['message_type'] = "success";
 
 		}
+
+		if ($this->input->post('firmware_upgrade')) 
+		{
+			$fileInfo = $_FILES["upFile"];
+			
+			$fileInfoName = $fileInfo["name"];//文件名
+			$fileInfoPath = $fileInfo["tmp_name"];//文件当前路径文件夹
+			if (!move_uploaded_file($fileInfoPath,"/tmp/".$fileInfoName))
+			{
+				echo "An error has occurred moving the uploaded file.<BR>";
+				echo "Please ensure that if safe_mode is on that the " . "UID PHP is using matches the file.";
+				exit;	
+			}
+			
+		}
 		
 		// Load Coin Rates
 		// $data['btc'] = $this->util_model->getBtcUsdRates();
@@ -910,6 +925,9 @@ class App extends CI_Controller {
 		
 		redirect('app/dashboard');
 	}
+
+
+
 	
 	/*
 	// Update controller (this should be in a different "system" controller file)

@@ -341,7 +341,12 @@
 								</li>
 								<li>
                                 	<a href="<?php echo site_url("app/settings#network-box") ?>" class="menu-network-box ml10">
-                                		<i class="fa fa-cloud"></i> <?php echo lang('app.network_settings') ?>
+                                		<i class="fa fa-laptop"></i> <?php echo lang('app.network_settings') ?>
+                                	</a>
+                                </li>
+								<li>
+                                	<a href="<?php echo site_url("app/settings#firmware-box") ?>" class="menu-network-box ml10">
+                                		<i class="fa fa-upload"></i> <?php echo lang('app.firmware_upgrade') ?>
                                 	</a>
                                 </li>
                                 <li>
