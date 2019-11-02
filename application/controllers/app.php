@@ -264,7 +264,7 @@ class App extends CI_Controller {
 				{
 					if (isset($poolUsernames[$key]) && isset($poolPasswords[$key]))
 					{
-						$pools[] = array("url" => $poolUrl, "user" => $poolUsernames[$key], "pass" => $poolPasswords[$key]);
+						$pools[] = array("url" => stripslashes($poolUrl), "user" => $poolUsernames[$key], "pass" => $poolPasswords[$key]);
 					}
 				}
 			}
@@ -276,7 +276,7 @@ class App extends CI_Controller {
 
 			// default settings
 			$confArray["api-listen"] = true;
-			$confArray["api-allow"] = "R:0/0,W:127.0.0.1";
+			$confArray["api-allow"] = stripslashes("R:0/0,W:127.0.0.1");
 			$confArray["api-port"] = "4028";
 			$confArray["T1Pll1"] = "1300";
 			$confArray["T1Volt1"] = "412";
@@ -288,12 +288,13 @@ class App extends CI_Controller {
 			// Prepare JSON conf
 			$jsonConfFile = json_encode($confArray, JSON_PRETTY_PRINT);
 
-			// Save the JSON conf file
-			file_put_contents($this->config->item("minerd_conf_tmp_file"), $jsonConfFile);
-			sleep(1);
-			exec("sudo mv " . $this->config->item('minerd_conf_tmp_file') . " " . $this->config->item('minerd_conf_file'));
 
-			$this->util_model->restartCgminer();
+			// Save the JSON conf file
+			file_put_contents($this->config->item("minerd_conf_temp_file"), $jsonConfFile);
+			sleep(1);
+			// exec("sudo mv " . $this->config->item('minerd_conf_temp_file') . " " . $this->config->item('minerd_conf_file'));
+
+			// $this->util_model->restartCgminer();
 			$data['message'] = '<b>Success!</b> pools are saved!';
 			$data['message_type'] = "success";
 

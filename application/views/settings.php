@@ -85,9 +85,6 @@
 											<strong><?php echo lang('app.pool_username') ?></strong>
 										</div>
 										<div class="col-xs-2">
-											<strong>网络设置</strong>
-										</div>
-										<div class="col-xs-2">
 											<strong><?php echo lang('app.pool_password') ?></strong>
 										</div>
                                     </div>
