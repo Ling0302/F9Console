@@ -222,8 +222,6 @@ class App extends CI_Controller {
 		
 		$data['now'] = time();
 		$data['sectionPage'] = 'settings';
-		$this->config->load('timezones');
-		$data['timezones'] = $this->config->item("timezones");
 
 		$data['message'] = false;
 		$data['message_type'] = false;
@@ -252,7 +250,6 @@ class App extends CI_Controller {
 
 		if ($this->input->post('save_miner_pools'))
 		{
-
 			$poolUrls = $this->input->post('pool_url');
 			$poolUsernames = $this->input->post('pool_username');
 			$poolPasswords = $this->input->post('pool_password');
@@ -264,20 +261,19 @@ class App extends CI_Controller {
 				{
 					if (isset($poolUsernames[$key]) && isset($poolPasswords[$key]))
 					{
-						$pools[] = array("url" => stripslashes($poolUrl), "user" => $poolUsernames[$key], "pass" => $poolPasswords[$key]);
+						$pools[] = array("url" => $poolUrl, "user" => $poolUsernames[$key], "pass" => $poolPasswords[$key]);
 					}
 				}
 			}
 			$confArray = array();			
 			$confArray['pools'] = $pools;
-
 			$jsonPoolsConfRedis = json_encode($pools);
 			$this->redis->set('minerd_pools', $jsonPoolsConfRedis);
 
 			// default settings
 			$confArray["api-listen"] = true;
-			$confArray["api-allow"] = stripslashes("R:0/0,W:127.0.0.1");
 			$confArray["api-port"] = "4028";
+			$confArray["api-allow"] = "R:0/0,W:127.0.0.1";
 			$confArray["T1Pll1"] = "1300";
 			$confArray["T1Volt1"] = "412";
 			$confArray["T1Pll2"] = "1300";
@@ -286,13 +282,13 @@ class App extends CI_Controller {
 			$confArray["T1Volt3"] = "412";
 
 			// Prepare JSON conf
-			$jsonConfFile = json_encode($confArray, JSON_PRETTY_PRINT);
-
+			$jsonConfFile = json_encode($confArray, 192); // JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES = 128 + 64
 
 			// Save the JSON conf file
 			file_put_contents($this->config->item("minerd_conf_temp_file"), $jsonConfFile);
-			sleep(1);
-			// exec("sudo mv " . $this->config->item('minerd_conf_temp_file') . " " . $this->config->item('minerd_conf_file'));
+			sleep(3);
+			exec("sudo mv " . $this->config->item('minerd_conf_temp_file') . " " . $this->config->item('minerd_conf_file'));
+			sleep(2);
 
 			// $this->util_model->restartCgminer();
 			$data['message'] = '<b>Success!</b> pools are saved!';
@@ -308,20 +304,17 @@ class App extends CI_Controller {
 			$fileInfoPath = $fileInfo["tmp_name"];//文件当前路径文件夹
 			if (!move_uploaded_file($fileInfoPath,"/tmp/".$fileInfoName))
 			{
-				echo "An error has occurred moving the uploaded file.<BR>";
-				echo "Please ensure that if safe_mode is on that the " . "UID PHP is using matches the file.";
-				exit;	
+				$data['message'] = "<b>Warning!</b> An error has occurred moving the uploaded file.<BR>Please ensure that if safe_mode is on that the " . "UID PHP is using matches the file.";
+				$data['message_type'] = "warning";
+			} else
+			{
+				exec("sudo nohup system_update online /tmp/".$fileInfoName." >/var/log/upgrade.log");
+				$data['message'] = '<b>Success!</b> The upgrade will take couple of minutes, please wait!';
+				$data['message_type'] = "success";
 			}
-			
+
 		}
 		
-		// Load Coin Rates
-		// $data['btc'] = $this->util_model->getBtcUsdRates();
-		
-		// Check custom miners
-		// $data['customMiners'] = $this->util_model->readCustomMinerDir();
-		// $data['activeCustomMiners'] = json_decode($this->redis->get('active_custom_miners'));
-				
 		// Load miner settings
 		$data['builtInMinersConf'] = json_decode($this->util_model->refreshMinerConf());
 		$data['minerdCommand'] = $this->config->item("minerd_command");
@@ -350,8 +343,7 @@ class App extends CI_Controller {
 		$data['globalPoolProxy'] = $this->redis->get("pool_global_proxy");
 		$data['browserMining'] = $this->redis->get('browser_mining');
 		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
-		$data['env'] = $this->config->item('ENV');
-		
+
 		$data['networkMiners'] = json_decode($this->redis->get('network_miners'));
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
 		
@@ -379,22 +371,6 @@ class App extends CI_Controller {
 		$data['dashboardTableRecords'] = ($this->redis->get("dashboard_table_records")) ? $this->redis->get("dashboard_table_records") : 5;
 		$data['algo'] = $this->util_model->checkAlgo(false);
 
-		// Load System settings
-		$data['mineraHostname'] = gethostname();
-		$data['mineraTimezone'] = $this->redis->get("minera_timezone");
-		$data['systemExtracommands'] = $this->redis->get("system_extracommands");
-		$data['scheduledEventStartTime'] = $this->redis->get("scheduled_event_start_time");
-		$data['scheduledEventTime'] = $this->redis->get("scheduled_event_time");
-		$data['scheduledEventAction'] = $this->redis->get("scheduled_event_action");
-		$data['anonymousStats'] = $this->redis->get("anonymous_stats");
-		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
-				
-		// Load Mobileminer
-		$data['mobileminerEnabled'] = $this->redis->get("mobileminer_enabled");
-		$data['mobileminerSystemName'] = $this->redis->get("mobileminer_system_name");
-		$data['mobileminerEmail'] = $this->redis->get("mobileminer_email");
-		$data['mobileminerAppkey'] = $this->redis->get("mobileminer_appkey");
-						
 		// Everything else
 		$data['savedFrequencies'] = $this->redis->get('current_frequencies');
 		$data['isOnline'] = $this->util_model->isOnline();
@@ -1080,10 +1056,6 @@ class App extends CI_Controller {
 					default:
 						$o = json_encode(array("err" => true));
 				}
-			break;
-			case "test":
-				//$a = file_get_contents("api.json");
-				//$o = $this->redis->command("BGSAVE"); //$this->util_model->checkCronIsRunning(); //$this->util_model->sendAnonymousStats(123, "hello world!");
 			break;
 		}
 

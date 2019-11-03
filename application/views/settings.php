@@ -172,7 +172,7 @@
                             <h3 class="box-title"><?php echo lang('app.network_settings') ?></h3>
                         </div>
 						
-						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form" id="minerapassword">
+						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form" id="networksettings">
 							<input type="hidden" name="save_network" value="1" />
                             <div class="box-body">
 								<p><?php echo lang('app.static_dhcp_setting') ?></p>

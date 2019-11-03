@@ -11,7 +11,6 @@
 			data-minera-pool-url-sha256="<?php echo $this->config->item('minera_pool_url_sha256') ?>"
 			data-browser-mining="<?php echo $browserMining ?>"
 			data-browser-mining-threads="<?php echo $browserMiningThreads ?>"
-			data-minera-id="<?php echo $mineraSystemId ?>"
 			data-lang="<?php echo $this->session->userdata("language") ? $this->session->userdata("language") : 'en' ?>"
 		></div>
 

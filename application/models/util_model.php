@@ -857,7 +857,13 @@ class Util_model extends CI_Model {
 
 	function getPools()
 	{
-		return $this->redis->get("minerd_pools");
+		$minerd_pools = $this->redis->get("minerd_pools");
+		if(!$minerd_pools)
+		{
+			
+		}
+
+		return $minerd_pools;
 	}
 	
 	function parsePools($pools)
