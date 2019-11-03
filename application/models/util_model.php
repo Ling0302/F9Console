@@ -922,30 +922,7 @@ class Util_model extends CI_Model {
 			
 		return $data;
 	}
-	
-	public function cloneSystem()
-	{
-		$data = $this->redis->get("import_data_tmp");
-		if ( $this->isJson($data))
-		{
-			foreach (json_decode($data) as $key => $value)
-			{
-				$this->redis->set($key, $value);
-			}
-			
-			$this->session->set_flashdata('message', '<b>Success!</b> System cloned!');
-			$this->session->set_flashdata('message_type', 'success');
 
-		}
-
-		log_message("error", "Cloning the system with this data: ".$data);
-
-		$this->redis->del("import_data_tmp");
-		
-			
-		return true;
-	}
-	
 	function deleteSavedConfig($id)
 	{
 		return $this->redis->command("HDEL saved_miner_configs ".$id);
