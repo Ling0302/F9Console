@@ -208,7 +208,7 @@
                     </div>
 
 
-					<!-- 固件升级 -->
+					<!-- Firmware Upgrade -->
 					<div class="box box-primary" id="firmware-box">
 						<div class="box-header">
 							<!-- tools box -->
@@ -252,7 +252,6 @@
 	                        <div class="col-md-10">
 								<div class="form-group">
 	                            	<button type="submit" class="btn btn-danger reset-factory-action"><i class="fa fa-recycle"></i> <?php echo lang('app.setting_reset_factory') ?></button>
-									<h6><?php echo lang('app.setting_reset_factory_tips') ?></h6>
 								</div>
 	                        </div>
 	                        </div>

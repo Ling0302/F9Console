@@ -45,31 +45,16 @@ class Util_model extends CI_Model {
 		else
 			$this->_minerdSoftware = $this->redis->get('minerd_software');
 			
-		if ($this->_minerdSoftware == "cgminer")
-		{
-			// Config for Cgminer
-			$this->config->set_item('minerd_binary', 'cgminer');
-			$this->config->set_item('screen_command', '/usr/bin/screen -dmS cgminer');
-			$this->config->set_item('screen_command_stop', '/usr/bin/screen -S cgminer -X quit');
-			$this->config->set_item('minerd_command', FCPATH.'minera-bin/cgminer');
-			$this->config->set_item('minerd_log_file', 'index.php/app/varLog');
-			$this->config->set_item('minerd_special_log', true);
-			$this->config->set_item('minerd_log_url', 'index.php/app/varLog');
-			$this->load->model('cgminer_model', 'miner');
-		}
-		else
-		{
-			// Config for any custom miner
-			$this->config->set_item('minerd_binary', $this->_minerdSoftware);
-			$this->config->set_item('screen_command', '/usr/bin/screen -dmS '.$this->_minerdSoftware);
-			$this->config->set_item('screen_command_stop', '/usr/bin/screen -S '.$this->_minerdSoftware.' -X quit');
-			$this->config->set_item('minerd_command', FCPATH.'minera-bin/custom/'.$this->_minerdSoftware);
-			$this->config->set_item('minerd_log_file', 'index.php/app/varLogs');
-			$this->config->set_item('minerd_special_log', true);
-			$this->config->set_item('minerd_log_url', 'index.php/app/varLog');
-			$this->load->model('cgminer_model', 'miner');
-		}
-		
+		// Config for Cgminer
+		$this->config->set_item('minerd_binary', 'cgminer');
+		$this->config->set_item('screen_command', '/usr/bin/screen -dmS cgminer');
+		$this->config->set_item('screen_command_stop', '/usr/bin/screen -S cgminer -X quit');
+		$this->config->set_item('minerd_command', FCPATH.'minera-bin/cgminer');
+		$this->config->set_item('minerd_log_file', 'index.php/app/varLog');
+		$this->config->set_item('minerd_special_log', true);
+		$this->config->set_item('minerd_log_url', 'index.php/app/varLog');
+		$this->load->model('cgminer_model', 'miner');
+
 		if ($network) $this->load->model('cgminer_model', 'network_miner');
 		
 		return true;
@@ -131,7 +116,7 @@ class Util_model extends CI_Model {
 		$a->miner = $this->_minerdSoftware;
 		
 		// Add local algo used
-		$a->algo = $this->checkAlgo(true);
+		$a->algo = "SHA-256";
 		
 		//log_message("error", var_export($netStats, true));
 		
@@ -320,19 +305,12 @@ class Util_model extends CI_Model {
 		}
 		
 		$poolHashrate = 0;
-
-
 		// CG/BFGminer devices stats
-
-			$antNew = false;
-			if (isset($stats->stats[0]->STATS[0]) && isset($stats->stats[0]->STATS[0]->Type) && ($stats->stats[0]->STATS[0]->Type == 'Antminer S9' || $stats->stats[0]->STATS[0]->Type == 'Antminer S9i' || $stats->stats[0]->STATS[0]->Type == 'Antminer L3++' || $stats->stats[0]->STATS[0]->Type == 'Antminer L3+' || $stats->stats[0]->STATS[0]->Type == 'Antminer Z9' || $stats->stats[0]->STATS[0]->Type == 'Antminer V9' || $stats->stats[0]->STATS[0]->Type == 'Antminer D3')) $antNew = true;
-
 			if (isset($stats->devs[0]->DEVS)) {
 				
 				foreach ($stats->devs[0]->DEVS as $device) {
 					$d++; $c = 0; $tcfrequency = 0; $tcaccepted = 0; $tcrejected = 0; $tchwerrors = 0; $tcshares = 0; $tchashrate = 0; $tclastshares = array();
-									
-					//$name = $device->Name.$d;
+
                     $name = "Board-".$d;
 
 					$return['devices'][$name]['temperature'] = (isset($device->Temperature)) ? $device->Temperature : false;
@@ -340,19 +318,13 @@ class Util_model extends CI_Model {
 					$return['devices'][$name]['accepted'] = $device->Accepted;
 					$return['devices'][$name]['rejected'] = $device->Rejected;
 					$return['devices'][$name]['hw_errors'] = $device->{'Hardware Errors'};
-					if ($this->_minerdSoftware == "cgdmaxlzeus") {
-						$return['devices'][$name]['shares'] = ($device->{'Diff1 Work'}) ? round(($device->{'Diff1 Work'}*71582788/1000/1000),0) : 0;
-						if (isset($device->{'KHS av'}))	$return['devices'][$name]['hashrate'] = ($device->{'KHS av'}*1000);
-						else $return['devices'][$name]['hashrate'] = ($device->{'MHS av'}*1000*1000);
-					} elseif (isset($device->{'Diff1 Work'})) {
-						$return['devices'][$name]['shares'] = ($device->{'Diff1 Work'}) ? round(($device->{'Diff1 Work'}*71582788/1000),0) : 0;	
-						if (isset($device->{'KHS av'}))	$return['devices'][$name]['hashrate'] = ($device->{'KHS av'}*1000);
-						else $return['devices'][$name]['hashrate'] = ($device->{'MHS av'}*1000*1000);
-					} else {
-						$return['devices'][$name]['shares'] = $device->Accepted;
-						if (isset($device->{'KHS av'}))	$return['devices'][$name]['hashrate'] = ($device->{'KHS av'}*1000);
-						else $return['devices'][$name]['hashrate'] = ($device->{'MHS av'}*1000*1000);
-					}
+					
+					$return['devices'][$name]['shares'] = ($device->{'Diff1 Work'}) ? round(($device->{'Diff1 Work'}*71582788/1000),0) : 0;	
+					if (isset($device->{'KHS av'}))	
+						$return['devices'][$name]['hashrate'] = ($device->{'KHS av'}*1000);
+					else 
+						$return['devices'][$name]['hashrate'] = ($device->{'MHS av'}*1000*1000);
+					
 					$return['devices'][$name]['last_share'] = false;
 					if (isset($device->{'Last Share Time'})) $return['devices'][$name]['last_share'] = $device->{'Last Share Time'};
 					if (isset($device->{'Device Elapsed'})) $return['devices'][$name]['last_share'] = $device->{'Device Elapsed'};
@@ -370,42 +342,8 @@ class Util_model extends CI_Model {
 				
 				$devicePoolActives = array_count_values($devicePoolIndex);				
 			}
-
-			// New Antminer
-			if ($antNew && isset($stats->stats[0]->STATS[1]) && isset($stats->summary[0]->SUMMARY[0])) {
-				$device = $stats->stats[0]->STATS[1];
-				$summaryAntNew = $stats->summary[0]->SUMMARY[0];
-				$d = 1;
-				// log_message("error", var_export($stats->stats[0]->STATS[1], true));
-
-				$temps = [];
-				foreach ($device as $key => $value) {
-					if (preg_match("/temp[0-9]?[0-9]$/", $key)) {
-						if ($value > 0) array_push($temps, $value);
-					}
-				}
-				$tempAvg = round(array_sum($temps)/count($temps));
-
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['temperature'] = $tempAvg;
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['frequency'] = (isset($device->frequency)) ? $device->frequency : false;
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['accepted'] = $summaryAntNew->Accepted;
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['rejected'] = $summaryAntNew->Rejected;
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['hw_errors'] = $summaryAntNew->{'Hardware Errors'};
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['shares'] = $summaryAntNew->Utility;
-				if (isset($device->{'GHS av'}))	$return['devices'][$stats->stats[0]->STATS[0]->Type]['hashrate'] = ($device->{'GHS av'} * 1000 * 1000 * 1000);
-				$return['devices'][$stats->stats[0]->STATS[0]->Type]['last_share'] = $summaryAntNew->{'Last getwork'};
-
-				$tdtemperature = $return['devices'][$stats->stats[0]->STATS[0]->Type]['temperature'];					
-				$tdfrequency = $return['devices'][$stats->stats[0]->STATS[0]->Type]['frequency'];
-				$tdshares = $return['devices'][$stats->stats[0]->STATS[0]->Type]['shares'];
-				$tdhashrate = $return['devices'][$stats->stats[0]->STATS[0]->Type]['hashrate'];
-				
-				// Check the real active pool
-				$devicePoolIndex[] = 0;
-			}
 			
 			if (isset($stats->summary[0]->SUMMARY[0])) {
-				// log_message("error", var_export($stats->summary[0]->SUMMARY[0], true));
 				$totals = $stats->summary[0]->SUMMARY[0];
 
 				$return['totals']['temperature'] = ($tdtemperature) ? round(($tdtemperature/$d), 2) : false;				
@@ -417,22 +355,9 @@ class Util_model extends CI_Model {
 				$return['totals']['hashrate'] = $tdhashrate;
 				$return['totals']['last_share'] = $totals->{'Last getwork'};
 				
-				//log_message("error", var_export($stats->summary[0]->STATUS[0]->Description, true));
-				
-				if ($this->_minerdSoftware == "cgdmaxlzeus") {
-					//$cgbfgminerPoolHashrate = round(65536.0 * ($totals->{'Difficulty Accepted'} / $totals->Elapsed), 0);
-					$cgbfgminerPoolHashrate = round($totals->{'Total MH'} / $totals->Elapsed * 1000000);
-				} elseif ($this->_minerdSoftware == "cgminer" || (isset($stats->summary[0]->STATUS[0]->Description) && preg_match("/cgminer/", $stats->summary[0]->STATUS[0]->Description))) {
-					$cgbfgminerPoolHashrate = round($totals->{'Total MH'} / $totals->Elapsed * 1000000); //round(65536.0 * ($totals->{'Difficulty Accepted'} / $totals->Elapsed), 0); //round(($totals->{'Network Blocks'}*71582788/1000), 0);
-				} else {
-					$cgbfgminerPoolHashrate = round(($totals->{'Work Utility'}*71582788), 0);
-				}
+				$cgminerPoolHashrate = round($totals->{'Total MH'} / $totals->Elapsed * 1000000);
 
-				if (!$tdhashrate) $return['totals']['hashrate'] = $cgbfgminerPoolHashrate;
-
-				if (!$antNew && !isset($stats->devs[0]->DEVS)) {
-					$return['devices']['Unknown'] = $return['totals'];
-				}
+				if (!$tdhashrate) $return['totals']['hashrate'] = $cgminerPoolHashrate;
 			}
 
 		
@@ -450,8 +375,7 @@ class Util_model extends CI_Model {
                     $return['pool']['alive'] = $pool->alive;
                     $devicePoolIndex[] = $poolIndex;
                 }
-                $return['pool']['hashrate'] = $cgbfgminerPoolHashrate;
-
+                $return['pool']['hashrate'] = $cgminerPoolHashrate;
 			}
 		}
 		
@@ -654,7 +578,7 @@ class Util_model extends CI_Model {
 			{
 				foreach ($stats->pools as $pool)
 				{					
-					$mineraPoolUrl = ($this->checkAlgo(true) === "Scrypt") ? $this->config->item('minera_pool_url') : $this->config->item('minera_pool_url_sha256');					
+					$mineraPoolUrl = $this->config->item('minera_pool_url_sha256');					
 					// Don't check for the pool pass because Cgminer removes it from the stats showing "false" instead the real one and check fails
 					$poolDonationId = ($pool->url == $mineraPoolUrl && $pool->user == $this->getMineraPoolUser()) ? $pool->priority : false;
 				}			
@@ -764,7 +688,7 @@ class Util_model extends CI_Model {
 		$mineraMd5 = md5($this->config->item('minera_pool_url').$this->getMineraPoolUser().$this->config->item('minera_pool_password'));
 		$mineraSHA256Md5 = md5($this->config->item('minera_pool_url_sha256').$this->getMineraPoolUser().$this->config->item('minera_pool_password'));
 		
-		$algo = $this->checkAlgo(false);
+		$algo = "SHA-256";
 		
 		$keysSha = array(); $keysScrypt = array();
 		
@@ -1472,7 +1396,6 @@ class Util_model extends CI_Model {
 		// $this->redis->del("cron_lock");
 		// $this->redis->command("BGSAVE");
 		sleep(2);
-		
 		exec("sudo reboot");
 
 		return true;
@@ -2017,303 +1940,6 @@ class Util_model extends CI_Model {
 		return false;
 	}
 
-	/*
-	// Check what kind of algo is used to mine
-	*/	
-	public function checkAlgo($running = true)
-	{
-		$minerdCommand = $this->getCommandLine();
-		$scryptEnabled = $this->redis->get("minerd_scrypt");
-		$algo = "SHA-256";
-
-		if ($running)
-		{
-			if ($scryptEnabled || preg_match("/scrypt/i", $minerdCommand) || $this->redis->get("minerd_running_software") == "cpuminer")
-			{
-				$algo = "Scrypt";
-			}			
-		}
-		else
-		{
-			if ($scryptEnabled || preg_match("/scrypt/i", $minerdCommand) || $this->redis->get('minerd_software') == "cpuminer")
-			{
-				$algo = "Scrypt";
-			}	
-		}
-		
-		return $algo;
-	}
-	
-	/*
-	// Call the MobileMinera API to send device stats
-	*/
-	public function callMobileMinera()
-	{
-		if ($this->isEnableMobileminer()) {
-			$stats = json_decode($this->getParsedStats($this->getMinerStats()));
-			$networkStats = $this->getNetworkMinerStats(true);
-			
-			// Local Pool data
-			$poolUrl = (isset($stats->pool->url)) ? $stats->pool->url : "no pool configured";
-			$poolStatus = (isset($stats->pool->alive) && $stats->pool->alive) ? "Alive" : "Dead";
-			
-			// Local Algo data
-			$algo = $this->checkAlgo();
-			
-			// Params		
-			$params = array(
-				"email" => $this->redis->get("mobileminer_email"), 
-				"token" => $this->redis->get("mobileminer_appkey"), 
-				"apiKey" => $this->config->item('mobileminer_apikey'),
-				"systemName" => $this->redis->get("mobileminer_system_name"),
-				"algorithm" => $algo,
-				"minerSoftware" => "cgminer"
-			);
-			
-			// Local data				
-			$i = 0; $data = array();
-			if (isset($stats->devices) && count($stats->devices) > 0)
-			{
-				foreach ($stats->devices as $devName => $device)
-				{
-					$data[] = array(
-						"name" => $devName,
-						"poolIndex" => 0,
-						"poolUrl" => $poolUrl,
-						"poolStatus" => $poolStatus,
-						"deviceId" => $i,                                            
-						"status" => $this->isOnline(),
-						"temperature" => false,
-						"averageHashrate" => ($device->hashrate > 0) ? round(($device->hashrate/1000), 0) : 0,
-						"currentHashrate" => ($device->hashrate > 0) ? round(($device->hashrate/1000), 0) : 0,
-						"acceptedShares" => $device->accepted,
-						"rejectedShares" => $device->rejected,
-						"hardwareErrors" => $device->hw_errors,
-						"utility" => false,
-						"rejectedSharesPercent" => (($device->accepted+$device->rejected+$device->hw_errors) > 0) ? round(($device->rejected*100/($device->accepted+$device->rejected+$device->hw_errors)), 3) : 0,
-						"hardwareErrorsPercent" => (($device->accepted+$device->rejected+$device->hw_errors) > 0) ? round(($device->hw_errors*100/($device->accepted+$device->rejected+$device->hw_errors)), 3) : 0
-					);
-					$i++;
-				}
-			}
-			
-			if (count($data) > 0)
-			{
-				$data_string = json_encode($data);
-
-				if (strlen($data_string) > 0)
-				{
-					// Sending data to Mobile Miner
-					log_message('error', "Sending data to Mobileminer");
-		
-					$resultGetActions = $this->useCurl($this->config->item('mobileminera_url_stats'), $params, "POST", $data_string);
-					echo $resultGetActions;
-				}
-			}
-		}
-	}
-	
-	/*
-	// Call the Mobileminer API to send device stats
-	*/
-	public function callMobileminer()
-	{
-		return true;
-		
-		if ($this->isEnableMobileminer())
-		{
-			$stats = json_decode($this->getParsedStats($this->getMinerStats()));
-			$networkStats = $this->getNetworkMinerStats(true);
-			
-			// Params		
-			$params = array("emailAddress" => $this->redis->get("mobileminer_email"), "applicationKey" => $this->redis->get("mobileminer_appkey"), "apiKey" => $this->config->item('mobileminer_apikey'), "fetchCommands" => "true");
-			
-			// Local Pool data
-			$poolUrl = (isset($stats->pool->url)) ? $stats->pool->url : "no pool configured";
-			$poolStatus = (isset($stats->pool->alive) && $stats->pool->alive) ? "Alive" : "Dead";
-			
-			// Local Algo data
-			$algo = $this->checkAlgo();
-			
-			// Local data				
-			$i = 0; $data = array();
-			if (isset($stats->devices) && count($stats->devices) > 0)
-			{
-				foreach ($stats->devices as $devName => $device)
-				{
-					$data[] = array(
-						"MachineName" => $this->redis->get("mobileminer_system_name"),
-						"MinerName" => "Minera",
-						"CoinSymbol" => "",
-						"CoinName" => "",
-						"Algorithm" => $algo,
-						"Kind" => "Asic",
-						"Name" => $devName,
-						"FullName" => $devName,
-						"PoolIndex" => 0,
-						"PoolName" => $poolUrl,
-						"Index" => $i,                                            
-						"DeviceID" => $i,
-						"Enabled" => $this->isOnline(),
-						"Status" => $poolStatus,
-						"Temperature" => false,
-						"FanSpeed" => 0,
-						"FanPercent" => 0,
-						"GpuClock" => 0,
-						"MemoryClock" => 0,
-						"GpuVoltage" => 0,
-						"GpuActivity" => 0,
-						"PowerTune" => 0,
-						"AverageHashrate" => ($device->hashrate > 0) ? round(($device->hashrate/1000), 0) : 0,
-						"CurrentHashrate" => ($device->hashrate > 0) ? round(($device->hashrate/1000), 0) : 0,
-						"AcceptedShares" => $device->accepted,
-						"RejectedShares" => $device->rejected,
-						"HardwareErrors" => $device->hw_errors,
-						"Utility" => false,
-						"Intensity" => null,
-						"RejectedSharesPercent" => (($device->accepted+$device->rejected+$device->hw_errors) > 0) ? round(($device->rejected*100/($device->accepted+$device->rejected+$device->hw_errors)), 3) : 0,
-						"HardwareErrorsPercent" => (($device->accepted+$device->rejected+$device->hw_errors) > 0) ? round(($device->hw_errors*100/($device->accepted+$device->rejected+$device->hw_errors)), 3) : 0
-					);
-					$i++;
-				}
-			}
-			
-			if (count($networkStats) > 0)
-			{
-				foreach ($networkStats as $netMinerName => $netMiner)
-				{
-					// Network Pool data
-					$netPoolUrl = (isset($netMiner->pool->url)) ? $netMiner->pool->url : "no pool configured";
-					$netPoolStatus = (isset($netMiner->pool->alive) && $netMiner->pool->alive) ? "Alive" : "Dead";
-					$netEnabled = (isset($netMiner->devices)) ? true : false;
-		
-					// Network data							
-					$i = 0;
-					if (isset($netMiner->devices) && count($netMiner->devices) > 0)
-					{
-						foreach ($netMiner->devices as $netDevName => $netDevice)
-						{
-							$data[] = array(
-								"MachineName" => $this->redis->get("mobileminer_system_name")." - ".$netMinerName,
-								"MinerName" => "Minera",
-								"CoinSymbol" => "",
-								"CoinName" => "",
-								"Algorithm" => $netMiner->config['algo'],
-								"Kind" => "Network",
-								"Name" => $netDevName,
-								"FullName" => $netDevName,
-								"PoolIndex" => 0,
-								"PoolName" => $netPoolUrl,
-								"Index" => $i,                                            
-								"DeviceID" => $i,
-								"Enabled" => $netEnabled,
-								"Status" => $netPoolStatus,
-								"Temperature" => (isset($netDevice->temperature)) ? $netDevice->temperature : false,
-								"FanSpeed" => 0,
-								"FanPercent" => 0,
-								"GpuClock" => 0,
-								"MemoryClock" => 0,
-								"GpuVoltage" => 0,
-								"GpuActivity" => 0,
-								"PowerTune" => 0,
-								"AverageHashrate" => ($netDevice->hashrate > 0) ? round(($netDevice->hashrate/1000), 0) : 0,
-								"CurrentHashrate" => ($netDevice->hashrate > 0) ? round(($netDevice->hashrate/1000), 0) : 0,
-								"AcceptedShares" => $netDevice->accepted,
-								"RejectedShares" => $netDevice->rejected,
-								"HardwareErrors" => $netDevice->hw_errors,
-								"Utility" => false,
-								"Intensity" => null,
-								"RejectedSharesPercent" => (($netDevice->accepted+$netDevice->rejected+$netDevice->hw_errors) > 0) ? round(($netDevice->rejected*100/($netDevice->accepted+$netDevice->rejected+$netDevice->hw_errors)), 3) : 0,
-								"HardwareErrorsPercent" => (($netDevice->accepted+$netDevice->rejected+$netDevice->hw_errors) > 0) ? round(($netDevice->hw_errors*100/($netDevice->accepted+$netDevice->rejected+$netDevice->hw_errors)), 3) : 0
-							);
-							$i++;
-						}
-					}					
-				}
-			}
-			
-			//log_message("error", var_export($networkStats, true));
-			
-			$resultGetActions = false; 
-			
-			if (count($data) > 0)
-			{
-				$data_string = json_encode($data);
-				
-				if (strlen($data_string) > 0)
-				{
-					// Sending data to Mobile Miner
-					log_message('error', "Sending data to Mobileminer");
-		
-					$resultGetActions = $this->useCurl($this->config->item('mobileminer_url_stats'), $params, "POST", $data_string);								}
-			}
-						
-			/*	
-			// Looking for actions to do
-			*/
-			if ($resultGetActions)
-			{				
-				$resultGetActions = json_decode($resultGetActions);
-				//log_message("error", var_export($resultGetActions, true));
-				if (is_array($resultGetActions) && count($resultGetActions) > 0)
-				{
-					$actionToDo = $resultGetActions[0];
-					
-					$paramsGetActions = array("emailAddress" => $this->redis->get("mobileminer_email"), "applicationKey" => $this->redis->get("mobileminer_appkey"), "apiKey" => $this->config->item('mobileminer_apikey'), "machineName" => $actionToDo->Machine->Name);
-
-					
-					// Do the mobileMiner action
-					if ($actionToDo->CommandText == "START")
-					{
-						if ($actionToDo->Machine->Name === $this->redis->get("mobileminer_system_name") && !$this->isOnline()) $this->minerStart();
-					}
-					elseif ($actionToDo->CommandText == "STOP")
-					{
-						if ($actionToDo->Machine->Name === $this->redis->get("mobileminer_system_name")) $this->minerStop();
-					}
-					elseif ($actionToDo->CommandText == "RESTART")
-					{
-						if ($actionToDo->Machine->Name === $this->redis->get("mobileminer_system_name")) $this->minerRestart();
-					}
-					// TODO Add switching for net miners too
-					elseif (preg_match("/SWITCH/", $actionToDo->CommandText))
-					{
-						$switch = explode("|", $actionToDo->CommandText);
-						if (isset($switch[1]))
-						{
-							$array = explode("||", $switch[1]);
-							if (isset($array[0]))
-							{
-								$this->selectPool($array[0]);
-							}
-						}
-					}
-					
-					log_message('error', 'Action done: '.json_encode($resultGetActions));
-					
-					/*
-					// Remove MobileMiner action by ID
-					*/
-					$paramsGetActions['commandId'] = $actionToDo->Id;
-					
-					$this->useCurl($this->config->item('mobileminer_url_remotecommands'), $paramsGetActions, "DELETE");
-
-					log_message('error', 'Removed MobileMiner actions with ID: '.$actionToDo->Id);
-					
-				}
-				else
-				{
-					log_message('error', 'No MobileMiner actions to do.');						
-				}
-			}
-
-			return true;
-				
-		}
-		
-		return false;
-	}
-	
 	public function checkNetworkDevice($ip, $port=4028) 
 	{		
 		$connection = @fsockopen($ip, 4028, $errno, $errstr, 5);

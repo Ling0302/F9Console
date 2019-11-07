@@ -166,7 +166,7 @@ class App extends CI_Controller {
 		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");
 		$data['minerdSoftware'] = $this->redis->get("minerd_software");
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
-		$data['localAlgo'] = $this->util_model->checkAlgo($this->util_model->isOnline());
+		$data['localAlgo'] = "SHA-256";
 		$data['browserMining'] = $this->redis->get('browser_mining');
 		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
 		$data['env'] = $this->config->item('ENV');
@@ -369,7 +369,7 @@ class App extends CI_Controller {
 		$data['dashboardBoxLog'] = ($this->redis->get("dashboard_box_log")) ? $this->redis->get("dashboard_box_log") : false;
 		
 		$data['dashboardTableRecords'] = ($this->redis->get("dashboard_table_records")) ? $this->redis->get("dashboard_table_records") : 5;
-		$data['algo'] = $this->util_model->checkAlgo(false);
+		$data['algo'] = "SHA-256";
 
 		// Everything else
 		$data['savedFrequencies'] = $this->redis->get('current_frequencies');
@@ -951,32 +951,15 @@ class App extends CI_Controller {
 	// API controller
 	*/
 	public function api($command = false)
-	{
-		$this->util_model->isLoggedIn();
-		
+	{		
 		$cmd = ($command) ? $command : $this->input->get('command');
 		
-		$o = '{ "Hello": "World" }';
+		$o = '{}';
 		
 		switch($cmd)
 		{
 			case "save_current_freq":
 				$o = $this->util_model->saveCurrentFreq();
-			break;
-			case "select_pool":
-				$o = json_encode($this->util_model->selectPool($this->input->get('poolId'), $this->input->get('network')));
-				// Give the miner the time to refresh
-				sleep(3);
-			break;
-			case "add_pool":
-				$o = json_encode($this->util_model->addPool($this->input->get('url'), $this->input->get('user'), $this->input->get('pass'), $this->input->get('network')));
-				// Give the miner the time to refresh
-				sleep(3);
-			break;
-			case "remove_pool":
-				$o = json_encode($this->util_model->removePool($this->input->get('poolId'), $this->input->get('network')));
-				// Give the miner the time to refresh
-				sleep(3);
 			break;
 			case "update_minera":
 				$o = $this->util_model->update();
@@ -989,12 +972,6 @@ class App extends CI_Controller {
 			break;
 			case "miner_stats":
 				$o = json_encode($this->util_model->getMinerStats());
-			break;
-			case "network_miners_stats":
-				$o = json_encode($this->util_model->getNetworkMinerStats(false));
-			break;
-			case "notify_mobileminer":
-				$o = $this->util_model->callMobileminer();
 			break;
 			case "history_stats":
 				$o = $this->util_model->getHistoryStats($this->input->get('type'));
@@ -1010,35 +987,17 @@ class App extends CI_Controller {
 				$this->session->set_flashdata('message', '<b>Success!</b> Data has been reset.');
 				$this->session->set_flashdata('message_type', 'success');
 			break;
-            case "cron_run":
-                $this->cron();
-                break;
-			case "profitability":
-				$o = $this->util_model->getProfitability();
-			break;
 			case "import_file":
 				$o = json_encode($this->util_model->importFile($this->input->post()));
 			break;
-			case "delete_config":
-				$o = json_encode($this->util_model->deleteSavedConfig($this->input->get("id")));
-			break;
-			case "share_config":
-				$o = json_encode($this->util_model->shareSavedConfig($this->input->post()));
-			break;
-			case "delete_custom_miner":
-				$o = json_encode($this->util_model->deleteCustomMinerFile($this->input->get("custom")));
+			case "reboot":
+				$o = $this->util_model->reboot();
 			break;
 			case "scan_network":
 				$o = json_encode($this->util_model->discoveryNetworkDevices($this->input->get('network')));
 			break;
 			case "tail_log":
 				$o = json_encode($this->util_model->tailFile($this->input->get('file'), ($this->input->get('lines')) ? $this->input->get('lines') : 5));
-			break;
-			case "call_mobileminer":
-				$o = json_encode($this->util_model->callMobileminer());
-			break;
-			case "box_status":
-				$o = json_encode($this->util_model->setBoxStatus($this->input->get('id'), $this->input->get('status')));
 			break;
 			case "miner_action":
 				$action = ($this->input->get('action')) ? $this->input->get('action') : false;
@@ -1280,7 +1239,7 @@ class App extends CI_Controller {
 	
 				$minerdRunning = $this->redis->get("minerd_running_software");
 
-				$anonStats = array("id" => $mineraSystemId, "algo" => $this->util_model->checkAlgo(), "hashrate" => $totalHashrate, "devices" => $totalDevices, "miner" => $minerdRunning, "version" => $this->util_model->currentVersion(true), "timestamp" => time());
+				$anonStats = array("id" => $mineraSystemId, "algo" => "SHA-256", "hashrate" => $totalHashrate, "devices" => $totalDevices, "miner" => $minerdRunning, "version" => $this->util_model->currentVersion(true), "timestamp" => time());
 			}
 			
 			if ( $currentMinute == "00")
@@ -1340,10 +1299,6 @@ class App extends CI_Controller {
 				}
 			}
 		}
-		
-		// Call Mobileminer if enabled
-		// DISABLED as the service shuts down
-		//$this->util_model->callMobileminer();
 
 		$this->redis->del("cron_lock");
 
