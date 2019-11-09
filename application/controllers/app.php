@@ -55,10 +55,7 @@ class App extends CI_Controller {
 		$this->redis->del("minera_update");
 		
 		//$this->util_model->checkUpdate();
-		
-		// Remove old Minera pool
-		$this->util_model->removeOldMineraPool();
-		
+				
 		if (!$this->redis->command("EXISTS dashboard_devicetree")) $this->redis->set("dashboard_devicetree", 1);
 		if (!$this->redis->command("EXISTS dashboard_box_profit")) $this->redis->set("dashboard_box_profit", 1);
 		if (!$this->redis->command("EXISTS dashboard_box_local_miner")) $this->redis->set("dashboard_box_local_miner", 1);
@@ -137,7 +134,7 @@ class App extends CI_Controller {
 		if (isset($boxStatuses)) {
 			$data['boxStatuses'] = $boxStatuses;
 		}
-		
+
 		$data['now'] = time();
 		$data['sectionPage'] = 'dashboard';
 		$data['minerdPools'] = json_decode($this->util_model->getPools());
@@ -1030,7 +1027,6 @@ class App extends CI_Controller {
 	{
 	    $stats = $this->util_model->getStats();
 
-		
 		$this->output
 			->set_content_type('application/json')
 			->set_output($stats);

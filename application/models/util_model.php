@@ -784,7 +784,9 @@ class Util_model extends CI_Model {
 		$minerd_pools = $this->redis->get("minerd_pools");
 		if(!$minerd_pools)
 		{
-			
+			$confContent = file_get_contents($this->config->item("minerd_conf_file"));
+			$minerd_pools = json_decode($confContent);
+			$this->setPools($minerd_pools);
 		}
 
 		return $minerd_pools;

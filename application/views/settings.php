@@ -57,7 +57,7 @@
                 <!-- Top section -->
                 <section class="col-md-12">
 						
-					<form action="#" method="post" role="form" id="minersettings" enctype="multipart/form-data">
+					<form action="<?php echo site_url("app/settings") ?>" method="post" role="form" id="minersettings" enctype="multipart/form-data">
 												
 						<input type="hidden" name="save_miner_pools" value="1" />
 						                            	                          
@@ -206,7 +206,6 @@
 						
 						</form>
                     </div>
-
 
 					<!-- Firmware Upgrade -->
 					<div class="box box-primary" id="firmware-box">
