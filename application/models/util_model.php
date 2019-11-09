@@ -59,6 +59,21 @@ class Util_model extends CI_Model {
 		
 		return true;
 	}
+
+	// Get the mac address
+	public function getMacAddr()
+	{
+		@exec("ifconfig -a", $result);
+
+		$tem = array();
+		foreach($result as $val){
+			if(preg_match("/[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f]/i",$val,$tem) ){
+				$macAddr = $tem[0];
+				break;
+			}
+		}
+		return $macAddr;
+	}
 	
 	/*
 	//
@@ -111,6 +126,9 @@ class Util_model extends CI_Model {
 		
 		// Add Minera ID
 		$a->minera_id = $this->generateMineraId();
+
+		// Add Miner Mac Address
+		$a->mac_addr = $this->getMacAddr();
 		
 		// Add miner software used
 		$a->miner = $this->_minerdSoftware;
@@ -365,13 +383,15 @@ class Util_model extends CI_Model {
 		{
 			$return['pool']['hashrate'] = 0;
 			$return['pool']['url'] = null;
+			$return['pool']['user'] = null;
 			$return['pool']['alive'] = 0;
 
 			foreach ($stats->pools as $poolIndex => $pool)
 			{
                 if ((isset($pool->active) && $pool->active == 1) || (isset($pool->{'Stratum Active'}) && $pool->{'Stratum Active'} == 1) )
                 {
-                    $return['pool']['url'] = $pool->url;
+					$return['pool']['url'] = $pool->url;
+					$return['pool']['user'] = $pool->user;
                     $return['pool']['alive'] = $pool->alive;
                     $devicePoolIndex[] = $poolIndex;
                 }
