@@ -1309,6 +1309,39 @@ class Util_model extends CI_Model {
 		
 		return;
 	}
+
+	public function saveNetwork($type,$ip,$mask,$gw,$dns)
+	{
+		$network_type = $type;
+
+		$content = '';
+
+		if ($network_type == 'static')
+		{
+			$ip_address = $ip;
+			$net_mask = $mask;
+			$gateway = $gw;
+			$content = 'auto lo'.PHP_EOL.'iface lo inet loopback'.PHP_EOL.'auto eth0'.PHP_EOL.'iface eth0 inet static'.PHP_EOL.'address '.$ip_address.PHP_EOL.'netmask '.$net_mask.PHP_EOL.'gateway '.$gateway.PHP_EOL.'dns-nameservers 8.8.8.8 114.114.114.114 '.$dns;
+			$dns_content = 'nameserver 8.8.8.8'.PHP_EOL.'nameserver 114.114.114.114'.PHP_EOL ;
+			shell_exec('sudo rm /etc/resolv.conf');
+			file_put_contents('/tmp/resolv.conf', $dns_content);
+			shell_exec('sudo cp /tmp/resolv.conf /etc/resolv.conf');
+		}
+		else
+		{
+			$content = 'auto lo'.PHP_EOL.'iface lo inet loopback'.PHP_EOL.'auto eth0'.PHP_EOL.'iface eth0 inet dhcp'.PHP_EOL.' pre-up /etc/network/nfs_check'.PHP_EOL.'	wait-delay 15'.PHP_EOL.' hostname $(hostname)';
+		}
+
+		file_put_contents('/tmp/interfaces', $content);
+		sleep(1);
+		shell_exec('sudo cp /tmp/interfaces /etc/network');
+		//shell_exec('rm /tmp/interfaces');
+		shell_exec('sudo ip addr flush dev eth0');
+		shell_exec('sudo sh /etc/init.d/S40network restart');
+		$data['message'] = 'Success! IP saved!';
+		$data['message_type'] = "success";
+		return json_encode($data);
+	}
 	
 	public function readCustomMinerDir()
 	{

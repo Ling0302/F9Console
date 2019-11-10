@@ -315,6 +315,43 @@ class App extends CI_Controller {
 			}
 
 		}
+
+		if ($this->input->post('save_network')) 
+		{
+			$network_type = $this->input->post('network-type');
+
+			$content = '';
+
+			if ($network_type == 'static')
+			{
+				$ip_address = $this->input->post('ip_address');
+				$net_mask = $this->input->post('net_mask');
+				$gateway = $this->input->post('gateway');
+				$dns = $this->input->post('dns');
+				$content = 'auto lo'.PHP_EOL.'iface lo inet loopback'.PHP_EOL.'auto eth0'.PHP_EOL.'iface eth0 inet static'.PHP_EOL.'address '.$ip_address.PHP_EOL.'netmask '.$net_mask.PHP_EOL.'gateway '.$gateway.PHP_EOL.'dns-nameservers 8.8.8.8 114.114.114.114 '.$dns;
+				$dns_content = 'nameserver 8.8.8.8'.PHP_EOL.'nameserver 114.114.114.114'.PHP_EOL ;
+				shell_exec('sudo rm /etc/resolv.conf');
+				file_put_contents('/tmp/resolv.conf', $dns_content);
+				shell_exec('sudo cp /tmp/resolv.conf /etc/resolv.conf');
+			}
+			else
+			{
+				$content = 'auto lo'.PHP_EOL.'iface lo inet loopback'.PHP_EOL.'auto eth0'.PHP_EOL.'iface eth0 inet dhcp'.PHP_EOL.' pre-up /etc/network/nfs_check'.PHP_EOL.'	wait-delay 15'.PHP_EOL.' hostname $(hostname)';
+			}
+
+			file_put_contents('/tmp/interfaces', $content);
+			sleep(1);
+			shell_exec('sudo cp /tmp/interfaces /etc/network');
+			//shell_exec('rm /tmp/interfaces');
+			shell_exec('sudo ip addr flush dev eth0');
+			shell_exec('sudo sh /etc/init.d/S40network restart');
+			$data['message'] = 'Success! IP saved!';
+			$data['message_type'] = "success";
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($data));
+			return;
+		}
 		
 		// Load miner settings
 		$data['builtInMinersConf'] = json_decode($this->util_model->refreshMinerConf());
@@ -998,6 +1035,8 @@ class App extends CI_Controller {
 			break;
 			case "reboot":
 				$o = $this->util_model->reboot();
+			case "save_network":
+				$o = $this->util_model->saveNetwork($this->input->get('type'),$this->input->get('ip'),$this->input->get('mask'),$this->input->get('gw'),$this->input->get('dns'));
 			break;
 			case "scan_network":
 				$o = json_encode($this->util_model->discoveryNetworkDevices($this->input->get('network')));
