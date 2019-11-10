@@ -892,7 +892,17 @@ $(function() {
 	       	e.preventDefault();
 	    	$('input[name="config_id"]').val($(this).data('config-id'));
 	    	$('#modal-sharing').modal('show');
-	    });
+		});
+		
+		$(document).on('change', 'select[name="network-type"]', function(e) {
+			e.preventDefault();
+			var network_type = $(this).val();
+			if ( network_type == 'dhcp' ) {
+				$(this).parent().siblings('.input-group').hide();
+			} else {
+				$(this).parent().siblings('.input-group').show();
+			}
+	 	});
 	    
 	    $(document).on('click', '.share-config-action', function(e) {
 	       	e.preventDefault();

@@ -13,7 +13,6 @@ class App extends CI_Controller {
 
 	}
 
-
 	private function __initLanguage(){
 		$lang_support = config_item('support_language');
 		$lang_url    = $this->uri->segment(1);
@@ -67,6 +66,11 @@ class App extends CI_Controller {
 		if (!$this->redis->command("EXISTS dashboard_box_chart_hashrates")) $this->redis->set("dashboard_box_chart_hashrates", 1);
 		if (!$this->redis->command("EXISTS dashboard_box_scrypt_earnings")) $this->redis->set("dashboard_box_scrypt_earnings", 1);
 		if (!$this->redis->command("EXISTS dashboard_box_log")) $this->redis->set("dashboard_box_log", 1);
+
+		$miner_pools = $this->redis->get("minerd_pools");
+
+		$pools = $this->util_model->getPools();
+
 		
 		$data['now'] = time();
 		$data['minera_system_id'] = $mineraSystemId;
@@ -983,6 +987,11 @@ class App extends CI_Controller {
 				$this->cron();
 				$this->session->set_flashdata('message', '<b>Success!</b> Data has been reset.');
 				$this->session->set_flashdata('message_type', 'success');
+			break;
+			case "upgrade_exec":
+				// execute the upgrade command
+				exec("sudo nohup system_update online /tmp/".$fileInfoName." >/var/log/upgrade.log");
+				$o = json_encode(array("message" => true));
 			break;
 			case "import_file":
 				$o = json_encode($this->util_model->importFile($this->input->post()));
