@@ -1447,8 +1447,8 @@ $(function() {
 		
 		var log_url = $('.app_data').data('minerd-log');
 		var fix_rn = true;
-		var load_log = 1 * 1024; /* 30KB */
-		var poll = 30000; /* 30s */
+		var load_log = 30 * 1024; /* 30KB */
+		var poll = 2000; /* 2s */
 		
 		var kill = false;
 		var loading = false;
@@ -2863,7 +2863,7 @@ function getStats(refresh)
 				{
 					var temp_bar = 'bg-blue', 
 						temp_text = 'It\'s cool here',
-						sys_temp = parseFloat(data.temp.value),
+						sys_temp = parseFloat(data.temp),
 						tempthres1,
 						tempthres2,
 						tempthres3,

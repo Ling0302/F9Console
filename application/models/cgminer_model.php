@@ -56,7 +56,7 @@ class Cgminer_model extends CI_Model {
 	function callMinerd($cmd = false, $network = false)
 	{
 		if (!$cmd)
-			$cmd = '{"command":"summary+devs+pools"}';
+			$cmd = '{"command":"summary+devs+pools+estats"}';
  
 		log_message("error", "Called Minerd with command: ".$cmd);
 		

@@ -148,7 +148,7 @@ class Util_model extends CI_Model {
 		$a->sysuptime = $this->getSysUptime();
 		
 		// Add controller temp
-		$a->temp = $this->checkTemp();				
+		$a->temp = $this->checkTemp($a->devices);				
 		
 		// Add BTC rates
 		//$a->btc_rates = $btcData;
@@ -214,7 +214,7 @@ class Util_model extends CI_Model {
 		if ($this->isOnline($network))
 		{
 			$cmd = false;
-			if ($type == 'newAnt') $cmd = '{"command":"summary+pools+stats"}';
+			if ($type == 'newAnt') $cmd = '{"command":"summary+pools+estats"}';
 
 			$a = ($network) ? $this->network_miner->callMinerd($cmd, $network) : $this->miner->callMinerd();
 
@@ -323,16 +323,21 @@ class Util_model extends CI_Model {
 		}
 		
 		$poolHashrate = 0;
+
+		//echo "<pre>";
+		//			print_r($stats->estats[0]->STATS[0]->{'Temp Avg'});
+		//			echo "</pre>";
 		// CG/BFGminer devices stats
 			if (isset($stats->devs[0]->DEVS)) {
 				
 				foreach ($stats->devs[0]->DEVS as $device) {
-					$d++; $c = 0; $tcfrequency = 0; $tcaccepted = 0; $tcrejected = 0; $tchwerrors = 0; $tcshares = 0; $tchashrate = 0; $tclastshares = array();
+					$c = 0; $tcfrequency = 0; $tcaccepted = 0; $tcrejected = 0; $tchwerrors = 0; $tcshares = 0; $tchashrate = 0; $tclastshares = array();
 
-                    $name = "Board-".$d;
+					$name = "Board-".($d + 1);
 
-					$return['devices'][$name]['temperature'] = (isset($device->Temperature)) ? $device->Temperature : false;
-					$return['devices'][$name]['frequency'] = (isset($device->Frequency)) ? $device->Frequency : false;
+					$return['devices'][$name]['temperature'] = (isset($stats->estats[0]->STATS[$d]->{'Temp Avg'})) ? $stats->estats[0]->STATS[$d]->{'Temp Avg'} : false;
+					
+					$return['devices'][$name]['frequency'] = (isset($stats->estats[0]->STATS[$d]->{'Device Freq'})) ? $stats->estats[0]->STATS[$d]->{'Device Freq'} : false;
 					$return['devices'][$name]['accepted'] = $device->Accepted;
 					$return['devices'][$name]['rejected'] = $device->Rejected;
 					$return['devices'][$name]['hw_errors'] = $device->{'Hardware Errors'};
@@ -356,6 +361,7 @@ class Util_model extends CI_Model {
 					// Check the real active pool
 					$devicePoolIndex = [];
 					if (isset($device->{'Last Share Pool'})) $devicePoolIndex[] = $device->{'Last Share Pool'};
+					$d++;
 				}				
 				
 				$devicePoolActives = array_count_values($devicePoolIndex);				
@@ -1272,22 +1278,17 @@ class Util_model extends CI_Model {
 	}
 	
 	// Check RPi temp
-	public function checkTemp()
+	public function checkTemp($device)
 	{
-		if (file_exists($this->config->item("rpi_temp_file")))
-		{
-			$scale = ($this->redis->get("dashboard_temp")) ? $this->redis->get("dashboard_temp") : "c";
-			$temp = number_format( ( (int)exec("cat ".$this->config->item("rpi_temp_file"))/1000), 2 );
-
-			if ($scale == "f")
-				$temp = intval((9/5)* $temp + 32);
-
-			return array("value" => $temp, "scale" => $scale);
+		$d = 0;
+		$c = 0;
+		
+		foreach ($device as $key=>$val) {
+			$d += $val->temperature;
+			$c ++;
 		}
-		else
-		{
-			return false;
-		}
+		
+		return $d/intval($c);
 	}
 	
 	public function checkMinerIsUp()
