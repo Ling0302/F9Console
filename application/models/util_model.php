@@ -2184,4 +2184,29 @@ class Util_model extends CI_Model {
 		
 		return $result;
 	}
+
+	public function getNetworkType()
+	{
+		$type = 'dhcp';
+		$result = exec("cat /etc/network/interface");
+		if(stripos($result,'dhcp') === false )
+		{
+			$type = 'static';
+		}
+		return $type;
+	}
+
+	public function minerInfo()
+	{
+		$info = new stdClass();
+
+		$info->model = 'F5';
+		$info->firmware_version = 'Cheetah_Miner_F5_20191125';
+		$info->mac = $this->getMacAddr();
+		$info->network_type = $this->getNetworkType();
+		$info->uptime = $this->getSysUptime();
+
+		return json_encode($info);
+
+	}
 }

@@ -939,9 +939,6 @@ class App extends CI_Controller {
 		
 		redirect('app/dashboard');
 	}
-
-
-
 	
 	/*
 	// Update controller (this should be in a different "system" controller file)
@@ -1043,6 +1040,9 @@ class App extends CI_Controller {
 			break;
 			case "tail_log":
 				$o = json_encode($this->util_model->tailFile($this->input->get('file'), ($this->input->get('lines')) ? $this->input->get('lines') : 5));
+			break;
+			case "miner_info":
+				$o = $this->util_model->minerInfo();
 			break;
 			case "miner_action":
 				$action = ($this->input->get('action')) ? $this->input->get('action') : false;
