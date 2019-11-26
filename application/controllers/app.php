@@ -68,9 +68,7 @@ class App extends CI_Controller {
 		if (!$this->redis->command("EXISTS dashboard_box_log")) $this->redis->set("dashboard_box_log", 1);
 
 		$miner_pools = $this->redis->get("minerd_pools");
-
 		$pools = $this->util_model->getPools();
-
 		
 		$data['now'] = time();
 		$data['minera_system_id'] = $mineraSystemId;
@@ -271,17 +269,6 @@ class App extends CI_Controller {
 			$jsonPoolsConfRedis = json_encode($pools);
 			$this->redis->set('minerd_pools', $jsonPoolsConfRedis);
 
-			// default settings
-			$confArray["api-listen"] = true;
-			$confArray["api-port"] = "4028";
-			$confArray["api-allow"] = "R:0/0,W:127.0.0.1";
-			$confArray["T1Pll1"] = "1300";
-			$confArray["T1Volt1"] = "412";
-			$confArray["T1Pll2"] = "1300";
-			$confArray["T1Volt2"] = "412";
-			$confArray["T1Pll3"] = "1300";
-			$confArray["T1Volt3"] = "412";
-
 			// Prepare JSON conf
 			$jsonConfFile = json_encode($confArray, 192); // JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES = 128 + 64
 
@@ -291,7 +278,7 @@ class App extends CI_Controller {
 			exec("sudo mv " . $this->config->item('minerd_conf_temp_file') . " " . $this->config->item('minerd_conf_file'));
 			sleep(2);
 
-			// $this->util_model->restartCgminer();
+			$this->util_model->restartCgminer();
 			$data['message'] = '<b>Success!</b> pools are saved!';
 			$data['message_type'] = "success";
 

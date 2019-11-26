@@ -324,9 +324,6 @@ class Util_model extends CI_Model {
 		
 		$poolHashrate = 0;
 
-		//echo "<pre>";
-		//			print_r($stats->estats[0]->STATS[0]->{'Temp Avg'});
-		//			echo "</pre>";
 		// CG/BFGminer devices stats
 			if (isset($stats->devs[0]->DEVS)) {
 				
@@ -807,15 +804,11 @@ class Util_model extends CI_Model {
 
 	function getPools()
 	{
-		$minerd_pools = $this->redis->get("minerd_pools");
-		if($minerd_pools)
-		{
-			$confContent = file_get_contents($this->config->item("minerd_conf_file"));
-			$minerd_pools = json_decode($confContent);
-			$this->setPools($minerd_pools);
-		}
-
-		return $minerd_pools;
+		$confContent = file_get_contents($this->config->item("minerd_conf_file"));
+		$minerd_pools = json_decode($confContent, JSON_FORCE_OBJECT);
+		$this->setPools($minerd_pools['pools']);
+		
+		return json_encode($minerd_pools['pools']);
 	}
 	
 	function parsePools($pools)
