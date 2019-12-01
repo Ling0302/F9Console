@@ -296,7 +296,7 @@ class App extends CI_Controller {
 				$data['message_type'] = "warning";
 			} else
 			{
-				exec("sudo nohup system_update online /tmp/".$fileInfoName." >/var/log/upgrade.log");
+				exec("sudo system_update online /tmp/".$fileInfoName." >/var/log/upgrade.log");
 				$data['message'] = '<b>Success!</b> The upgrade will take couple of minutes, please wait!';
 				$data['message_type'] = "success";
 			}
@@ -318,6 +318,7 @@ class App extends CI_Controller {
 				$content = 'auto lo'.PHP_EOL.'iface lo inet loopback'.PHP_EOL.'auto eth0'.PHP_EOL.'iface eth0 inet static'.PHP_EOL.'address '.$ip_address.PHP_EOL.'netmask '.$net_mask.PHP_EOL.'gateway '.$gateway.PHP_EOL.'dns-nameservers 8.8.8.8 114.114.114.114 '.$dns;
 				$dns_content = 'nameserver 8.8.8.8'.PHP_EOL.'nameserver 114.114.114.114'.PHP_EOL ;
 				shell_exec('sudo rm /etc/resolv.conf');
+				shell_exec('sudo chmod 766 /tmp/resolv.conf');
 				file_put_contents('/tmp/resolv.conf', $dns_content);
 				shell_exec('sudo cp /tmp/resolv.conf /etc/resolv.conf');
 			}
@@ -361,6 +362,7 @@ class App extends CI_Controller {
 		$data['minerdSettings'] = $this->util_model->getCommandline();
 		$data['minerdJsonSettings'] = $this->redis->get("minerd_json_settings");
 		$data['minerdPools'] = $this->util_model->getPools();
+		$data['minerdNetwork'] = $this->util_model->getIfconfig();
 		$data['minerdGuidedOptions'] = $this->redis->get("guided_options");
 		$data['minerdManualOptions'] = $this->redis->get("manual_options");
 		$data['minerdDelaytime'] = $this->redis->get("minerd_delaytime");

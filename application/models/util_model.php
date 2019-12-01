@@ -74,6 +74,36 @@ class Util_model extends CI_Model {
 		}
 		return $macAddr;
 	}
+
+	public function getIfconfig()
+	{
+		@exec("ifconfig eth0", $result);
+		$a = new stdClass();
+
+		$tem = array();
+		foreach($result as $val){
+			if(preg_match("/[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f][:-]"."[0-9a-f][0-9a-f]/i",$val,$tem) ){
+				$macAddr = $tem[0];
+				$a->mac = $macAddr;
+			}
+
+			if(preg_match("^((128|192)|2(24|4[08]|5[245]))(\.(0|(128|192)|2((24)|(4[08])|(5[245])))){3}^",$val,$tem) ){
+				$mask = $tem[0];
+				$a->mask = $mask;
+			}
+		}
+		$a->ip = $_SERVER['SERVER_ADDR'];
+		@exec("route -n | grep eth0 | grep UG | awk '{print $2}'", $gw);
+		$a->gw = $gw[0];
+		@exec("cat /etc/resolv.conf | grep nameserver |sed -n '1p'|awk '{print $2}'", $dns);
+		$a->dns = $dns[0];
+		@exec("cat /etc/network/interfaces |grep dhcp| awk '{print $4}'", $dhcp);
+		$a->dhcp = $dhcp[0];
+
+		return $a;
+	}
+
+
 	
 	/*
 	//
@@ -129,6 +159,8 @@ class Util_model extends CI_Model {
 
 		// Add Miner Mac Address
 		$a->mac_addr = $this->getMacAddr();
+
+		$a->ifconfig = $this->getIfconfig();
 		
 		// Add miner software used
 		$a->miner = $this->_minerdSoftware;
@@ -148,7 +180,10 @@ class Util_model extends CI_Model {
 		$a->sysuptime = $this->getSysUptime();
 		
 		// Add controller temp
-		$a->temp = $this->checkTemp($a->devices);				
+		if (property_exists($a, 'devices')) {
+			$a->temp = $this->checkTemp($a->devices);	
+		}
+					
 		
 		// Add BTC rates
 		//$a->btc_rates = $btcData;

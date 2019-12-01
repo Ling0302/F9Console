@@ -179,25 +179,25 @@
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock"></i></span>
 									<select class="form-control" name="network-type">
-										<option value ="static"><?php echo lang('app.static') ?></option>
-										<option value ="dhcp"><?php echo lang('app.dhcp') ?></option>
+										<option value ="static" <?php echo $minerdNetwork->dhcp == "dhcp" ? "" : "selected" ?> ><?php echo lang('app.static') ?></option>
+										<option value ="dhcp"<?php echo $minerdNetwork->dhcp == "dhcp" ? "selected" : "" ?> ><?php echo lang('app.dhcp') ?></option>
 									</select>
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="ip_address" placeholder="<?php echo lang('app.ip_address') ?>">
+									<input type="text" class="form-control" name="ip_address" placeholder="<?php echo lang('app.ip_address') ?>" value="<?php echo $minerdNetwork->ip ?>">
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="net_mask" placeholder="<?php echo lang('app.network_mask') ?>">
+									<input type="text" class="form-control" name="net_mask" placeholder="<?php echo lang('app.network_mask') ?>"  value="<?php echo $minerdNetwork->mask ?>">
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="gateway" placeholder="<?php echo lang('app.gateway') ?>">
+									<input type="text" class="form-control" name="gateway" placeholder="<?php echo lang('app.gateway') ?>" value="<?php echo $minerdNetwork->gw ?>">
 								</div>
 								<div class="input-group mt10">
 									<span class="input-group-addon"><i class="fa fa-cog"></i></span>
-									<input type="text" class="form-control" name="dns" placeholder="<?php echo lang('app.dns') ?>">
+									<input type="text" class="form-control" name="dns" placeholder="<?php echo lang('app.dns') ?>" value="<?php echo $minerdNetwork->dns ?>">
 								</div>
                             </div>
 							<div class="box-footer">
