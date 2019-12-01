@@ -296,7 +296,9 @@ class App extends CI_Controller {
 				$data['message_type'] = "warning";
 			} else
 			{
-				exec("sudo system_update online /tmp/".$fileInfoName." >/var/log/upgrade.log");
+				sleep(5);
+				exec("sudo chmod 755 /tmp/".$fileInfoName);
+				exec("nohup sudo system_update online /tmp/".$fileInfoName." >/tmp/upgrade.log &");
 				$data['message'] = '<b>Success!</b> The upgrade will take couple of minutes, please wait!';
 				$data['message_type'] = "success";
 			}
