@@ -98,7 +98,12 @@ class Util_model extends CI_Model {
 		@exec("cat /etc/resolv.conf | grep nameserver |sed -n '1p'|awk '{print $2}'", $dns);
 		$a->dns = $dns[0];
 		@exec("cat /etc/network/interfaces |grep dhcp| awk '{print $4}'", $dhcp);
-		$a->dhcp = $dhcp[0];
+		if (count($dhcp)> 0) {
+			$a->dhcp = $dhcp[0];
+		} else {
+			$a->dhcp = 'static';
+		}
+		
 
 		return $a;
 	}
