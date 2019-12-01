@@ -2360,7 +2360,7 @@ function getStats(refresh)
 						var totalWorkedShares = (parseFloat(items[index].ac) + parseFloat(items[index].re) + parseFloat(items[index].hw));
 						var percentageAc = parseFloat(100*items[index].ac/totalWorkedShares);
 						var percentageRe = parseFloat(100*items[index].re/totalWorkedShares);
-						var percentageHw = parseFloat(100*items[index].hw/totalWorkedShares);
+						var percentageHw = parseFloat(100*items[index].hw/parseFloat(items[index].sh));
 						
 						if (isNaN(percentageAc)) percentageAc = 0;
 						if (isNaN(percentageRe)) percentageRe = 0;
