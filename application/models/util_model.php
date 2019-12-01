@@ -1278,8 +1278,14 @@ class Util_model extends CI_Model {
 		
 		foreach ($device as $key=>$val) {
 			$d += $val->temperature;
-			$c ++;
+			if ($val->temperature > 0){
+				$c ++;
+			}	
 		}
+		if ($c == 0) {
+			return 0;
+		}
+
 		
 		return $d/intval($c);
 	}
