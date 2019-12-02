@@ -1035,6 +1035,39 @@ class App extends CI_Controller {
 			case "miner_info":
 				$o = $this->util_model->minerInfo();
 			break;
+			case "save_pools":
+				$poolUrls = $this->input->post('pool_url');
+				$poolUsernames = $this->input->post('pool_username');
+				$poolPasswords = $this->input->post('pool_password');
+
+				$pools = array();
+				foreach ($poolUrls as $key => $poolUrl)
+				{
+					if ($poolUrl)
+					{
+						if (isset($poolUsernames[$key]) && isset($poolPasswords[$key]))
+						{
+							$pools[] = array("url" => $poolUrl, "user" => $poolUsernames[$key], "pass" => $poolPasswords[$key]);
+						}
+					}
+				}
+				$confArray = array();			
+				$confArray['pools'] = $pools;
+				$jsonPoolsConfRedis = json_encode($pools);
+				$this->redis->set('minerd_pools', $jsonPoolsConfRedis);
+
+				// Prepare JSON conf
+				$jsonConfFile = json_encode($confArray, 192); // JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES = 128 + 64
+
+				// Save the JSON conf file
+				file_put_contents($this->config->item("minerd_conf_temp_file"), $jsonConfFile);
+				sleep(3);
+				exec("sudo mv " . $this->config->item('minerd_conf_temp_file') . " " . $this->config->item('minerd_conf_file'));
+				sleep(2);
+
+				$this->util_model->restartCgminer();
+				$o = json_encode(array("message" => 'success','code' => '200'));
+			break;
 			case "miner_action":
 				$action = ($this->input->get('action')) ? $this->input->get('action') : false;
 				switch($action)

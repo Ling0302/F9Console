@@ -104,7 +104,6 @@ class Util_model extends CI_Model {
 			$a->dhcp = 'static';
 		}
 		
-
 		return $a;
 	}
 
@@ -2224,25 +2223,20 @@ class Util_model extends CI_Model {
 		return $result;
 	}
 
-	public function getNetworkType()
+	public function getFirmwareVersion()
 	{
-		$type = 'dhcp';
-		$result = exec("cat /etc/network/interface");
-		if(stripos($result,'dhcp') === false )
-		{
-			$type = 'static';
-		}
-		return $type;
+		return exec( "cat /version|awk -F\":\" '{print $2}'" );
 	}
 
 	public function minerInfo()
 	{
 		$info = new stdClass();
+		$ifConfig = $this->getIfconfig();
 
 		$info->model = 'F5';
-		$info->firmware_version = 'Cheetah_Miner_F5_20191125';
-		$info->mac = $this->getMacAddr();
-		$info->network_type = $this->getNetworkType();
+		$info->firmware_version = $this->getFirmwareVersion();
+		$info->mac = $ifConfig->mac;
+		$info->network_type = $ifConfig->dhcp;
 		$info->uptime = $this->getSysUptime();
 
 		return json_encode($info);
