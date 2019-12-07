@@ -76,10 +76,35 @@ $lang['app.current_accepted']  = "当前接受数";
 $lang['app.previous_accepted']  = "历史接受数";
 $lang['app.current_rejected']  = "当前拒绝数";
 $lang['app.previous_rejected']  = "历史拒绝数";
-$lang['app.current']  = "当前指";
+$lang['app.current']  = "当前值";
 $lang['app.current_explain']  = "当前或最近一次session";
-$lang['app.previous']  = "历史指";
+$lang['app.previous']  = "历史值";
 $lang['app.previous_explain']  = "之前所有session总和。矿池上显示的算力是基于每次session产生的shares来统计的。";
+$lang['app.local_miner_th_dev']  = "设备";
+$lang['app.local_miner_th_temp']  = "温度";
+$lang['app.local_miner_th_freq']  = "频率";
+$lang['app.local_miner_th_dev_hr']  = "哈希率";
+$lang['app.local_miner_th_share']  = "Share";
+$lang['app.local_miner_th_ac']  = "接受数";
+$lang['app.local_miner_th_pac']  = "接受率";
+$lang['app.local_miner_th_re']  = "拒绝数";
+$lang['app.local_miner_th_pre']  = "拒绝率";
+$lang['app.local_miner_th_hw']  = "硬件错误";
+$lang['app.local_miner_th_phw']  = "硬件错误率";
+$lang['app.local_miner_th_last_share']  = "上次Share";
+$lang['app.local_miner_th_last_share_time']  = "上次Share时间";
+$lang['app.local_pools_th_pools']  = "矿池";
+$lang['app.local_pools_th_url']  = "URL";
+$lang['app.local_pools_th_status']  = "状态";
+$lang['app.local_pools_th_poolhr']  = "算力";
+$lang['app.local_pools_th_cs']  = "当前share数";
+$lang['app.local_pools_th_ps']  = "历史提交share数";
+$lang['app.local_pools_th_ca']  = "当前接受数";
+$lang['app.local_pools_th_pa']  = "历史接受数";
+$lang['app.local_pools_th_cr']  = "当前拒绝数";
+$lang['app.local_pools_th_pr']  = "历史拒绝数";
+$lang['app.local_pools_th_username']  = "当前值";
+
 
 
 // Setting Page

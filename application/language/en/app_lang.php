@@ -80,6 +80,30 @@ $lang['app.current']  = "Current";
 $lang['app.current_explain']  = "is the current or last session";
 $lang['app.previous']  = "Previous";
 $lang['app.previous_explain']  = "is the total of all previous sessions. Pool HashRate is based on shares over the time per session.";
+$lang['app.local_miner_th_dev']  = "Device";
+$lang['app.local_miner_th_temp']  = "Temperature";
+$lang['app.local_miner_th_freq']  = "Frequence";
+$lang['app.local_miner_th_dev_hr']  = "Hr";
+$lang['app.local_miner_th_share']  = "Share";
+$lang['app.local_miner_th_ac']  = "AC";
+$lang['app.local_miner_th_pac']  = "% AC";
+$lang['app.local_miner_th_re']  = "RE";
+$lang['app.local_miner_th_pre']  = "% RE";
+$lang['app.local_miner_th_hw']  = "HW";
+$lang['app.local_miner_th_phw']  = "% HW";
+$lang['app.local_miner_th_last_share']  = "Last Share";
+$lang['app.local_miner_th_last_share_time']  = "Last Share Time";
+$lang['app.local_pools_th_pools']  = "Pool";
+$lang['app.local_pools_th_url']  = "URL";
+$lang['app.local_pools_th_status']  = "Status";
+$lang['app.local_pools_th_poolhr']  = "Pool HR";
+$lang['app.local_pools_th_cs']  = "CS";
+$lang['app.local_pools_th_ps']  = "PS";
+$lang['app.local_pools_th_ca']  = "CA";
+$lang['app.local_pools_th_pa']  = "PA";
+$lang['app.local_pools_th_cr']  = "CR";
+$lang['app.local_pools_th_pr']  = "PR";
+$lang['app.local_pools_th_username']  = "User Name";
 
 
 // Setting Page

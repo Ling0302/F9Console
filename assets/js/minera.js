@@ -19,6 +19,10 @@ i18n.en = new function(){
 	this.opps='Oops!';
 	this.pre_text_period_tips='No data collected, wait at least ';
 	this.post_text_period_tips=' to see the chart.';
+	this.cool='It\'s cool here';
+	this.fine='I\'m warm and fine';
+	this.hot='Well, it\'s going to be hot here...';
+	this.burn='HEY MAN! I\'m burning! Blow blow!';
 }
 
 i18n.cn = new function(){
@@ -35,6 +39,10 @@ i18n.cn = new function(){
 	this.opps='糟糕！';
 	this.pre_text_period_tips='没有采集到数据，等待至少';
 	this.post_text_period_tips='再看图形。';
+	this.fine='正常温度!';
+	this.cool='温度正常!';
+	this.hot='温度警告!';
+	this.burn='温度太高!';
 }
 
 function loadScript(url, callback)
@@ -2862,7 +2870,7 @@ function getStats(refresh)
 				if (data.temp)
 				{
 					var temp_bar = 'bg-blue', 
-						temp_text = 'It\'s cool here',
+						temp_text = i18n[lang].cool,
 						sys_temp = parseFloat(data.temp),
 						tempthres1,
 						tempthres2,
@@ -2881,17 +2889,17 @@ function getStats(refresh)
 					if (sys_temp > tempthres1 && sys_temp < tempthres2)
 					{
 						temp_bar = 'bg-green';
-						temp_text = 'I\'m warm and fine';
+						temp_text = i18n[lang].fine;
 					}
 					else if (sys_temp >= tempthres2 && sys_temp < tempthres3)
 					{
 						temp_bar = 'bg-yellow';
-						temp_text = 'Well, it\'s going to be hot here...';
+						temp_text = i18n[lang].hot;
 					}
 					else if (sys_temp > tempthres3)
 					{
 						temp_bar = 'bg-red';
-						temp_text = 'HEY MAN! I\'m burning! Blow blow!';
+						temp_text = i18n[lang].burn;
 					}
 					
 					sys_temp_box = parseFloat(sys_temp).toFixed(2)+'&deg;'+$('.app_data').data('dashboard-temp');

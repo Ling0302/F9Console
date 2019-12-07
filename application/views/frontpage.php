@@ -209,19 +209,19 @@
 												  <table id="miner-table-details" class="responsive-datatable-minera table table-striped datatable">
 													  <thead>
 													  <tr>
-														  <th>DEV</th>
-														  <th>Temp</th>
-														  <th>Frequency</th>
-														  <th>Dev HR</th>
-														  <th>Shares</th>
-														  <th>AC</th>
-														  <th>% AC</th>
-														  <th>RE</th>
-														  <th>% RE</th>
-														  <th>HW</th>
-														  <th>% HW</th>
-														  <th>Last share</th>
-														  <th>Last share time</th>
+														  <th><?php echo lang('app.local_miner_th_dev') ?></th>
+														  <th><?php echo lang('app.local_miner_th_temp') ?></th>
+														  <th><?php echo lang('app.local_miner_th_freq') ?></th>
+														  <th><?php echo lang('app.local_miner_th_dev_hr') ?></th>
+														  <th><?php echo lang('app.local_miner_th_share') ?></th>
+														  <th><?php echo lang('app.local_miner_th_ac') ?></th>
+														  <th><?php echo lang('app.local_miner_th_pac') ?></th>
+														  <th><?php echo lang('app.local_miner_th_re') ?></th>
+														  <th><?php echo lang('app.local_miner_th_pre') ?></th>
+														  <th><?php echo lang('app.local_miner_th_hw') ?></th>
+														  <th><?php echo lang('app.local_miner_th_phw') ?></th>
+														  <th><?php echo lang('app.local_miner_th_last_share') ?></th>
+														  <th><?php echo lang('app.local_miner_th_last_share_time') ?></th>
 													  </tr>
 													  </thead>
 													  <tbody class="devs_table">
@@ -265,18 +265,18 @@
 													  <thead>
 													  <tr>
 														  <th>&nbsp;</th>
-														  <th>Pool</th>
-														  <th>Url</th>
-														  <th>Type</th>
-														  <th>Status</th>
-														  <th>Pool HR</th>
-														  <th>CS</th>
-														  <th>PS</th>
-														  <th>CA</th>
-														  <th>PA</th>
-														  <th>CR</th>
-														  <th>PR</th>
-														  <th>Username</th>
+														  <th><?php echo lang('app.local_pools_th_pools') ?></th>
+														  <th><?php echo lang('app.local_pools_th_url') ?></th>
+														  <th><?php echo lang('app.local_pools_th_type') ?></th>
+														  <th><?php echo lang('app.local_pools_th_status') ?></th>
+														  <th><?php echo lang('app.local_pools_th_poolhr') ?></th>
+														  <th><?php echo lang('app.local_pools_th_cs') ?></th>
+														  <th><?php echo lang('app.local_pools_th_ps') ?></th>
+														  <th><?php echo lang('app.local_pools_th_ca') ?></th>
+														  <th><?php echo lang('app.local_pools_th_pa') ?></th>
+														  <th><?php echo lang('app.local_pools_th_cr') ?></th>
+														  <th><?php echo lang('app.local_pools_th_pr') ?></th>
+														  <th><?php echo lang('app.local_pools_th_username') ?></th>
 													  </tr>
 													  </thead>
 													  <tbody class="pools_table">
