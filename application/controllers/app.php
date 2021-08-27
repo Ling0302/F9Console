@@ -1107,7 +1107,7 @@ class App extends CI_Controller {
     public function varLog()
     {
 		
-		$str = file_get_contents('/var/log/messages');
+		$str = file_get_contents('/userdata/syslog/messages');
 
 		$this->output
 			->set_content_type('application/json')
