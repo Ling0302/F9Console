@@ -2233,7 +2233,7 @@ class Util_model extends CI_Model {
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
 
-		$info->model = 'F5';
+		$info->model = 'F9';
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
 		$info->network_type = $ifConfig->dhcp;
