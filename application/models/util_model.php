@@ -2225,7 +2225,7 @@ class Util_model extends CI_Model {
 
 	public function getFirmwareVersion()
 	{
-		return exec( "cat /firmware_info | awk -F ':' '{print $2 \":\" $3}'");
+		return exec( "cat /firmware_info | awk -F ':' '{print $2 ":" $3}'");
 	}
 
 	public function minerInfo()
