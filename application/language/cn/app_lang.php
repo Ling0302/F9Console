@@ -95,6 +95,7 @@ $lang['app.local_miner_th_last_share']  = "上次Share";
 $lang['app.local_miner_th_last_share_time']  = "上次Share时间";
 $lang['app.local_pools_th_pools']  = "矿池";
 $lang['app.local_pools_th_url']  = "URL";
+$lang['app.local_pools_th_type']  = "类型";
 $lang['app.local_pools_th_status']  = "状态";
 $lang['app.local_pools_th_poolhr']  = "算力";
 $lang['app.local_pools_th_cs']  = "当前share数";

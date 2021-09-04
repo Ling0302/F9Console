@@ -95,6 +95,7 @@ $lang['app.local_miner_th_last_share']  = "Last Share";
 $lang['app.local_miner_th_last_share_time']  = "Last Share Time";
 $lang['app.local_pools_th_pools']  = "Pool";
 $lang['app.local_pools_th_url']  = "URL";
+$lang['app.local_pools_th_type']  = "Type";
 $lang['app.local_pools_th_status']  = "Status";
 $lang['app.local_pools_th_poolhr']  = "Pool HR";
 $lang['app.local_pools_th_cs']  = "CS";
