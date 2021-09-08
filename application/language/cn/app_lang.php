@@ -36,6 +36,7 @@ $lang['app.restart_miner_title']    = "重启你的矿机";
 $lang['app.welcome_miner'] = "你好,矿工";
 $lang['app.ip_address'] = "IP 地址";
 $lang['app.password']      = "密码";
+$lang['app.firmware_version']      = "固件版本";
 
 
 // Dashboard page

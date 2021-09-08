@@ -36,6 +36,7 @@ $lang['app.restart_miner_title']    = "Restart your miner";
 $lang['app.welcome_miner'] = "Hello Miner";
 $lang['app.ip_address']    = "Ip Address";
 $lang['app.password']      = "Password";
+$lang['app.firmware_version']  = "Firmware Version";
 
 
 // Dashboard page
