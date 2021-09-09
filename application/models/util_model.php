@@ -414,6 +414,7 @@ class Util_model extends CI_Model {
 				$return['totals']['shares'] = $tdshares;
 				$return['totals']['hashrate'] = $tdhashrate;
 				$return['totals']['last_share'] = $totals->{'Last getwork'};
+				$return['totals']['fan_speed'] = $totals->{'Last getwork'};
 				
 				$cgminerPoolHashrate = round($totals->{'Total MH'} / $totals->Elapsed * 1000000);
 
