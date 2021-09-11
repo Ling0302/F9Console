@@ -78,6 +78,7 @@ class App extends CI_Controller {
 		$data['env'] = $this->config->item('ENV');
 		$data['sectionPage'] = 'lockscreen';
 		$data['htmlTag'] = "lockscreen";
+		$data['firmwareVersion'] = $this->util_model->getFirmwareVersion();
 		$data['isOnline'] = $this->util_model->isOnline();
 
 		$this->load->view('include/header', $data);
