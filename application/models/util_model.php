@@ -210,6 +210,25 @@ class Util_model extends CI_Model {
 
 		return json_encode($a);		
 	}
+
+	public function arrayToObject($array) 
+	{
+		if(!is_array($array)) {
+		  return $array;
+		}
+		$object = new stdClass();
+		  if (is_array($array) && count($array) > 0) {
+			foreach ($array as $name=>$value) {
+				$name = trim($name);
+				if (!empty($name)) {
+				  $object->$name = $this->arrayToObject($value);
+				}
+			}
+			return $object; 
+		  } else {
+			return false;
+		  }
+	}
 	
 	public function getNetworkMinerStats($parsed)
 	{
@@ -253,10 +272,13 @@ class Util_model extends CI_Model {
 		if ($this->isOnline($network))
 		{
 			$cmd = false;
-			if ($type == 'newAnt') $cmd = '{"command":"summary+pools+estats"}';
+			// if ($type == 'newAnt') $cmd = '{"command":"summary+pools+estats"}';
 
 			$a = ($network) ? $this->network_miner->callMinerd($cmd, $network) : $this->miner->callMinerd();
-
+			echo json_encode((array)$a);exit;
+			
+			$a = $this->arrayToObject($a);
+			
 			if (is_object($a))
 			{
 					$devicePoolActives = false;
@@ -269,8 +291,8 @@ class Util_model extends CI_Model {
 						foreach ($a->devs[0]->DEVS as $device)
 						{			
 							// Check the real active pool
-							if (isset($device->{'Last Share Pool'}) && $device->{'Last Share Pool'} > -1)
-								$devicePoolIndex[] = $device->{'Last Share Pool'};
+							if (isset($device->{'LastSharePool'}) && $device->{'LastSharePool'} > -1)
+								$devicePoolIndex[] = $device->{'LastSharePool'};
 						}				
 						
 						$devicePoolActives = array_count_values($devicePoolIndex);					
@@ -299,7 +321,7 @@ class Util_model extends CI_Model {
 							$stats->stats_id = 1;
 
 							if (!$devicePoolActives) {
-								$poolActive = $tmpPool->{'Stratum Active'};	
+								$poolActive = $tmpPool->{'StratumActive'};	
 							} else {
 								$poolActive = ($devicePoolActives && array_key_exists($poolIndex, $devicePoolActives)) ? true : false;
 							}
@@ -337,6 +359,7 @@ class Util_model extends CI_Model {
 		
 		return false;
 	}
+
 	
 	/*
 	// Parse the miner stats to add devices
@@ -371,22 +394,22 @@ class Util_model extends CI_Model {
 
 					$name = "Board-".($d + 1);
 
-					$return['devices'][$name]['temperature'] = (isset($stats->estats[0]->STATS[$d]->{'Temp Avg'})) ? $stats->estats[0]->STATS[$d]->{'Temp Avg'} : false;
+					$return['devices'][$name]['temperature'] = (isset($stats->estats[0]->STATS[$d]->{'TempAvg'})) ? $stats->estats[0]->STATS[$d]->{'TempAvg'} : false;
 					
-					$return['devices'][$name]['frequency'] = (isset($stats->estats[0]->STATS[$d]->{'Device Freq'})) ? $stats->estats[0]->STATS[$d]->{'Device Freq'} : false;
+					$return['devices'][$name]['frequency'] = (isset($stats->estats[0]->STATS[$d]->{'DeviceFreq'})) ? $stats->estats[0]->STATS[$d]->{'DeviceFreq'} : false;
 					$return['devices'][$name]['accepted'] = $device->Accepted;
 					$return['devices'][$name]['rejected'] = $device->Rejected;
-					$return['devices'][$name]['hw_errors'] = $device->{'Hardware Errors'};
+					$return['devices'][$name]['hw_errors'] = $device->{'HardwareErrors'};
 					
-					$return['devices'][$name]['shares'] = ($device->{'Diff1 Work'}) ? round(($device->{'Diff1 Work'}*71582788/1000),0) : 0;	
-					if (isset($device->{'KHS av'}))	
-						$return['devices'][$name]['hashrate'] = ($device->{'KHS av'}*1000);
+					$return['devices'][$name]['shares'] = ($device->{'Diff1Work'}) ? round(($device->{'Diff1Work'}*71582788/1000),0) : 0;	
+					if (isset($device->{'KHSav'}))	
+						$return['devices'][$name]['hashrate'] = ($device->{'KHSav'}*1000);
 					else 
-						$return['devices'][$name]['hashrate'] = ($device->{'MHS av'}*1000*1000);
+						$return['devices'][$name]['hashrate'] = ($device->{'MHSav'}*1000*1000);
 					
 					$return['devices'][$name]['last_share'] = false;
-					if (isset($device->{'Last Share Time'})) $return['devices'][$name]['last_share'] = $device->{'Last Share Time'};
-					if (isset($device->{'Device Elapsed'})) $return['devices'][$name]['last_share'] = $device->{'Device Elapsed'};
+					if (isset($device->{'LastShareTime'})) $return['devices'][$name]['last_share'] = $device->{'LastShareTime'};
+					if (isset($device->{'DeviceElapsed'})) $return['devices'][$name]['last_share'] = $device->{'DeviceElapsed'};
 					$return['devices'][$name]['serial'] = (isset($device->Serial)) ? $device->Serial : false;;
 
 					$tdtemperature += $return['devices'][$name]['temperature'];					
@@ -396,7 +419,7 @@ class Util_model extends CI_Model {
 					
 					// Check the real active pool
 					$devicePoolIndex = [];
-					if (isset($device->{'Last Share Pool'})) $devicePoolIndex[] = $device->{'Last Share Pool'};
+					if (isset($device->{'LastSharePool'})) $devicePoolIndex[] = $device->{'LastSharePool'};
 					$d++;
 				}				
 				
@@ -410,13 +433,13 @@ class Util_model extends CI_Model {
 				$return['totals']['frequency'] = ($tdfrequency) ? round(($tdfrequency/$d), 0) : false;
 				$return['totals']['accepted'] = $totals->Accepted;
 				$return['totals']['rejected'] = $totals->Rejected;
-				$return['totals']['hw_errors'] = $totals->{'Hardware Errors'};
+				$return['totals']['hw_errors'] = $totals->{'HardwareErrors'};
 				$return['totals']['shares'] = $tdshares;
 				$return['totals']['hashrate'] = $tdhashrate;
-				$return['totals']['last_share'] = $totals->{'Last getwork'};
-				$return['totals']['fan_speed'] = $totals->{'Last getwork'};
+				$return['totals']['last_share'] = $totals->{'Lastgetwork'};
 				
-				$cgminerPoolHashrate = round($totals->{'Total MH'} / $totals->Elapsed * 1000000);
+				
+				$cgminerPoolHashrate = round($totals->{'TotalMH'} / $totals->Elapsed * 1000000);
 
 				if (!$tdhashrate) $return['totals']['hashrate'] = $cgminerPoolHashrate;
 			}
@@ -431,7 +454,7 @@ class Util_model extends CI_Model {
 
 			foreach ($stats->pools as $poolIndex => $pool)
 			{
-                if ((isset($pool->active) && $pool->active == 1) || (isset($pool->{'Stratum Active'}) && $pool->{'Stratum Active'} == 1) )
+                if ((isset($pool->active) && $pool->active == 1) || (isset($pool->{'StratumActive'}) && $pool->{'StratumActive'} == 1) )
                 {
 					$return['pool']['url'] = $pool->url;
 					$return['pool']['user'] = $pool->user;
@@ -2244,3 +2267,5 @@ class Util_model extends CI_Model {
 
 	}
 }
+
+cat /firmware_info | awk -F ':' '{print $2 ":" $3}'

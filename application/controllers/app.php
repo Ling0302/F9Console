@@ -1130,27 +1130,10 @@ class App extends CI_Controller {
 			->set_output("[".implode(",", $storedStats)."]");
 	}
 
-	/**
-     * This function is used to update the age of users automatically
-     * This function is called by cron job once in a day at midnight 00:00
-     */
-    public function cron()
-    {            
-        // is_cli_request() is provided by default input library of codeigniter
-        if($this->input->is_cli_request())
-        {            
-            $this->cronJob();
-        }
-        else
-        {
-            echo "You dont have access";
-        }
-    }
-
 	/*
 	// Cron controller to be used to run scheduled tasks
 	*/
-	public function cronJob()
+	public function cron()
 	{
 		if ($this->redis->get("cron_lock"))
 		{

@@ -1,9 +1,7 @@
 <?php
 /*
- * Cgminer_model
- * CGminer model for minera
- *
- * @author michelem
+ * CGminer model
+ * @author michael
  */
 class Cgminer_model extends CI_Model {
 
@@ -56,78 +54,28 @@ class Cgminer_model extends CI_Model {
 	function callMinerd($cmd = false, $network = false)
 	{
 		if (!$cmd)
-			$cmd = '{"command":"summary+devs+pools+estats"}';
- 
-		log_message("error", "Called Minerd with command: ".$cmd);
-		
-		$ip = "127.0.0.1"; $port = 4028;
+			$cmd = 'summary+devs+pools+estats';
 
-		if ($network) list($ip, $port) = explode(":", $network);
+		// Setup socket
+		$client = @stream_socket_client('tcp://127.0.0.1:4028', $errno, $errorMessage);
 
-		$socket = $this->getsock($ip, $port);
-		if ($socket != null) {
-			socket_write($socket, $cmd, strlen($cmd));
-			$line = $this->readsockline($socket);
-			socket_close($socket);
-
-			if (strlen($line) == 0) {
-				$msg = "WARN: '$cmd' returned nothing\n";
-				return array("error" => true, "msg" => $msg);
-			}
-
-			// Antminer JSON bug fix
-			$line = str_replace('}{', '},{' ,str_replace("\0", '', $line));
-
-			//print "$cmd returned '$line'\n";
-			if (substr($line,0,1) == '{') {
-				// log_message("error", var_export($line, true));
-				return json_decode($line);
-			}
-			
-			$data = array();
-			
-			$objs = explode('|', $line);
-			foreach ($objs as $obj) {
-				if (strlen($obj) > 0) {
-					$items = explode(',', $obj);
-					$item = $items[0];
-					$id = explode('=', $items[0], 2);
-					if (count($id) == 1 or !ctype_digit($id[1]))
-						$name = $id[0];
-					else
-						$name = $id[0].$id[1];
-			
-					if (strlen($name) == 0)
-						$name = 'null';
-			
-					if (isset($data[$name])) {
-						$num = 1;
-						while (isset($data[$name.$num]))
-							$num++;
-						$name .= $num;
-					}
-			
-					$counter = 0;
-					foreach ($items as $item) {
-						$id = explode('=', $item, 2);
-						if (count($id) == 2)
-							$data[$name][$id[0]] = $id[1];
-						else
-							$data[$name][$counter] = $id[0];
-			
-						$counter++;
-					}
-				}
-			}
-			
-			if (isset($data->STATUS->STATUS) && $data->STATUS->STATUS == 'E') {
-				return array("error" => true, "msg" => $data->STATUS->Msg);				
-			}
-			
-			return $data;
+		// Socket failed
+		if ($client === false) {
+			return array('type' => 'error', 'text' => 'Miner: '.$errno.' '.$errorMessage);
 		}
+		// Socket success
+		else{
+			fwrite($client, json_encode($c));
+			$response = stream_get_contents($client);
+			fclose($client);
+			
+			// Cleanup json
+			$response = preg_replace('/[^[:alnum:][:punct:]]/','',$response);
+
+			// Add api response
+			return json_decode($response);	
+		}	
 		
-		return array("error" => true, "msg" => "Miner error");
 	}
 	
 	public function selectPool($poolId, $network) {
