@@ -284,7 +284,7 @@ class App extends CI_Controller {
 			$data['message_type'] = "success";
 
 		}
-
+		
 		if ($this->input->post('firmware_upgrade')) 
 		{
 			$fileInfo = $_FILES["upFile"];
@@ -297,9 +297,9 @@ class App extends CI_Controller {
 				$data['message_type'] = "warning";
 			} else
 			{
-				sleep(5);
-				exec("sudo chmod 755 /tmp/".$fileInfoName);
-				exec("nohup sudo system_update online /tmp/".$fileInfoName." >/tmp/upgrade.log &");
+				sleep(60);
+				exec('sudo chmod 777 /tmp/'.$fileInfoName);
+				exec('nohup sudo system_update online /tmp/'.$fileInfoName.' >/tmp/upgrade.log 2>&1');
 				$data['message'] = '<b>Success!</b> The upgrade will take couple of minutes, please wait!';
 				$data['message_type'] = "success";
 			}
