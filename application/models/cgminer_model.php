@@ -55,6 +55,7 @@ class Cgminer_model extends CI_Model {
 	{
 		if (!$cmd)
 			$cmd = 'summary+devs+pools+estats';
+		$c['command'] = $cmd;
 
 		// Setup socket
 		$client = @stream_socket_client('tcp://127.0.0.1:4028', $errno, $errorMessage);
