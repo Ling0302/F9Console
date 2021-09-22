@@ -280,7 +280,7 @@ class App extends CI_Controller {
 			exec("sudo mv " . $this->config->item('minerd_conf_temp_file') . " " . $this->config->item('minerd_conf_file'));
 			sleep(2);
 
-			$this->util_model->restartCgminer();
+			// $this->util_model->restartCgminer();
 			$data['message'] = '<b>Success!</b> pools are saved!';
 			$data['message_type'] = "success";
 

@@ -2256,7 +2256,7 @@ class Util_model extends CI_Model {
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
 
-		$info->model = 'F9';
+		$info->model = 'Unknown';
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
 		$info->network_type = $ifConfig->dhcp;
@@ -2283,7 +2283,6 @@ class Util_model extends CI_Model {
 					$head = true; //到达文件头部，开关打开
 					break;
 				}
-	
 			}
 			array_unshift($lines, fgets($fp));
 			if ($head) {break;} //这一句，只能放上一句后，因为到文件头后，把第一行读取出来再跳出整个循环
@@ -2294,7 +2293,6 @@ class Util_model extends CI_Model {
 		// return $lines;
 		$str = join('', $lines);
 		return $str;
-		
-	  }
+	}
 	  
 }

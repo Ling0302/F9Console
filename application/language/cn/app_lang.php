@@ -1,7 +1,7 @@
 <?php
 
 // Global
-$lang['app.title']    = "猎豹矿机";
+$lang['app.title']    = "矿机后台";
 $lang['app.language'] = "语言";
 $lang['app.chinese']  = "中文";
 $lang['app.english']  = "英文";

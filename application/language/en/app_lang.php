@@ -1,7 +1,7 @@
 <?php
 
 // Global
-$lang['app.title']    = "Cheetah Miner";
+$lang['app.title']    = "Miner Console";
 $lang['app.language'] = "Language";
 $lang['app.chinese']  = "Chinese";
 $lang['app.english']  = "English";
