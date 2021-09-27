@@ -2255,10 +2255,18 @@ class Util_model extends CI_Model {
 	{
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
+		$sn= shell_exec("sudo miner_cfg MINER_SN get");
+		@exec("sudo get_hashbin",$bin_infos);
+		$bin_str = '';
+		foreach($bin_infos as $bin)
+		{
+			$tmp = explode(":",trim($bin));
+			$bin_str = $bin_str.'-'.trim($tmp[1]);
+		}
 
-		$info->model = 'Unknown';
+		$info->model = 'F9'.$bin_str;
 		$info->firmware_version = $this->getFirmwareVersion();
-		$info->mac = $ifConfig->mac;
+		$info->mac = $ifConfig->mac.'-'.$sn;
 		$info->network_type = $ifConfig->dhcp;
 		$info->uptime = $this->getSysUptime();
 

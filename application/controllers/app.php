@@ -332,17 +332,17 @@ class App extends CI_Controller {
 			}
 
 			file_put_contents('/tmp/interfaces', $content);
-			sleep(1);
+			sleep(3);
 			shell_exec('sudo cp /tmp/interfaces /etc/network');
 			//shell_exec('rm /tmp/interfaces');
 			shell_exec('sudo ip addr flush dev eth0');
 			shell_exec('sudo sh /etc/init.d/S40network restart');
 			$data['message'] = 'Success! IP saved!';
 			$data['message_type'] = "success";
-			$this->output
+			/*$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($data));
-			return;
+			return;*/
 		}
 		
 		// Load miner settings
@@ -849,8 +849,8 @@ class App extends CI_Controller {
 
     public function varLog()
     {
-		$str = $this->util_model->file_get_tail('/userdata/syslog/messages', 50);
-
+		//$str = $this->util_model->file_get_tail('/userdata/syslog/messages', 5000);
+		$str = file_get_contents('/userdata/syslog/messages');
 		$this->output
 			->set_content_type('application/json')
 			->set_output($str);
