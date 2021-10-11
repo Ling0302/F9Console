@@ -2275,7 +2275,7 @@ class Util_model extends CI_Model {
 		// 获取矿机老化状态
 		$status = '';
 		$test_result = trim(exec("cat /etc/aging_test_result"));
-		if(!$test_result){
+		if(!$test_result || $test_result == 'running'){
 			// 若不存在老化结果文件
 			$status = '正在老化...';
 		} else if ($test_result == 'success'){
@@ -2286,7 +2286,7 @@ class Util_model extends CI_Model {
 			$reason = exec("cat /tmp/cgminer_abart_reason");
 			$status = 'NG:'.$reason;
 		}
-		$info->status = $status;
+		$info->status = $status;/*  */
 
 		return json_encode($info);
 	}
