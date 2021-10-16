@@ -2256,9 +2256,9 @@ class Util_model extends CI_Model {
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
 		@exec("sudo get_hashbin",$bin_infos);
-		$bin1_str = explode(":", trim($bin_infos[0]))[1];
-		$bin2_str = explode(":", trim($bin_infos[1]))[1];
-		$bin3_str = explode(":", trim($bin_infos[2]))[1];
+		$bin1_str = isset($bin_infos[0]) ? explode(":", trim($bin_infos[0]))[1] : "";
+		$bin2_str = isset($bin_infos[1]) ? explode(":", trim($bin_infos[1]))[1] : "";
+		$bin3_str = isset($bin_infos[2]) ? explode(":", trim($bin_infos[2]))[1] : "";
 		if($bin1_str == $bin2_str && $bin1_str == $bin3_str){
 			$bin_str = $bin1_str;
 		}else {
