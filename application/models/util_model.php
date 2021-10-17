@@ -2255,7 +2255,9 @@ class Util_model extends CI_Model {
 	{
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
+		
 		@exec("sudo get_hashbin",$bin_infos);
+		$bin_str =  "";
 		$bin1_str = isset($bin_infos[0]) ? explode(":", trim($bin_infos[0]))[1] : "";
 		$bin2_str = isset($bin_infos[1]) ? explode(":", trim($bin_infos[1]))[1] : "";
 		$bin3_str = isset($bin_infos[2]) ? explode(":", trim($bin_infos[2]))[1] : "";
@@ -2266,7 +2268,7 @@ class Util_model extends CI_Model {
 		}
 
 		$info->model = 'F9';
-		$info->bin = trim($bin_str);
+		$info->bin = preg_match("/^[A-Za-z0-9]+$/",$bin_str) ? trim($bin_str) : "";
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
 		$info->network_type = $ifConfig->dhcp;
@@ -2275,10 +2277,10 @@ class Util_model extends CI_Model {
 		// 获取矿机老化状态
 		$status = '';
 		$test_result = trim(exec("cat /etc/aging_test_result"));
-		if(!$test_result || $test_result == 'running'){
+		if(!$test_result || $test_result == 'running') {
 			// 若不存在老化结果文件
 			$status = '正在老化...';
-		} else if ($test_result == 'success'){
+		} else if ($test_result == 'success') {
 			// 若老化结果OK
 			$status = 'OK';
 		} else {
@@ -2286,9 +2288,9 @@ class Util_model extends CI_Model {
 			$reason = exec("cat /tmp/cgminer_abart_reason");
 			$status = 'NG:'.$reason;
 		}
-		$info->status = $status;/*  */
-
+		$info->status = $status;
 		return json_encode($info);
+
 	}
 
 	public function file_get_tail( $file, $num = 100){	
