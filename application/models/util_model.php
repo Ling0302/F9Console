@@ -98,7 +98,7 @@ class Util_model extends CI_Model {
 		@exec("cat /etc/resolv.conf | grep nameserver |sed -n '1p'|awk '{print $2}'", $dns);
 		$a->dns = $dns[0];
 		@exec("cat /etc/network/interfaces |grep dhcp| awk '{print $4}'", $dhcp);
-		if (count($dhcp)> 0 || empty($dhcp)) {
+		if (count($dhcp)> 0) {
 			$a->dhcp = 'dhcp';
 		} else {
 			$a->dhcp = 'static';
@@ -2268,7 +2268,7 @@ class Util_model extends CI_Model {
 		}
 
 		$info->model = 'F9';
-		$info->bin = preg_match("/^[A-Za-z0-9]+$/",$bin_str) ? trim($bin_str) : "";
+		$info->bin = json_encode($bin_str) === null ? "" : trim($bin_str);
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
 		$info->network_type = $ifConfig->dhcp;
