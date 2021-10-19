@@ -2266,9 +2266,10 @@ class Util_model extends CI_Model {
 		}else {
 			$bin_str = $bin1_str.'-'.$bin2_str.'-'.$bin3_str;
 		}
+		json_encode($bin_str);
 
 		$info->model = 'F9';
-		$info->bin = json_encode($bin_str) === null ? "" : trim($bin_str);
+		$info->bin = json_last_error() == JSON_ERROR_NONE ? trim($bin_str) : '';
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
 		$info->network_type = $ifConfig->dhcp;
