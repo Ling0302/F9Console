@@ -2251,12 +2251,18 @@ class Util_model extends CI_Model {
 		return exec("cat /firmware_info | awk -F ':' '{print $2 \":\" $3}'");
 	}
 
+	public function isShowLogo()
+	{
+		@exec("sudo miner_cfg MINER_WEB_LOGO get", $show_logo);
+		return $show_logo[0] !== 'MINER_WEB_NOLOGO';
+	}
+
 	public function minerInfo()
 	{
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
 		
-		@exec("sudo get_hashbin",$bin_infos);
+		@exec("sudo get_hashbin", $bin_infos);
 		$bin_str =  "";
 		$bin1_str = isset($bin_infos[0]) ? explode(":", trim($bin_infos[0]))[1] : "";
 		$bin2_str = isset($bin_infos[1]) ? explode(":", trim($bin_infos[1]))[1] : "";
@@ -2268,7 +2274,7 @@ class Util_model extends CI_Model {
 		}
 		json_encode($bin_str);
 
-		$info->model = 'F9';
+		$info->model = $this->isShowLogo() ? 'F9' : 'Unknown';
 		$info->bin = json_last_error() == JSON_ERROR_NONE ? trim($bin_str) : '';
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;

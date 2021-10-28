@@ -81,6 +81,7 @@ class App extends CI_Controller {
 		$data['htmlTag'] = "lockscreen";
 		$data['firmwareVersion'] = $this->util_model->getFirmwareVersion();
 		$data['isOnline'] = $this->util_model->isOnline();
+		$data['isShowLogo'] = $this->util_model->isShowLogo();
 
 		$this->load->view('include/header', $data);
 		$this->load->view('lockscreen');
@@ -340,6 +341,7 @@ class App extends CI_Controller {
 				sleep(3);
 				shell_exec('sudo cp /tmp/interfaces /etc/network/interfaces');
 				shell_exec('rm /tmp/interfaces');
+				shell_exec('sudo killall dhcpcd');
 				shell_exec('sudo ip addr flush dev eth0');
 			}
 
@@ -597,6 +599,7 @@ class App extends CI_Controller {
 		$data['seconds'] = 30;
 		$data['refreshUrl'] = false;
 		$data['env'] = $this->config->item('ENV');
+		$data['isShowLogo'] = $this->util_model->isShowLogo();
 
 		$this->load->view('include/header', $data);
 		$this->load->view('sysop', $data);
@@ -709,6 +712,7 @@ class App extends CI_Controller {
 			$data['htmlTag'] = "lockscreen";
 			$data['seconds'] = 200;
 			$data['env'] = $this->config->item('ENV');
+			$data['isShowLogo'] = $this->util_model->isShowLogo();
 		
 			$this->load->view('include/header', $data);
 			$this->load->view('sysop', $data);
