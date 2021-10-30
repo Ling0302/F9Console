@@ -2254,7 +2254,7 @@ class Util_model extends CI_Model {
 	public function isShowLogo()
 	{
 		@exec("sudo miner_cfg MINER_WEB_LOGO get", $show_logo);
-		return $show_logo[0] !== 'MINER_WEB_NOLOGO';
+		return !isset($show_logo[0]) || $show_logo[0] !== 'MINER_WEB_NOLOGO';
 	}
 
 	public function minerInfo()
