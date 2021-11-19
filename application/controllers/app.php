@@ -473,7 +473,7 @@ class App extends CI_Controller {
 				{
 					if (isset($poolUsernames[$key]) && isset($poolPasswords[$key]))
 					{
-						$pools[] = array("url" => $poolUrl, "username" => $poolUsernames[$key], "password" => $poolPasswords[$key]);
+						$pools[] = array("url" => str_replace(' ','',$poolUrl), "username" => str_replace(' ', '', $poolUsernames[$key]), "password" => $poolPasswords[$key]);
 					}
 				}
 			}
