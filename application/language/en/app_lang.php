@@ -17,10 +17,12 @@ $lang['app.pools']    = "Pools";
 $lang['app.user']    = "User";
 $lang['app.resets']    = "Resets";
 $lang['app.charts']    = "Charts";
+$lang['app.audit'] = "Audit Log";
 $lang['app.refresh_dashboard']    = "Refresh Dashboard";
 $lang['app.go_to_dashboard']    = "Go to the dashboard page";
 $lang['app.go_to_settings']    = "Go to the settings page";
 $lang['app.go_to_charts']    = "Go to the charts page";
+$lang['app.go_to_audit']    = "Go to the audit log page";
 $lang['app.widgets']    = "Widgets";
 $lang['app.local_miner']    = "Local Miner";
 $lang['app.local_pools']    = "Local Pools";
@@ -41,6 +43,7 @@ $lang['app.firmware_version']  = "Firmware Version";
 
 // Dashboard page
 $lang['app.mining']  = "Mining";
+$lang['app.chip_status']  = "View Chip Status";
 $lang['app.raw_stats']  = "raw stats";
 $lang['app.raw_stats_tips']  = "The raw JSON parsed to display the dashboard is also available";
 $lang['app.refresh_tips']  = "Click here to refresh";

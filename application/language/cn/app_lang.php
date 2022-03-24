@@ -17,10 +17,12 @@ $lang['app.pools']    = "矿池";
 $lang['app.user']    = "用户";
 $lang['app.resets']    = "重置";
 $lang['app.charts']    = "算力曲线";
+$lang['app.audit'] = "操作日志";
 $lang['app.refresh_dashboard']    = "刷新面板";
 $lang['app.go_to_dashboard']    = "前往面板界面";
 $lang['app.go_to_settings']    = "前往设置界面";
 $lang['app.go_to_charts']    = "前往查看算力曲线";
+$lang['app.go_to_audit']    = "前往查看操作日志";
 $lang['app.widgets']    = "数据面板";
 $lang['app.local_miner']    = "设备统计";
 $lang['app.local_pools']    = "矿池统计";
@@ -41,6 +43,7 @@ $lang['app.firmware_version']      = "固件版本";
 
 // Dashboard page
 $lang['app.mining']  = "矿机状态";
+$lang['app.chip_status']  = "芯片实时状态";
 $lang['app.raw_stats']  = "原始数据";
 $lang['app.raw_stats_tips']  = "亦可查看原始JSON解析数据";
 $lang['app.refresh_tips']  = "点击刷新";
