@@ -1433,7 +1433,7 @@ $(function() {
 		});
 		
 		// Raw stats click
-		$('.view-chip-status').click( function() { window.location.href="/status.php" });
+		// $('.view-chip-status').click( function() { window.location.href="/status.php" });
 		$('.view-raw-stats').click( function() { $('.section-raw-stats').fadeIn(); });
 		$('.close-stats').click( function() { $('.section-raw-stats').fadeOut(); });
 		

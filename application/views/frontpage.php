@@ -4,7 +4,7 @@
 				<section class="content-header" data-toggle="dropdown">
 					<h1><?php echo lang('app.mining') ?> <small><?php echo lang('app.dashboard') ?></small></h1>
 					<ol class="breadcrumb">
-						<li><button class="btn btn-primary btn-xs view-chip-status"><i class="fa fa-list"></i> <?php echo lang('app.chip_status') ?></button></li>
+						<!--<li><button class="btn btn-primary btn-xs view-chip-status"><i class="fa fa-list"></i> <?php //echo lang('app.chip_status') ?></button></li> -->
 						<li><button class="btn btn-default btn-xs view-raw-stats"><i class="fa fa-list"></i> <?php echo lang('app.raw_stats') ?></button></li>
 					</ol>
 				</section>
