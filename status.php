@@ -50,6 +50,11 @@
         return preg_replace("/\s(?=\s)/","\\1",$string);
     }
 
+    function getBoardLevel()
+    {
+		return trim(exec("head -n 1 /firmware_info | awk -F ' ' '{print $2}'"));
+    }
+
     function handle_data($data)
     {
         array_pop($data);
@@ -120,7 +125,7 @@
         }
         fclose($handle4);
     }
-     $level = count($data2) >39 ? 40 : 36;
+    $level = getBoardLevel();
 
     $last1 = $data1[count($data1)-2];
     $last2 = $data2[count($data2)-2];
@@ -156,14 +161,14 @@
         <table class="table table-bordered table-hover table-responsive">
             <tr>
                 <th class="active">芯片级数</th>
-                <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                <th class="active"> 电压|温度|yield值|硬件错误数</th>
                 <th></th>
                 <th class="active">芯片级数</th>
-                <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                <th class="active"> 电压|温度|yield值|硬件错误数</th>
             </tr>
 
             <tr>
@@ -373,14 +378,14 @@
         <table class="table table-bordered table-hover table-responsive">
         <tr>
             <th class="active">芯片级数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
             <th></th>
             <th class="active">芯片级数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
         </tr>
         <tr>
             <td class="active">1(U1-U3)</td>
@@ -588,14 +593,14 @@
         <table class="table table-bordered table-hover table-responsive">
         <tr>
             <th class="active">芯片级数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
             <th></th>
             <th class="active">芯片级数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
         </tr>
         <tr>
             <td class="active">1(U1-U3)</td>
@@ -803,14 +808,14 @@
         <table class="table table-bordered table-hover table-responsive">
         <tr>
             <th class="active">芯片级数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
             <th></th>
             <th class="active">芯片级数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
-            <th class="active"> 电压|温度|yield值|芯片错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
+            <th class="active"> 电压|温度|yield值|硬件错误数</th>
         </tr>
         <tr>
             <td class="active">1(U1-U3)</td>
@@ -1019,14 +1024,14 @@
         <table class="table table-bordered table-hover table-responsive">
              <tr>
                  <th class="active">芯片级数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
                  <th></th>
                  <th class="active">芯片级数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
             </tr>
  
              <tr>
@@ -1257,14 +1262,14 @@
         <table class="table table-bordered table-hover table-responsive">
              <tr>
              <th class="active">芯片级数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
                  <th></th>
                  <th class="active">芯片级数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
              </tr>
              <tr>
                  <td class="active">1(U1-U3)</td>
@@ -1494,14 +1499,14 @@
         <table class="table table-bordered table-hover table-responsive">
              <tr>
              <th class="active">芯片级数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
                  <th></th>
                  <th class="active">芯片级数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
-                 <th class="active"> 电压|温度|yield值|芯片错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
+                 <th class="active"> 电压|温度|yield值|硬件错误数</th>
              </tr>
  
              <tr>

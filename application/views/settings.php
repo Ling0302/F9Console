@@ -235,7 +235,7 @@
                     </div>
                     
 					<!-- Reset box -->
-					<div class="box box-primary" id="resets-box">
+					<div class="box box-primary" id="resets-box" style="display:none;">
 						<div class="box-header">
 							<!-- tools box -->
                             <div class="pull-right box-tools">

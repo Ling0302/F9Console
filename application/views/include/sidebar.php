@@ -294,9 +294,9 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-charts" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.go_to_charts') ?>">
-                            <a href="<?php echo site_url("app/charts") ?>">
-                                <i class="fa fa-bar-chart-o"></i> <span><?php echo lang('app.charts') ?></span>
+                        <li class="sidebar-charts" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.go_to_audit') ?>">
+                            <a href="<?php echo site_url("app/audit") ?>">
+                                <i class="fa fa-bar-chart-o"></i> <span><?php echo lang('app.audit') ?></span>
                             </a>
                         </li>
                         <li class="treeview">
@@ -328,11 +328,11 @@
                                 		<i class="fa fa-upload"></i> <?php echo lang('app.firmware_upgrade') ?>
                                 	</a>
                                 </li>
-                                <li>
+                                <!--<li>
                                 	<a href="<?php echo site_url("app/settings#resets-box") ?>" class="menu-resets-box ml10">
                                 		<i class="fa fa-warning"></i> <?php echo lang('app.resets') ?>
                                 	</a>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
                         <li class="treeview">

@@ -81,7 +81,7 @@ class App extends CI_Controller {
 		$data['htmlTag'] = "lockscreen";
 		$data['firmwareVersion'] = $this->util_model->getFirmwareVersion();
 		$data['isOnline'] = $this->util_model->isOnline();
-		$data['isShowLogo'] = $this->util_model->isShowLogo();
+		//$data['isShowLogo'] = $this->util_model->isShowLogo();
 
 		$this->load->view('include/header', $data);
 		$this->load->view('lockscreen');
@@ -109,6 +109,8 @@ class App extends CI_Controller {
 
 		if ($this->input->post('password', true) && sha1($this->input->post('password')) == $storedp) {
 			$this->session->set_userdata("loggedin", $storedp);
+			// 记录登录操作
+			
 			redirect('app/dashboard');
 		}
 		else
@@ -121,6 +123,8 @@ class App extends CI_Controller {
 	public function logout()
 	{	
 		$this->session->set_userdata("loggedin", null);
+		// 记录退出操作
+
 		redirect('app/index'); // redirect to index
 	}
 	
@@ -215,6 +219,39 @@ class App extends CI_Controller {
 		$this->load->view('include/footer');
 	}
 
+
+    public function audit()
+	{
+		$this->util_model->isLoggedIn();
+		
+		$data['now'] = time();
+		$data['sectionPage'] = 'audit';
+		$data['isOnline'] = $this->util_model->isOnline();
+		$data['htmlTag'] = "audit";
+		$data['chartsScript'] = true;
+		$data['appScript'] = false;
+		$data['settingsScript'] = false;
+		$data['mineraUpdate'] = $this->util_model->checkUpdate();
+		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
+		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
+		$data['minerdLog'] = $this->redis->get('minerd_log');
+		$data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
+		$data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
+		$data['minerdRunning'] = $this->redis->get("minerd_running_software");
+		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
+		$data['minerdSoftware'] = $this->redis->get("minerd_software");
+		$data['netMiners'] = $this->util_model->getNetworkMiners();
+		$data['browserMining'] = $this->redis->get('browser_mining');
+		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
+		$data['env'] = $this->config->item('ENV');
+		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
+		$data['logs'] = $this->util_model->getAuditLog();
+		
+		$this->load->view('include/header', $data);
+		$this->load->view('include/sidebar', $data);
+		$this->load->view('audit', $data);
+		$this->load->view('include/footer');
+	}
 	/*
 	// Settings controller
 	*/
@@ -599,7 +636,7 @@ class App extends CI_Controller {
 		$data['seconds'] = 30;
 		$data['refreshUrl'] = false;
 		$data['env'] = $this->config->item('ENV');
-		$data['isShowLogo'] = $this->util_model->isShowLogo();
+		//$data['isShowLogo'] = $this->util_model->isShowLogo();
 
 		$this->load->view('include/header', $data);
 		$this->load->view('sysop', $data);
@@ -712,7 +749,7 @@ class App extends CI_Controller {
 			$data['htmlTag'] = "lockscreen";
 			$data['seconds'] = 200;
 			$data['env'] = $this->config->item('ENV');
-			$data['isShowLogo'] = $this->util_model->isShowLogo();
+			//$data['isShowLogo'] = $this->util_model->isShowLogo();
 		
 			$this->load->view('include/header', $data);
 			$this->load->view('sysop', $data);
@@ -836,6 +873,20 @@ class App extends CI_Controller {
 						$o = json_encode(array("err" => true));
 				}
 			break;
+			case "ledCtrl":
+				$action = ($this->input->get('action')) ? $this->input->get('action') : false;
+				switch($action)
+				{					
+					case "redOn":
+						$this->util_model->redOn();
+					break;
+					case "redOff":
+						$this->util_model->redOff();
+					break;
+				}
+				$o = json_encode(array("message" => 'success','code' => '200'));
+			break;
+			
 		}
 
 		$this->output

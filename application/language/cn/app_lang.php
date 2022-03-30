@@ -161,6 +161,11 @@ $lang['app.monthly']  = "每月算力曲线";
 $lang['app.yearly']  = "每年算力曲线";
 $lang['app.accepted_rejected_erros']  = "接收/拒绝/错误数";
 
+// Audit Page
+$lang['app.time']  = "时间";
+$lang['app.action']  = "操作";
+$lang['app.remark']  = "备注";
+
 // Miner Page
 $lang['app.are_you_sure'] = "确定现在重启矿机吗?";
 $lang['app.wait_while_rebooting'] = "请稍候，矿机正在重启中...";

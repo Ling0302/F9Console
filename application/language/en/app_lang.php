@@ -159,7 +159,10 @@ $lang['app.monthly']  = "Monthly";
 $lang['app.yearly']  = "Yearly";
 $lang['app.accepted_rejected_erros']  = "Accepted/Rejected/Errors";
 
-
+// Audit Page
+$lang['app.time']  = "Time";
+$lang['app.action']  = "Action";
+$lang['app.remark']  = "Remark";
 
 
 // Miner Page
