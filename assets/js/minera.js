@@ -112,23 +112,6 @@ function getExaColor(color)
 		return '#999';
 }
 
-function callUpdate()
-{
-
-	//$('.center').append('<div class="form-box" style="width:90%"><div class="header" id="msglog-box" style="font-size:16px;"></div></div>');
-    $.ajax({
-	    url: _baseUrl + '/app/api?command=update_minera',
-        dataType: 'json',
-        success: function (data) {
-        	if (data)
-        	{
-        		console.log(data);
-        		//$('#msglog-box').html('<p>'+data+'</p>');
-    		}
-        }
-    });
-}
-
 function timer(counter)
 {
 
@@ -694,29 +677,6 @@ $(function() {
 
 		$('#modal-terminal').modal('show');
 	});
-
-	$('.manage-browser-mining').click(function(e) {
-       	e.preventDefault();
-       	var action =  $(this).data('action');
-
-	   	$('#modal-saving-label').html(action + ' browser mining, please wait...');
-    	$('#modal-saving').modal('show');
-
-    	var apiUrl = _baseUrl + '/app/manage_browser_mining';
-
-		$.ajax({
-			type: 'POST',
-			data: {
-				action: action
-			},
-			url: apiUrl,
-			cache: false,
-			success:  function(resp){
-				$('#modal-saving').modal('hide');
-				window.location.reload();
-			}
-		});
-    });
 	
 	$('.modal-hide').click(function(e){
        	e.preventDefault();

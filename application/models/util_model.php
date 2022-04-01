@@ -1488,30 +1488,11 @@ class Util_model extends CI_Model {
 		exec("echo 'minera:".$password."' | sudo -S /usr/sbin/chpasswd");
 		return true;
 	}
-	
-	// Call shutdown cmd
-	public function shutdown()
-	{
-		log_message('error', "Shutdown cmd called");
-		
-		$this->minerStop();
-		$this->redis->del("cron_lock");
-		$this->redis->command("BGSAVE");
-		sleep(2);
-		
-		exec("sudo shutdown -h now");
-
-		return true;
-	}
 
 	// Call reboot cmd
 	public function reboot()
 	{
 		log_message('error', "Reboot cmd called");
-
-		// $this->minerStop();
-		// $this->redis->del("cron_lock");
-		// $this->redis->command("BGSAVE");
 		sleep(2);
 		exec("sudo reboot");
 
@@ -1748,49 +1729,6 @@ class Util_model extends CI_Model {
 			return false;	
 		}
 	}
-		
-	// Call update cmd
-	public function update()
-	{
-		$this->session->unset_userdata("loggedin");
-		$this->minerStop();
-		$this->resetCounters();
-		sleep(3);
-		
-		$lines = array();
-		// Pull the latest code from github
-		exec("cd ".FCPATH." && sudo -u " . $this->config->item("system_user") . " sudo git fetch --all && sudo git reset --hard origin/master", $out);
-		
-		$logmsg = "Update request from ".$this->currentVersion()." to ".$this->redis->command("HGET minera_update new_version")." : ".var_export($out, true);
-		
-		$lines[] = $logmsg;
-		
-		log_message('error', $logmsg);
-
-		$this->redis->del("altcoins_update");		
-		$this->util_model->updateAltcoinsRates(true);
-		$this->redis->del("minera_update");
-		$this->redis->del("minera_version");
-		//$this->checkUpdate();
-				
-		// Run upgrade script
-		exec("cd ".FCPATH." && sudo -u " . $this->config->item("system_user") . " sudo ./upgrade_minera.sh", $out);
-
-		$logmsg = "Running upgrade script".var_export($out, true);
-
-		$lines[] = $logmsg;
-				
-		log_message('error', $logmsg);
-		
-		$logmsg = "End Update";
-		$lines[] = $logmsg;
-		log_message('error', $logmsg);
-		
-		sleep(5);
-		$this->minerStart();
-		
-		return json_encode($lines);
-	}
 	
 	// Reset Minera data
 	public function reset($action)
@@ -1820,134 +1758,6 @@ class Util_model extends CI_Model {
 		}
 		
 		return $o;
-	}
-	
-	public function factoryReset() 
-	{
-		$this->minerStop();
-		sleep(3);
-		
-		// SET
-		$this->redis->set("minerd_autorestart", 0);
-		$this->redis->set("minerd_delaytime", 5);
-		$this->redis->set("scheduled_event_time", "");
-		$this->redis->set("minera_donation_time", 0);
-		$this->redis->set("minerd_autorestart_time", 600);
-		$this->redis->set("minerd_manual_settings", "");
-		$this->redis->set("minerd_extraoptions", "");
-		$this->redis->set("minerd_use_root", 0);
-		$this->redis->set("minerd_settings", "");
-		$this->redis->set("minerd_autotune", 0);
-		$this->redis->set("mobileminer_system_name", "");
-		$this->redis->set("mobileminer_email", "");
-		$this->redis->set("mobileminer_appkey", "");
-		$this->redis->set("minerd_startfreq", 0);
-		$this->redis->set("current_frequencies", 0);
-		$this->redis->set("dashboard_temp", "c");
-		$this->redis->set("dashboard_table_records", 10);
-		$this->redis->set("minera_timezone", "GMT");
-		$this->redis->set("dashboard_box_chart_hashrates", 1);
-		$this->redis->set("dashboard_box_chart_shares", 1);
-		$this->redis->set("dashboard_box_chart_system_load", 1);
-		$this->redis->set("dashboard_box_local_miner", 1);
-		$this->redis->set("dashboard_box_local_pools", 1);
-		$this->redis->set("dashboard_box_log", 1);
-		$this->redis->set("minerd_software", "cgminer");
-		$this->redis->set("manual_options", 0);
-		$this->redis->set("minerd_autorecover", 0);
-		$this->redis->set("scheduled_event_action", "");
-		$this->redis->set("anonymous_stats", 1);
-		$this->redis->set("dashboard_skin", "black");
-		$this->redis->set("guided_options", 1);
-		$this->redis->set("mobileminer_enabled", 0);
-		$this->redis->set("minerd_autorestart_devices", 0);
-		$this->redis->set("minerd_log", 0);
-		$this->redis->set("minerd_status", 0);
-		$this->redis->set("minerd_scrypt", 0);
-		$this->redis->set("dashboard_refresh_time", 300);
-		$this->redis->set("donation_time_remain", 1);
-		$this->redis->set("scheduled_event_start_time", "");
-		$this->redis->set("minera_password", "70e880b1effe0f770849d985231aed2784e11b38");
-		$this->redis->set("dashboard_coin_rates", json_encode(array()));
-		$this->redis->set("system_extracommands", "");
-		$this->redis->set("minerd_append_conf", 1);
-		$this->redis->set("minerd_running_user", "minera");
-		$this->redis->set("minerd_debug", 0);
-		$this->redis->set("pool_global_proxy", "");
-		$this->redis->set("minerd_pools", "");
-		$this->redis->set("minerd_autodetect", 0);
-		$this->redis->set("minerd_api_allow_extra", "");
-		$this->redis->set("browser_mining", 1);
-		$this->redis->set("browser_mining_threads", 2);
-		
-		// DEL
-		$this->redis->del("minera_version");
-		$this->redis->del("active_custom_miners");
-		$this->redis->del("minera_update");
-		$this->redis->del("cryptsy_update");
-		$this->redis->del("latest_stats");
-		$this->redis->del("minerd_avg_stats_86400");
-		$this->redis->del("minerd_avg_stats_3600");
-		$this->redis->del("minerd_avg_stats_300");
-		$this->redis->del("saved_miner_configs");
-		$this->redis->del("cryptsy_data");
-		$this->redis->del("bitstamp_data");
-		$this->redis->del("saved_donations");
-		$this->redis->del("minera_remote_config");
-		$this->redis->del("export_settings");
-		$this->redis->del("altcoins_data");
-		$this->redis->del("network_miners");
-		$this->redis->del("minerd_totals_stats");
-		$this->redis->del("miners_conf");
-		$this->redis->del("miners_conf_update");
-		$this->redis->del("minerd_delta_stats");
-		$this->redis->del("saved_miner_config:*");
-		$this->redis->del("minerd_json_settings");
-		$this->redis->del("import_data_tmp");
-		$this->redis->del("bitstamp_update");
-		$this->redis->del("altcoins_update");
-		
-		// Add donation pool
-		$this->autoAddMineraPool();
-		
-		return true;		
-	}
-	
-	// Check Minera version
-	public function checkUpdate()
-	{
-		// wait 1h before recheck
-        /*
-		if (time() > ($this->redis->command("HGET minera_update timestamp")+3600))
-		{
-			log_message('error', "Checking Minera updates");
-
-			$latestConfig = $this->getRemoteJsonConfig();
-			$localVersion = $this->currentVersion();
-			
-			if (isset($latestConfig->version)) {
-				$this->redis->command("HSET minera_update timestamp ".time());
-				$this->redis->command("HSET minera_update new_version ".$latestConfig->version);
-	
-				if ($latestConfig->version != $localVersion)
-				{
-					log_message('error', "Found a new Minera update");
-	
-					$this->redis->command("HSET minera_update value 1");
-					return true;
-				}
-			
-				$this->redis->command("HSET minera_update value 0");
-			}
-		}
-		else
-		{
-			if ($this->redis->command("HGET minera_update value"))
-				return true;
-			else
-				return false;
-		}*/
-        return false;
 	}
 
 	// Get local Minera version
@@ -2137,19 +1947,7 @@ class Util_model extends CI_Model {
 		else
 			return $hash;
 	}
-	
-	// Check Internet connection
-	public function checkConn()
-	{
-		if(!$fp = fsockopen("www.google.com", 80)) {
-			return false;
-		}
-		
-		if (is_resource($fp)) fclose($fp);
-		
-		return true;
-	}
-	
+
 	public function getSysUptime()
 	{
 		return strtok( exec( "cat /proc/uptime" ), "." );
@@ -2186,29 +1984,6 @@ class Util_model extends CI_Model {
 		}
 	}
 	
-	function get_furl($url) {
-	    $furl = false;
-	   
-	    // First check response headers
-	    $headers = get_headers($url);
-	   
-	    // Test for 301 or 302
-	    if(preg_match('/^HTTP\/\d\.\d\s+(301|302)/',$headers[0]))
-	    {
-	        foreach($headers as $value)
-	        {
-	            if(substr(strtolower($value), 0, 9) == "location:")
-	            {
-	                $furl = trim(substr($value, 9, strlen($value)));
-	            }
-	        }
-	    }
-	    // Set final URL
-	    $furl = ($furl) ? $furl : $url;
-	
-	    return $furl;
-	}
-	
 	public function useCurl($url, $params, $method, $post = false)
 	{
 		if ($params)
@@ -2238,7 +2013,6 @@ class Util_model extends CI_Model {
 		if(!curl_errno($ch))
 		{
 			$http_status = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-			// Not used
 		}
 
 		curl_close($ch);
@@ -2248,232 +2022,7 @@ class Util_model extends CI_Model {
 
 	public function getFirmwareVersion()
 	{
-		return str_replace(' ','',exec("cat /firmware_info | awk -F ':' '{print $2 \":\" $3}'"));
-	}
-
-	public function isShowLogo()
-	{
-		@exec("sudo miner_cfg MINER_WEB_LOGO get", $show_logo);
-		return !isset($show_logo[0]) || $show_logo[0] !== 'MINER_WEB_NOLOGO';
-	}
-
-	public function redOn()
-	{
-		@exec("sudo led_ctl red off");
-		@exec("sudo led_ctl red on");
-		return true;
-	}
-
-	public function redOff()
-	{
-		@exec("sudo led_ctl red off");
-		return true;
-	}
-
-	public function getBoardLevel()
-    {
-		return trim(exec("head -n 1 /firmware_info | awk -F ' ' '{print $2}'"));
-    }
-	
-
-	public function minerInfo()
-	{
-		$info = new stdClass();
-		$ifConfig = $this->getIfconfig();
-		
-		@exec("sudo get_hashbin", $bin_infos);
-		$bin_str =  "";
-		$bin1_str = isset($bin_infos) ? explode(":", trim($bin_infos[0]))[1] : "";
-		$bin2_str = isset($bin_infos) ? explode(":", trim($bin_infos[1]))[1] : "";
-		$bin3_str = isset($bin_infos) ? explode(":", trim($bin_infos[2]))[1] : "";
-		if($bin1_str == $bin2_str && $bin1_str == $bin3_str){
-			$bin_str = $bin1_str;
-		}else {
-			$bin_str = $bin1_str.'-'.$bin2_str.'-'.$bin3_str;
-		}
-		json_encode($bin_str);
-
-		$info->model ='F9';
-		$info->bin = json_last_error() == JSON_ERROR_NONE ? trim($bin_str) : '';
-		$info->firmware_version = $this->getFirmwareVersion();
-		$info->mac = $ifConfig->mac;
-		$info->network_type = $ifConfig->dhcp;
-		$info->uptime = $this->getSysUptime();
-
-		// 获取电源版本、硬件版本信息
-		@exec("sudo F5_DrvTest power show_id", $psu_id);
-		@exec("sudo ls /sys/bus/i2c/devices/*/eeprom",$eeprom_list);
-		$hw_version =  "";
-
-		$eeprom1 = trim(exec("sudo cat ". $eeprom_list[0]));
-		$eeprom2 = trim(exec("sudo cat ". $eeprom_list[1]));
-		$eeprom3 = trim(exec("sudo cat ". $eeprom_list[2]));
-		$eeprom4 = $this->getBoardLevel() == 36 ? trim(exec("sudo cat ". $eeprom_list[3])) : "";
-
-		$version_arr1 = preg_split("//", $eeprom1, null, PREG_SPLIT_NO_EMPTY);
-		$version_arr2 = preg_split("//", $eeprom2, null, PREG_SPLIT_NO_EMPTY);
-		$version_arr3 = preg_split("//", $eeprom3, null, PREG_SPLIT_NO_EMPTY);
-		$version_arr4 = $eeprom4 ? preg_split("//", $eeprom4, null, PREG_SPLIT_NO_EMPTY) : [];
-	
-		$version1 = "v".$version_arr1[7].'.'.$version_arr1[8];
-		$version2 = "v".$version_arr2[7].'.'.$version_arr2[8];
-		$version3 = "v".$version_arr3[7].'.'.$version_arr3[8];
-		$version4 = $eeprom4 ? "v".$version_arr4[7].'.'.$version_arr4[8] : "";
-		
-		if ( $version1 == $version2  && $version1 == $version3 ){
-			$hw_version = $version1;
-		}else { 
-			$hw_version == $eeprom4 ? $version1.'|'.$version2.'|'.$version3.'|'.$version4 : $version1.'|'.$version2.'|'.$version3;
-		}
-		
-
-		$psu_version = explode("=", $psu_id[1]);
-		$info->psu_version = trim($psu_version[1]);
-		$info->hw_version =  trim($hw_version);
-
-		// 获取芯片个数
-		$info->chip_count = $this->getChipCount();
-
-		// 获取矿机老化状态
-		$status = '';
-		$test_result = trim(exec("cat /etc/aging_test_result"));
-		
-		if(!$test_result || $test_result == 'running') {
-			// 若不存在老化结果文件
-			$status = '正在老化...';
-		} else if ($test_result == 'success') {
-			// 若老化结果OK
-			$status = 'OK';
-		} else {
-			// 若老化结果NG
-			$result = str_replace(' ','',exec("cat /tmp/cgminer_abart_reason"));
-            $real_reason="";
-            if(stripos($result, 'voltage') !== false)
-            {
-                preg_match("/\d+/", $result, $match);
-                $real_reason = "电源电压".$match[0]."mv";           
-            }else if(stripos($result, 'maxspierr') !== false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":spi-".$match[0][2];
-			}else if(stripos($result,'testmode') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'bypass') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'pll') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'switch') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'output') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'difficulty') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'offset') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'sensors') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'adc') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}else if(stripos($result,'soft') !==false)
-			{
-				preg_match_all("/\d+/", $result, $match);
-				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
-			}
-			$reason=array(
-				"chain0:bringup_fail"=>"板1:链通不过",
-				"chain1:bringup_fail"=>"板2:链通不过",
-				"chain2:bringup_fail"=>"板3:链通不过",
-				"chain3:bringup_fail"=>"板4:链通不过",
-				"chain0:spi_error"=>"板1:spi",
-				"chain1:spi_eeror"=>"板2:spi",
-				"chain2:spi_error"=>"板3:spi",
-				"chain3:spi_error"=>"板4:spi", 
-				"chain0:chip_fail"=>"板1:算力低",
-				"chain1:chip_fail"=>"板2:算力低",  
-				"chain2:chip_fail"=>"板3:算力低",
-				"chain3:chip_fail"=>"板4:算力低",
-				"chain0:overheating"=>"板1:过温",
-				"chain1:overheating"=>"板2:过温",
-				"chain2:overheating"=>"板3:过温",
-				"chain3:overheating"=>"板4:过温",
-				"power:powerctrlfailed" => "485通信失败",
-				"fan:fan_init_fail"=>"压风扇线",
-				"systemboard:cgminerconfiginvaild"=>"控制板接口异常",
-				"systemboard:gpiosetfailed"=>"GPIO异常",
-				"fan1:fan_speed_is_low"=>"风扇1-转速低",
-				"fan2:fan_speed_is_low"=>"风扇2-转速低",
-				"fan3:fan_speed_is_low"=>"风扇3-转速低",
-				"fan4:fan_speed_is_low"=>"风扇4-转速低",
-				"fancool:wait_for_cooling"=>"风扇降温失败",
-				"fan:fan_error"=>"风扇错误",
-                "no_bin"=>"无BIN信息",
-				"MIX_BIN"=>"混bin",
-			);//老化结果简化成中文
-
-			$status = $real_reason ? $real_reason : (isset($reason[$result])?$reason[$result]:$result);
-		}
-		$info->status = $status;
-		return json_encode($info);
-
-	}
-	public function getChipCount() {
-		$counts = array(
-			"36" => 432,
-			"40" => 360
-		);
-
-		// 判断芯片级数
-		@exec("cat /firmware_info",$levels);
-		return stripos($levels[0],'36') !== false ? $counts['36'] : $counts['40'];
-	}
-
-
-	public function file_get_tail( $file, $num = 100){	
-		$fp = fopen($file, "r");
-		$pos = -2;
-		$eof = "";
-		$head = false; //当总行数小于Num时，判断是否到第一行了
-		$lines = array();
-		while ($num > 0) {
-			while ($eof != "\n") {
-				if (fseek($fp, $pos, SEEK_END) == 0) {
-					//fseek成功返回0，失败返回-1
-					$eof = fgetc($fp);
-					$pos--;
-				} else {
-					//当到达第一行，行首时，设置$pos失败
-					fseek($fp, 0, SEEK_SET);
-					$head = true; //到达文件头部，开关打开
-					break;
-				}
-			}
-			array_unshift($lines, fgets($fp));
-			if ($head) {break;} //这一句，只能放上一句后，因为到文件头后，把第一行读取出来再跳出整个循环
-			$eof = "";
-			$num--;
-		}
-		fclose($fp);
-		// return $lines;
-		$str = join('', $lines);
-		return $str;
+		return '20220401:2330';
 	}
 
 	public function getAuditLog() {

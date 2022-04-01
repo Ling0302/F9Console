@@ -3,7 +3,7 @@
 // App specific configs
 $config['ENV'] = 'development';
 //$config['ENV'] = 'production';
-$config['minera_api_url'] = 'https://getminera.com/api';
+$config['minera_api_url'] = '';
 $config['live_stats_url'] =  'app/stats';
 $config['stored_stats_url'] =  'app/api?command=history_stats&type=hourly';
 $config['screen_command'] = '/usr/bin/screen -dmS cpuminer';
@@ -25,7 +25,7 @@ $config['mobileminer_url_notifications'] = 'https://api.mobileminerapp.com/Notif
 $config['mobileminer_url_poolsinput'] = 'https://api.mobileminerapp.com/PoolsInput';
 $config['mobileminer_url_remotecommands'] = 'https://api.mobileminerapp.com/RemoteCommands';
 $config['mobileminera_apikey'] = 'Y8gl9PF6QR22Vv';
-$config['mobileminera_url_stats'] = 'https://getminera.com/api/miners';
+$config['mobileminera_url_stats'] = '';
 $config['minera_pool_url'] = 'stratum+tcp://us.multipool.us:7777';
 $config['minera_pool_url_sha256'] = 'stratum+tcp://us.multipool.us:8888';
 $config['minera_pool_username'] = 'michelem.minera';

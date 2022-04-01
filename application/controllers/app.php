@@ -8,8 +8,7 @@ class App extends CI_Controller {
 		self::__initLanguage();
 
 		// Set the general timezone
-		$timezone = ($this->redis->get("minera_timezone")) ? $this->redis->get("minera_timezone") : 'Asia/Shanghai';
-		date_default_timezone_set($timezone);
+		date_default_timezone_set('Asia/Shanghai');
 
 	}
 
@@ -19,7 +18,6 @@ class App extends CI_Controller {
 		$lang_url    = $this->uri->segment(1);
 
 		$lang_default = config_item('language');
-		//$lang_current = ( FALSE !== in_array($lang_url, $lang_support) ) ? $lang_url : $lang_default;
 		$lang_current = empty($this->session->userdata("language")) ?  $lang_default : $this->session->userdata("language");
 
 		$this->config->set_item('language', $lang_current);
@@ -50,38 +48,32 @@ class App extends CI_Controller {
 	public function index()
 	{
 
-		// Always try to assign the mineraId if not present
-		$mineraSystemId = $this->util_model->generateMineraId();
-		$this->redis->del("minera_update");
-		
-		//$this->util_model->checkUpdate();
+		$mineraSystemId = 'dumyMinerID';
+		// $this->redis->del("minera_update");
 				
-		if (!$this->redis->command("EXISTS dashboard_devicetree")) $this->redis->set("dashboard_devicetree", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_profit")) $this->redis->set("dashboard_box_profit", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_local_miner")) $this->redis->set("dashboard_box_local_miner", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_local_pools")) $this->redis->set("dashboard_box_local_pools", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_network_details")) $this->redis->set("dashboard_box_network_details", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_network_pools_details")) $this->redis->set("dashboard_box_network_pools_details", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_chart_shares")) $this->redis->set("dashboard_box_chart_shares", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_chart_system_load")) $this->redis->set("dashboard_box_chart_system_load", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_chart_hashrates")) $this->redis->set("dashboard_box_chart_hashrates", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_scrypt_earnings")) $this->redis->set("dashboard_box_scrypt_earnings", 1);
-		if (!$this->redis->command("EXISTS dashboard_box_log")) $this->redis->set("dashboard_box_log", 1);
+		// if (!$this->redis->command("EXISTS dashboard_devicetree")) $this->redis->set("dashboard_devicetree", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_profit")) $this->redis->set("dashboard_box_profit", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_local_miner")) $this->redis->set("dashboard_box_local_miner", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_local_pools")) $this->redis->set("dashboard_box_local_pools", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_network_details")) $this->redis->set("dashboard_box_network_details", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_network_pools_details")) $this->redis->set("dashboard_box_network_pools_details", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_chart_shares")) $this->redis->set("dashboard_box_chart_shares", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_chart_system_load")) $this->redis->set("dashboard_box_chart_system_load", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_chart_hashrates")) $this->redis->set("dashboard_box_chart_hashrates", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_scrypt_earnings")) $this->redis->set("dashboard_box_scrypt_earnings", 1);
+		// if (!$this->redis->command("EXISTS dashboard_box_log")) $this->redis->set("dashboard_box_log", 1);
 
-		$miner_pools = $this->redis->get("minerd_pools");
+		//$miner_pools = $this->redis->get("minerd_pools");
 		$pools = $this->util_model->getPools();
 		
 		$data['now'] = time();
 		$data['minera_system_id'] = $mineraSystemId;
 		$data['minera_version'] = $this->util_model->currentVersion(true);
-		$data['browserMining'] = $this->redis->get('browser_mining');
-		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
 		$data['env'] = $this->config->item('ENV');
 		$data['sectionPage'] = 'lockscreen';
 		$data['htmlTag'] = "lockscreen";
 		$data['firmwareVersion'] = $this->util_model->getFirmwareVersion();
 		$data['isOnline'] = $this->util_model->isOnline();
-		//$data['isShowLogo'] = $this->util_model->isShowLogo();
 
 		$this->load->view('include/header', $data);
 		$this->load->view('lockscreen');
@@ -153,7 +145,7 @@ class App extends CI_Controller {
 		$data['htmlTag'] = "dashboard";
 		$data['appScript'] = true;
 		$data['settingsScript'] = false;
-		$data['mineraUpdate'] = $this->util_model->checkUpdate();
+		$data['mineraUpdate'] = false;
 		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
 		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
 		$data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
@@ -173,8 +165,6 @@ class App extends CI_Controller {
 		$data['minerdSoftware'] = $this->redis->get("minerd_software");
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
 		$data['localAlgo'] = "SHA-256";
-		$data['browserMining'] = $this->redis->get('browser_mining');
-		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
 		$data['env'] = $this->config->item('ENV');
 		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
 		
@@ -198,7 +188,7 @@ class App extends CI_Controller {
 		$data['chartsScript'] = true;
 		$data['appScript'] = false;
 		$data['settingsScript'] = false;
-		$data['mineraUpdate'] = $this->util_model->checkUpdate();
+		$data['mineraUpdate'] = false;
 		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
 		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
 		$data['minerdLog'] = $this->redis->get('minerd_log');
@@ -208,8 +198,6 @@ class App extends CI_Controller {
 		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
 		$data['minerdSoftware'] = $this->redis->get("minerd_software");
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
-		$data['browserMining'] = $this->redis->get('browser_mining');
-		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
 		$data['env'] = $this->config->item('ENV');
 		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
 		
@@ -231,7 +219,7 @@ class App extends CI_Controller {
 		$data['chartsScript'] = true;
 		$data['appScript'] = false;
 		$data['settingsScript'] = false;
-		$data['mineraUpdate'] = $this->util_model->checkUpdate();
+		$data['mineraUpdate'] = false;
 		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
 		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
 		$data['minerdLog'] = $this->redis->get('minerd_log');
@@ -241,8 +229,6 @@ class App extends CI_Controller {
 		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
 		$data['minerdSoftware'] = $this->redis->get("minerd_software");
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
-		$data['browserMining'] = $this->redis->get('browser_mining');
-		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
 		$data['env'] = $this->config->item('ENV');
 		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
 		$data['logs'] = $this->util_model->getAuditLog();
@@ -252,12 +238,13 @@ class App extends CI_Controller {
 		$this->load->view('audit', $data);
 		$this->load->view('include/footer');
 	}
+
 	/*
 	// Settings controller
 	*/
 	public function settings()
 	{
-		$this->util_model->isLoggedIn();
+		// $this->util_model->isLoggedIn();
 		
 		$data['now'] = time();
 		$data['sectionPage'] = 'settings';
@@ -414,9 +401,6 @@ class App extends CI_Controller {
 		$data['minerdDelaytime'] = $this->redis->get("minerd_delaytime");
 		$data['minerApiAllowExtra'] = $this->redis->get("minerd_api_allow_extra");
 		$data['globalPoolProxy'] = $this->redis->get("pool_global_proxy");
-		$data['browserMining'] = $this->redis->get('browser_mining');
-		$data['browserMiningThreads'] = $this->redis->get('browser_mining_threads');
-
 		$data['networkMiners'] = json_decode($this->redis->get('network_miners'));
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
 		
@@ -447,7 +431,7 @@ class App extends CI_Controller {
 		// Everything else
 		$data['savedFrequencies'] = $this->redis->get('current_frequencies');
 		$data['isOnline'] = $this->util_model->isOnline();
-		$data['mineraUpdate'] = $this->util_model->checkUpdate();
+		$data['mineraUpdate'] = false;
 		$data['htmlTag'] = "settings";
 		$data['appScript'] = false;
 		$data['settingsScript'] = true;
@@ -559,44 +543,13 @@ class App extends CI_Controller {
 			->set_content_type('application/json')
 			->set_output(json_encode($dataObj));
 	}
-
-	/*
-	// Enable disable browser mining
-	*/
-	public function manage_browser_mining()
-	{
-		$this->util_model->isLoggedIn();
-		$result = new stdClass();
-		$error = new stdClass();
-		
-		if (!$this->input->post('action')) {
-			$error->err = 'Action is required';
-			echo json_encode($error);
-			return false;
-		}
-
-		$action = $this->input->post('action');
-		$threads = $this->input->post('threads');
-		$threads = ($threads) ? $threads : 2;
-		$enable = ($action === 'enable') ? true : false;
-
-		$this->redis->set('browser_mining', $enable);
-		$this->redis->set('browser_mining_threads', $threads);
-
-		// log_message("error", $action);
-		$result->action = $action;
-		$result->threads = $threads;
-		echo json_encode($result);
-	}
 	
 	/*
 	// Export the settings forcing download of JSON file
 	*/
 	public function export()
-	{
-		$this->util_model->isLoggedIn();
-		
-		$o = $this->redis->get("export_settings");
+	{		
+		$o = "{a,b,c}";
 		if ($this->util_model->isJson($o))
 		{
 			$this->output
@@ -607,49 +560,12 @@ class App extends CI_Controller {
 		else
 			return false;
 	}
-	
-	/*
-	// Shutdown controller (this should be in a different "system" controller file)
-	*/
-	public function shutdown()
-	{	
-		$this->util_model->isLoggedIn();
-		
-		if ($this->input->get('confirm'))
-		{
-			$data['message'] = "Please wait to unplug me.";
-			$data['timer'] = true;
-			$this->util_model->shutdown();
-		}
-		else
-		{
-			$data['title'] = "Are you sure?";
-			$data['message'] = '<a href="'.site_url("app/shutdown").'?confirm=1" class="btn btn-danger btn-lg"><i class="fa fa-check"></i> Yes, shutdown now</a>&nbsp;&nbsp;&nbsp;<a href="'.site_url("app/dashboard").'" class="btn btn-primary btn-lg"><i class="fa fa-times"></i> No, thanks</a>';
-			$data['timer'] = false;
-		}
-		
-		$data['now'] = time();
-		$data['sectionPage'] = 'lockscreen';
-		$data['onloadFunction'] = false;
-		$data['messageEnd'] = "you can unplug me now.";
-		$data['htmlTag'] = "lockscreen";
-		$data['seconds'] = 30;
-		$data['refreshUrl'] = false;
-		$data['env'] = $this->config->item('ENV');
-		//$data['isShowLogo'] = $this->util_model->isShowLogo();
-
-		$this->load->view('include/header', $data);
-		$this->load->view('sysop', $data);
-		$this->load->view('include/footer', $data);
-	}
 
 	/*
 	// Reboot controller (this should be in a different "system" controller file)
 	*/
 	public function reboot()
-	{
-		$this->util_model->isLoggedIn();
-			
+	{			
 		if ($this->input->get('confirm'))
 		{
 			$data['refreshUrl'] = site_url("app/index");
@@ -681,9 +597,7 @@ class App extends CI_Controller {
 	// Start miner controller (this should be in a different "system" controller file)
 	*/
 	public function start_miner()
-	{
-		$this->util_model->isLoggedIn();
-		
+	{		
 		if (!$this->util_model->isOnline())
 			$this->util_model->minerStart();
 		else
@@ -698,9 +612,7 @@ class App extends CI_Controller {
 	// Stop miner controller (this should be in a different "system" controller file)
 	*/
 	public function stop_miner()
-	{
-		$this->util_model->isLoggedIn();
-		
+	{		
 		$this->util_model->minerStop();
 		
 		redirect('app/dashboard');
@@ -710,55 +622,10 @@ class App extends CI_Controller {
 	// Restart miner controller (this should be in a different "system" controller file)
 	*/
 	public function restart_miner()
-	{
-		$this->util_model->isLoggedIn();
-		
+	{		
 		$this->util_model->minerRestart();
 		
 		redirect('app/dashboard');
-	}
-	
-	/*
-	// Update controller (this should be in a different "system" controller file)
-	*/
-	public function update()
-	{
-		$this->util_model->isLoggedIn();
-		
-		if ($this->util_model->checkUpdate())
-		{
-			if ($this->input->get('confirm'))
-			{
-				$data['message'] = "Please wait while I'm upgrading the system...";
-				$data['timer'] = true;
-				$data['onloadFunction'] = "callUpdate()";
-				$data['refreshUrl'] = site_url("app/index");
-			}
-			else
-			{
-				$data['title'] = "System update detected";
-				$data['message'] = '<a href="'.site_url("app/update").'?confirm=1"><button class="btn btn-danger btn-lg"><i class="fa fa-check"></i> Let me install the updates</button></a>&nbsp;&nbsp;&nbsp;<a href="'.site_url("app/dashboard").'"><button class="btn btn-primary btn-lg"><i class="fa fa-times"></i> No, thanks</button></a><p><br /><small>Your local miner will be stopped during the update process. Minera will try to restart it after the update is complete.</small></p>';
-				$data['timer'] = false;
-				$data['onloadFunction'] = false;
-				$data['refreshUrl'] = false;
-			}
-			
-			$data['now'] = time();
-			$data['sectionPage'] = 'lockscreen';
-			$data['messageEnd'] = "System updated!";
-			$data['htmlTag'] = "lockscreen";
-			$data['seconds'] = 200;
-			$data['env'] = $this->config->item('ENV');
-			//$data['isShowLogo'] = $this->util_model->isShowLogo();
-		
-			$this->load->view('include/header', $data);
-			$this->load->view('sysop', $data);
-			$this->load->view('include/footer', $data);
-		}
-		else
-		{
-			redirect("app/dashboard");
-		}
 	}
 	
 	/*
@@ -772,12 +639,6 @@ class App extends CI_Controller {
 		
 		switch($cmd)
 		{
-			case "save_current_freq":
-				$o = $this->util_model->saveCurrentFreq();
-			break;
-			case "update_minera":
-				$o = $this->util_model->update();
-			break;
 			case "cron_unlock":
 				$o = $this->redis->del("cron_lock");
 			break;
@@ -795,19 +656,10 @@ class App extends CI_Controller {
 				$this->session->set_flashdata('message', '<b>Success!</b> Data has been reset.');
 				$this->session->set_flashdata('message_type', 'success');
 			break;
-			case "factory_reset_action":
-				$o = $this->util_model->factoryReset();
-				$this->cron();
-				$this->session->set_flashdata('message', '<b>Success!</b> Data has been reset.');
-				$this->session->set_flashdata('message_type', 'success');
-			break;
 			case "upgrade_exec":
 				// execute the upgrade command
 				exec("sudo nohup system_update online /tmp/".$fileInfoName." >/var/log/upgrade.log");
 				$o = json_encode(array("message" => true));
-			break;
-			case "import_file":
-				$o = json_encode($this->util_model->importFile($this->input->post()));
 			break;
 			case "reboot":
 				$o = $this->util_model->reboot();
@@ -819,9 +671,6 @@ class App extends CI_Controller {
 			break;
 			case "tail_log":
 				$o = json_encode($this->util_model->tailFile($this->input->get('file'), ($this->input->get('lines')) ? $this->input->get('lines') : 5));
-			break;
-			case "miner_info":
-				$o = $this->util_model->minerInfo();
 			break;
 			case "save_pools":
 				$poolUrls = $this->input->post('pool_url');
@@ -907,8 +756,7 @@ class App extends CI_Controller {
 
     public function varLog()
     {
-		//$str = $this->util_model->file_get_tail('/userdata/syslog/messages', 5000);
-		$str = file_get_contents('/userdata/syslog/messages');
+		$str = "This is dummy system log.";
 		$this->output
 			->set_content_type('application/json')
 			->set_output($str);
@@ -919,7 +767,7 @@ class App extends CI_Controller {
 	*/
 	public function stored_stats()
 	{
-		$this->util_model->isLoggedIn();
+		// $this->util_model->isLoggedIn();
 		
 		$storedStats = $this->util_model->getStoredStats(3600);
 		
