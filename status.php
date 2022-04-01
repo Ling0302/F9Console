@@ -108,6 +108,7 @@
         fclose($handle1);
     }
     if ($handle2) {
+        
         while (($line = fgets($handle2)) !== false) {
             $data2[] = $line;
         }

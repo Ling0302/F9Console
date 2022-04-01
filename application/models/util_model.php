@@ -2269,6 +2269,11 @@ class Util_model extends CI_Model {
 		@exec("sudo led_ctl red off");
 		return true;
 	}
+
+	public function getBoardLevel()
+    {
+		return trim(exec("head -n 1 /firmware_info | awk -F ' ' '{print $2}'"));
+    }
 	
 
 	public function minerInfo()
@@ -2297,12 +2302,34 @@ class Util_model extends CI_Model {
 
 		// 获取电源版本、硬件版本信息
 		@exec("sudo F5_DrvTest power show_id", $psu_id);
-		//@exec("sudo ls /sys/bus/i2c/devices/*/eeprom",$eeprom_list);
-        //$eeprom1 = trim(exec("sudo cat ". $eeprom_list[0]));
+		@exec("sudo ls /sys/bus/i2c/devices/*/eeprom",$eeprom_list);
+		$hw_version =  "";
+
+		$eeprom1 = trim(exec("sudo cat ". $eeprom_list[0]));
+		$eeprom2 = trim(exec("sudo cat ". $eeprom_list[1]));
+		$eeprom3 = trim(exec("sudo cat ". $eeprom_list[2]));
+		$eeprom4 = $this->getBoardLevel() == 36 ? trim(exec("sudo cat ". $eeprom_list[3])) : "";
+
+		$version_arr1 = preg_split("//", $eeprom1, null, PREG_SPLIT_NO_EMPTY);
+		$version_arr2 = preg_split("//", $eeprom2, null, PREG_SPLIT_NO_EMPTY);
+		$version_arr3 = preg_split("//", $eeprom3, null, PREG_SPLIT_NO_EMPTY);
+		$version_arr4 = $eeprom4 ? preg_split("//", $eeprom4, null, PREG_SPLIT_NO_EMPTY) : [];
 	
+		$version1 = "v".$version_arr1[7].'.'.$version_arr1[8];
+		$version2 = "v".$version_arr2[7].'.'.$version_arr2[8];
+		$version3 = "v".$version_arr3[7].'.'.$version_arr3[8];
+		$version4 = $eeprom4 ? "v".$version_arr4[7].'.'.$version_arr4[8] : "";
+		
+		if ( $version1 == $version2  && $version1 == $version3 ){
+			$hw_version = $version1;
+		}else { 
+			$hw_version == $eeprom4 ? $version1.'|'.$version2.'|'.$version3.'|'.$version4 : $version1.'|'.$version2.'|'.$version3;
+		}
+		
+
 		$psu_version = explode("=", $psu_id[1]);
 		$info->psu_version = trim($psu_version[1]);
-		//$info->hw_version =  trim($hw_version[0]);
+		$info->hw_version =  trim($hw_version);
 
 		// 获取芯片个数
 		$info->chip_count = $this->getChipCount();
