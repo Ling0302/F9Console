@@ -14,3 +14,6 @@
 8. 更新文件： /www/application/views/settings.php
 9. 更新文件： /www/application/views/include/sidebar.php
 10. 更新文件： /www/application/views/frontpage.php
+
+2022年4月1日：
+1. 更新文件: /www/application/models/util_model.php
