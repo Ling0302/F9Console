@@ -1,7 +1,7 @@
 <?php
 
 // Global
-$lang['app.title']    = "Cheetah Miner";
+$lang['app.title']    = "Miner Console";
 $lang['app.language'] = "Language";
 $lang['app.chinese']  = "Chinese";
 $lang['app.english']  = "English";
@@ -17,10 +17,12 @@ $lang['app.pools']    = "Pools";
 $lang['app.user']    = "User";
 $lang['app.resets']    = "Resets";
 $lang['app.charts']    = "Charts";
+$lang['app.audit'] = "Audit Log";
 $lang['app.refresh_dashboard']    = "Refresh Dashboard";
 $lang['app.go_to_dashboard']    = "Go to the dashboard page";
 $lang['app.go_to_settings']    = "Go to the settings page";
 $lang['app.go_to_charts']    = "Go to the charts page";
+$lang['app.go_to_audit']    = "Go to the audit log page";
 $lang['app.widgets']    = "Widgets";
 $lang['app.local_miner']    = "Local Miner";
 $lang['app.local_pools']    = "Local Pools";
@@ -36,10 +38,12 @@ $lang['app.restart_miner_title']    = "Restart your miner";
 $lang['app.welcome_miner'] = "Hello Miner";
 $lang['app.ip_address']    = "Ip Address";
 $lang['app.password']      = "Password";
+$lang['app.firmware_version']  = "Firmware Version";
 
 
 // Dashboard page
 $lang['app.mining']  = "Mining";
+$lang['app.chip_status']  = "View Chip Status";
 $lang['app.raw_stats']  = "raw stats";
 $lang['app.raw_stats_tips']  = "The raw JSON parsed to display the dashboard is also available";
 $lang['app.refresh_tips']  = "Click here to refresh";
@@ -95,6 +99,7 @@ $lang['app.local_miner_th_last_share']  = "Last Share";
 $lang['app.local_miner_th_last_share_time']  = "Last Share Time";
 $lang['app.local_pools_th_pools']  = "Pool";
 $lang['app.local_pools_th_url']  = "URL";
+$lang['app.local_pools_th_type']  = "Type";
 $lang['app.local_pools_th_status']  = "Status";
 $lang['app.local_pools_th_poolhr']  = "Pool HR";
 $lang['app.local_pools_th_cs']  = "CS";
@@ -154,7 +159,10 @@ $lang['app.monthly']  = "Monthly";
 $lang['app.yearly']  = "Yearly";
 $lang['app.accepted_rejected_erros']  = "Accepted/Rejected/Errors";
 
-
+// Audit Page
+$lang['app.time']  = "Time";
+$lang['app.action']  = "Action";
+$lang['app.remark']  = "Remark";
 
 
 // Miner Page

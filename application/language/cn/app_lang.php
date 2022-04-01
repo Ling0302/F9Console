@@ -1,7 +1,7 @@
 <?php
 
 // Global
-$lang['app.title']    = "猎豹矿机";
+$lang['app.title']    = "矿机后台";
 $lang['app.language'] = "语言";
 $lang['app.chinese']  = "中文";
 $lang['app.english']  = "英文";
@@ -17,10 +17,12 @@ $lang['app.pools']    = "矿池";
 $lang['app.user']    = "用户";
 $lang['app.resets']    = "重置";
 $lang['app.charts']    = "算力曲线";
+$lang['app.audit'] = "操作日志";
 $lang['app.refresh_dashboard']    = "刷新面板";
 $lang['app.go_to_dashboard']    = "前往面板界面";
 $lang['app.go_to_settings']    = "前往设置界面";
 $lang['app.go_to_charts']    = "前往查看算力曲线";
+$lang['app.go_to_audit']    = "前往查看操作日志";
 $lang['app.widgets']    = "数据面板";
 $lang['app.local_miner']    = "设备统计";
 $lang['app.local_pools']    = "矿池统计";
@@ -36,10 +38,12 @@ $lang['app.restart_miner_title']    = "重启你的矿机";
 $lang['app.welcome_miner'] = "你好,矿工";
 $lang['app.ip_address'] = "IP 地址";
 $lang['app.password']      = "密码";
+$lang['app.firmware_version']      = "固件版本";
 
 
 // Dashboard page
 $lang['app.mining']  = "矿机状态";
+$lang['app.chip_status']  = "芯片实时状态";
 $lang['app.raw_stats']  = "原始数据";
 $lang['app.raw_stats_tips']  = "亦可查看原始JSON解析数据";
 $lang['app.refresh_tips']  = "点击刷新";
@@ -95,6 +99,7 @@ $lang['app.local_miner_th_last_share']  = "上次Share";
 $lang['app.local_miner_th_last_share_time']  = "上次Share时间";
 $lang['app.local_pools_th_pools']  = "矿池";
 $lang['app.local_pools_th_url']  = "URL";
+$lang['app.local_pools_th_type']  = "类型";
 $lang['app.local_pools_th_status']  = "状态";
 $lang['app.local_pools_th_poolhr']  = "算力";
 $lang['app.local_pools_th_cs']  = "当前share数";
@@ -155,6 +160,11 @@ $lang['app.daily']  = "每天算力曲线";
 $lang['app.monthly']  = "每月算力曲线";
 $lang['app.yearly']  = "每年算力曲线";
 $lang['app.accepted_rejected_erros']  = "接收/拒绝/错误数";
+
+// Audit Page
+$lang['app.time']  = "时间";
+$lang['app.action']  = "操作";
+$lang['app.remark']  = "备注";
 
 // Miner Page
 $lang['app.are_you_sure'] = "确定现在重启矿机吗?";

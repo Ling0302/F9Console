@@ -104,7 +104,7 @@ body > .header { position: fixed !important; }
 .lockscreen-cover {
 	width: 100%;
 	height: 200px;
-	background: url('../img/cover_cheetah_miner.png') no-repeat;
+	background: url('../img/cover_cheetah_miner.png?v=20210922') no-repeat;
 	background-size: contain;
 	background-position: center center;
     background-color: #ff4d51;

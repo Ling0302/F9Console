@@ -99,7 +99,7 @@ class Util_model extends CI_Model {
 		$a->dns = $dns[0];
 		@exec("cat /etc/network/interfaces |grep dhcp| awk '{print $4}'", $dhcp);
 		if (count($dhcp)> 0) {
-			$a->dhcp = $dhcp[0];
+			$a->dhcp = 'dhcp';
 		} else {
 			$a->dhcp = 'static';
 		}
@@ -210,6 +210,25 @@ class Util_model extends CI_Model {
 
 		return json_encode($a);		
 	}
+
+	public function arrayToObject($array) 
+	{
+		if(!is_array($array)) {
+		  return $array;
+		}
+		$object = new stdClass();
+		  if (is_array($array) && count($array) > 0) {
+			foreach ($array as $name=>$value) {
+				$name = trim($name);
+				if (!empty($name)) {
+				  $object->$name = $this->arrayToObject($value);
+				}
+			}
+			return $object; 
+		  } else {
+			return false;
+		  }
+	}
 	
 	public function getNetworkMinerStats($parsed)
 	{
@@ -253,10 +272,12 @@ class Util_model extends CI_Model {
 		if ($this->isOnline($network))
 		{
 			$cmd = false;
-			if ($type == 'newAnt') $cmd = '{"command":"summary+pools+estats"}';
+			// if ($type == 'newAnt') $cmd = '{"command":"summary+pools+estats"}';
 
 			$a = ($network) ? $this->network_miner->callMinerd($cmd, $network) : $this->miner->callMinerd();
-
+			
+			$a = $this->arrayToObject($a);
+			
 			if (is_object($a))
 			{
 					$devicePoolActives = false;
@@ -269,8 +290,8 @@ class Util_model extends CI_Model {
 						foreach ($a->devs[0]->DEVS as $device)
 						{			
 							// Check the real active pool
-							if (isset($device->{'Last Share Pool'}) && $device->{'Last Share Pool'} > -1)
-								$devicePoolIndex[] = $device->{'Last Share Pool'};
+							if (isset($device->{'LastSharePool'}) && $device->{'LastSharePool'} > -1)
+								$devicePoolIndex[] = $device->{'LastSharePool'};
 						}				
 						
 						$devicePoolActives = array_count_values($devicePoolIndex);					
@@ -299,7 +320,7 @@ class Util_model extends CI_Model {
 							$stats->stats_id = 1;
 
 							if (!$devicePoolActives) {
-								$poolActive = $tmpPool->{'Stratum Active'};	
+								$poolActive = $tmpPool->{'StratumActive'};	
 							} else {
 								$poolActive = ($devicePoolActives && array_key_exists($poolIndex, $devicePoolActives)) ? true : false;
 							}
@@ -337,6 +358,7 @@ class Util_model extends CI_Model {
 		
 		return false;
 	}
+
 	
 	/*
 	// Parse the miner stats to add devices
@@ -371,22 +393,22 @@ class Util_model extends CI_Model {
 
 					$name = "Board-".($d + 1);
 
-					$return['devices'][$name]['temperature'] = (isset($stats->estats[0]->STATS[$d]->{'Temp Avg'})) ? $stats->estats[0]->STATS[$d]->{'Temp Avg'} : false;
+					$return['devices'][$name]['temperature'] = (isset($stats->estats[0]->STATS[$d]->{'TempAvg'})) ? $stats->estats[0]->STATS[$d]->{'TempAvg'} : false;
 					
-					$return['devices'][$name]['frequency'] = (isset($stats->estats[0]->STATS[$d]->{'Device Freq'})) ? $stats->estats[0]->STATS[$d]->{'Device Freq'} : false;
+					$return['devices'][$name]['frequency'] = (isset($stats->estats[0]->STATS[$d]->{'DeviceFreq'})) ? $stats->estats[0]->STATS[$d]->{'DeviceFreq'} : false;
 					$return['devices'][$name]['accepted'] = $device->Accepted;
 					$return['devices'][$name]['rejected'] = $device->Rejected;
-					$return['devices'][$name]['hw_errors'] = $device->{'Hardware Errors'};
+					$return['devices'][$name]['hw_errors'] = $device->{'HardwareErrors'};
 					
-					$return['devices'][$name]['shares'] = ($device->{'Diff1 Work'}) ? round(($device->{'Diff1 Work'}*71582788/1000),0) : 0;	
-					if (isset($device->{'KHS av'}))	
-						$return['devices'][$name]['hashrate'] = ($device->{'KHS av'}*1000);
+					$return['devices'][$name]['shares'] = ($device->{'Diff1Work'}) ? round(($device->{'Diff1Work'}*71582788/1000),0) : 0;	
+					if (isset($device->{'KHSav'}))	
+						$return['devices'][$name]['hashrate'] = ($device->{'KHSav'}*1000);
 					else 
-						$return['devices'][$name]['hashrate'] = ($device->{'MHS av'}*1000*1000);
+						$return['devices'][$name]['hashrate'] = ($device->{'MHSav'}*1000*1000);
 					
 					$return['devices'][$name]['last_share'] = false;
-					if (isset($device->{'Last Share Time'})) $return['devices'][$name]['last_share'] = $device->{'Last Share Time'};
-					if (isset($device->{'Device Elapsed'})) $return['devices'][$name]['last_share'] = $device->{'Device Elapsed'};
+					if (isset($device->{'LastShareTime'})) $return['devices'][$name]['last_share'] = $device->{'LastShareTime'};
+					if (isset($device->{'DeviceElapsed'})) $return['devices'][$name]['last_share'] = $device->{'DeviceElapsed'};
 					$return['devices'][$name]['serial'] = (isset($device->Serial)) ? $device->Serial : false;;
 
 					$tdtemperature += $return['devices'][$name]['temperature'];					
@@ -396,7 +418,7 @@ class Util_model extends CI_Model {
 					
 					// Check the real active pool
 					$devicePoolIndex = [];
-					if (isset($device->{'Last Share Pool'})) $devicePoolIndex[] = $device->{'Last Share Pool'};
+					if (isset($device->{'LastSharePool'})) $devicePoolIndex[] = $device->{'LastSharePool'};
 					$d++;
 				}				
 				
@@ -410,12 +432,13 @@ class Util_model extends CI_Model {
 				$return['totals']['frequency'] = ($tdfrequency) ? round(($tdfrequency/$d), 0) : false;
 				$return['totals']['accepted'] = $totals->Accepted;
 				$return['totals']['rejected'] = $totals->Rejected;
-				$return['totals']['hw_errors'] = $totals->{'Hardware Errors'};
+				$return['totals']['hw_errors'] = $totals->{'HardwareErrors'};
 				$return['totals']['shares'] = $tdshares;
 				$return['totals']['hashrate'] = $tdhashrate;
-				$return['totals']['last_share'] = $totals->{'Last getwork'};
+				$return['totals']['last_share'] = $totals->{'Lastgetwork'};
 				
-				$cgminerPoolHashrate = round($totals->{'Total MH'} / $totals->Elapsed * 1000000);
+				
+				$cgminerPoolHashrate = round($totals->{'TotalMH'} / $totals->Elapsed * 1000000);
 
 				if (!$tdhashrate) $return['totals']['hashrate'] = $cgminerPoolHashrate;
 			}
@@ -430,7 +453,7 @@ class Util_model extends CI_Model {
 
 			foreach ($stats->pools as $poolIndex => $pool)
 			{
-                if ((isset($pool->active) && $pool->active == 1) || (isset($pool->{'Stratum Active'}) && $pool->{'Stratum Active'} == 1) )
+                if ((isset($pool->active) && $pool->active == 1) || (isset($pool->{'StratumActive'}) && $pool->{'StratumActive'} == 1) )
                 {
 					$return['pool']['url'] = $pool->url;
 					$return['pool']['user'] = $pool->user;
@@ -2225,21 +2248,275 @@ class Util_model extends CI_Model {
 
 	public function getFirmwareVersion()
 	{
-		return exec( "cat /firmware_info | awk -F ':' '{print $2 \":\" $3}'");
+		return str_replace(' ','',exec("cat /firmware_info | awk -F ':' '{print $2 \":\" $3}'"));
 	}
+
+	public function isShowLogo()
+	{
+		@exec("sudo miner_cfg MINER_WEB_LOGO get", $show_logo);
+		return !isset($show_logo[0]) || $show_logo[0] !== 'MINER_WEB_NOLOGO';
+	}
+
+	public function redOn()
+	{
+		@exec("sudo led_ctl red off");
+		@exec("sudo led_ctl red on");
+		return true;
+	}
+
+	public function redOff()
+	{
+		@exec("sudo led_ctl red off");
+		return true;
+	}
+
+	public function getBoardLevel()
+    {
+		return trim(exec("head -n 1 /firmware_info | awk -F ' ' '{print $2}'"));
+    }
+	
 
 	public function minerInfo()
 	{
 		$info = new stdClass();
 		$ifConfig = $this->getIfconfig();
+		
+		@exec("sudo get_hashbin", $bin_infos);
+		$bin_str =  "";
+		$bin1_str = isset($bin_infos) ? explode(":", trim($bin_infos[0]))[1] : "";
+		$bin2_str = isset($bin_infos) ? explode(":", trim($bin_infos[1]))[1] : "";
+		$bin3_str = isset($bin_infos) ? explode(":", trim($bin_infos[2]))[1] : "";
+		if($bin1_str == $bin2_str && $bin1_str == $bin3_str){
+			$bin_str = $bin1_str;
+		}else {
+			$bin_str = $bin1_str.'-'.$bin2_str.'-'.$bin3_str;
+		}
+		json_encode($bin_str);
 
-		$info->model = 'F9';
+		$info->model ='F9';
+		$info->bin = json_last_error() == JSON_ERROR_NONE ? trim($bin_str) : '';
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
 		$info->network_type = $ifConfig->dhcp;
 		$info->uptime = $this->getSysUptime();
 
+		// 获取电源版本、硬件版本信息
+		@exec("sudo F5_DrvTest power show_id", $psu_id);
+		@exec("sudo ls /sys/bus/i2c/devices/*/eeprom",$eeprom_list);
+		$hw_version =  "";
+
+		$eeprom1 = trim(exec("sudo cat ". $eeprom_list[0]));
+		$eeprom2 = trim(exec("sudo cat ". $eeprom_list[1]));
+		$eeprom3 = trim(exec("sudo cat ". $eeprom_list[2]));
+		$eeprom4 = $this->getBoardLevel() == 36 ? trim(exec("sudo cat ". $eeprom_list[3])) : "";
+
+		$version_arr1 = preg_split("//", $eeprom1, null, PREG_SPLIT_NO_EMPTY);
+		$version_arr2 = preg_split("//", $eeprom2, null, PREG_SPLIT_NO_EMPTY);
+		$version_arr3 = preg_split("//", $eeprom3, null, PREG_SPLIT_NO_EMPTY);
+		$version_arr4 = $eeprom4 ? preg_split("//", $eeprom4, null, PREG_SPLIT_NO_EMPTY) : [];
+	
+		$version1 = "v".$version_arr1[7].'.'.$version_arr1[8];
+		$version2 = "v".$version_arr2[7].'.'.$version_arr2[8];
+		$version3 = "v".$version_arr3[7].'.'.$version_arr3[8];
+		$version4 = $eeprom4 ? "v".$version_arr4[7].'.'.$version_arr4[8] : "";
+		
+		if ( $version1 == $version2  && $version1 == $version3 ){
+			$hw_version = $version1;
+		}else { 
+			$hw_version == $eeprom4 ? $version1.'|'.$version2.'|'.$version3.'|'.$version4 : $version1.'|'.$version2.'|'.$version3;
+		}
+		
+
+		$psu_version = explode("=", $psu_id[1]);
+		$info->psu_version = trim($psu_version[1]);
+		$info->hw_version =  trim($hw_version);
+
+		// 获取芯片个数
+		$info->chip_count = $this->getChipCount();
+
+		// 获取矿机老化状态
+		$status = '';
+		$test_result = trim(exec("cat /etc/aging_test_result"));
+		
+		if(!$test_result || $test_result == 'running') {
+			// 若不存在老化结果文件
+			$status = '正在老化...';
+		} else if ($test_result == 'success') {
+			// 若老化结果OK
+			$status = 'OK';
+		} else {
+			// 若老化结果NG
+			$result = str_replace(' ','',exec("cat /tmp/cgminer_abart_reason"));
+            $real_reason="";
+            if(stripos($result, 'voltage') !== false)
+            {
+                preg_match("/\d+/", $result, $match);
+                $real_reason = "电源电压".$match[0]."mv";           
+            }else if(stripos($result, 'maxspierr') !== false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":spi-".$match[0][2];
+			}else if(stripos($result,'testmode') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'bypass') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'pll') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'switch') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'output') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'difficulty') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'offset') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'sensors') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'adc') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}else if(stripos($result,'soft') !==false)
+			{
+				preg_match_all("/\d+/", $result, $match);
+				$real_reason = "板".($match[0][0]+1).":E4.".$match[0][3];
+			}
+			$reason=array(
+				"chain0:bringup_fail"=>"板1:链通不过",
+				"chain1:bringup_fail"=>"板2:链通不过",
+				"chain2:bringup_fail"=>"板3:链通不过",
+				"chain3:bringup_fail"=>"板4:链通不过",
+				"chain0:spi_error"=>"板1:spi",
+				"chain1:spi_eeror"=>"板2:spi",
+				"chain2:spi_error"=>"板3:spi",
+				"chain3:spi_error"=>"板4:spi", 
+				"chain0:chip_fail"=>"板1:算力低",
+				"chain1:chip_fail"=>"板2:算力低",  
+				"chain2:chip_fail"=>"板3:算力低",
+				"chain3:chip_fail"=>"板4:算力低",
+				"chain0:overheating"=>"板1:过温",
+				"chain1:overheating"=>"板2:过温",
+				"chain2:overheating"=>"板3:过温",
+				"chain3:overheating"=>"板4:过温",
+				"power:powerctrlfailed" => "485通信失败",
+				"fan:fan_init_fail"=>"压风扇线",
+				"systemboard:cgminerconfiginvaild"=>"控制板接口异常",
+				"systemboard:gpiosetfailed"=>"GPIO异常",
+				"fan1:fan_speed_is_low"=>"风扇1-转速低",
+				"fan2:fan_speed_is_low"=>"风扇2-转速低",
+				"fan3:fan_speed_is_low"=>"风扇3-转速低",
+				"fan4:fan_speed_is_low"=>"风扇4-转速低",
+				"fancool:wait_for_cooling"=>"风扇降温失败",
+				"fan:fan_error"=>"风扇错误",
+                "no_bin"=>"无BIN信息",
+				"MIX_BIN"=>"混bin",
+			);//老化结果简化成中文
+
+			$status = $real_reason ? $real_reason : (isset($reason[$result])?$reason[$result]:$result);
+		}
+		$info->status = $status;
 		return json_encode($info);
 
 	}
+	public function getChipCount() {
+		$counts = array(
+			"36" => 432,
+			"40" => 360
+		);
+
+		// 判断芯片级数
+		@exec("cat /firmware_info",$levels);
+		return stripos($levels[0],'36') !== false ? $counts['36'] : $counts['40'];
+	}
+
+
+	public function file_get_tail( $file, $num = 100){	
+		$fp = fopen($file, "r");
+		$pos = -2;
+		$eof = "";
+		$head = false; //当总行数小于Num时，判断是否到第一行了
+		$lines = array();
+		while ($num > 0) {
+			while ($eof != "\n") {
+				if (fseek($fp, $pos, SEEK_END) == 0) {
+					//fseek成功返回0，失败返回-1
+					$eof = fgetc($fp);
+					$pos--;
+				} else {
+					//当到达第一行，行首时，设置$pos失败
+					fseek($fp, 0, SEEK_SET);
+					$head = true; //到达文件头部，开关打开
+					break;
+				}
+			}
+			array_unshift($lines, fgets($fp));
+			if ($head) {break;} //这一句，只能放上一句后，因为到文件头后，把第一行读取出来再跳出整个循环
+			$eof = "";
+			$num--;
+		}
+		fclose($fp);
+		// return $lines;
+		$str = join('', $lines);
+		return $str;
+	}
+
+	public function getAuditLog() {
+		$data = "";
+		$handle = fopen("/data/cfg_modify_log", "r");
+	
+		if ($handle) {
+			while (($line = fgets($handle)) !== false) {
+				$data .= $line;
+			}
+			fclose($handle);
+		}
+		$rawLogs = array_filter(explode("----------------------------------------------",trim($data)));
+		$logs = [];
+		foreach($rawLogs as $val)
+		{
+			$tmp1 = $tmp2 = [];
+			if(stripos($val,'poweron') !== false)
+			{
+				// 开机操作
+				$tmp1 = [date('Y-m-d H:i:s', strtotime(str_replace('poweron','',$val))), '开机', ''];
+				$logs[] = $tmp1;
+			} else 
+			{
+				// 切换矿池、矿工操作
+				$time = date('Y-m-d H:i:s', strtotime(explode("\n",trim($val))[0]));
+	
+				preg_match('/\{(.*)\}/s', $val, $matches);
+				$rel_data = json_decode($matches[0], true);
+	
+				$pool_remark = "矿池地址变更为".$rel_data['pools'][0]['url'].",".$rel_data['pools'][1]['url'].",".$rel_data['pools'][2]['url'];
+				$worker_remark = "矿工账号变更为".$rel_data['pools'][0]['user'].",".$rel_data['pools'][1]['user'].",".$rel_data['pools'][2]['user'];
+	
+				$tmp1 = [$time, '变更矿池', $pool_remark];
+				$tmp2 = [$time, '变更矿工', $worker_remark];
+	
+				$logs[] = $tmp1;
+				$logs[] = $tmp2;
+	
+			}
+		}
+		return $logs;
+	}
 }
+
+?>

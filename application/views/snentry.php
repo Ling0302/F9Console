@@ -4,16 +4,8 @@
         <section class="content-header">
             <h1>
                 <?php echo lang('app.mining') ?>
-                <small><?php echo lang('app.settings') ?></small>
+                <small>SN 扫码录入</small>
             </h1>
-            <!--<ul class="mini-save-toolbox">
-				<li>
-					<button type="submit" class="btn btn-sm btn-primary save-minera-settings" name="save" value="1"><i class="fa fa-floppy-o"></i> <?php echo lang('app.save') ?></button>
-				</li>
-				<li>
-					<button type="submit" class="btn btn-sm btn-danger save-minera-settings-restart" name="save_restart" value="1"><i class="fa fa-repeat"></i> <?php echo lang('app.save_and_restart') ?></button>
-				</li>
-	    	</ul>-->
             <ol class="breadcrumb">
                 <li><a href="<?php echo site_url("app/dashboard") ?>"><i class="fa fa-dashboard"></i> <?php echo lang('app.dashboard') ?></a></li>
             </ol>
@@ -235,7 +227,7 @@
                     </div>
                     
 					<!-- Reset box -->
-					<div class="box box-primary" id="resets-box" style="display:none;">
+					<div class="box box-primary" id="resets-box">
 						<div class="box-header">
 							<!-- tools box -->
                             <div class="pull-right box-tools">

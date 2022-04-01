@@ -4,6 +4,7 @@
 				<section class="content-header" data-toggle="dropdown">
 					<h1><?php echo lang('app.mining') ?> <small><?php echo lang('app.dashboard') ?></small></h1>
 					<ol class="breadcrumb">
+						<!--<li><button class="btn btn-primary btn-xs view-chip-status"><i class="fa fa-list"></i> <?php //echo lang('app.chip_status') ?></button></li> -->
 						<li><button class="btn btn-default btn-xs view-raw-stats"><i class="fa fa-list"></i> <?php echo lang('app.raw_stats') ?></button></li>
 					</ol>
 				</section>
@@ -443,7 +444,7 @@
 						<section class="col-md-6 col-xs-12 connectedSortable ui-sortable right-section" id="box-charts">
 							<?php if ($dashboardBoxChartShares) : ?>
 							<!-- A/R/H chart -->
-							<div class="box box-primary <?php if (isset($boxStatuses['box-chart-shares']) && !$boxStatuses['box-chart-shares']) :?>collapsed-box<?php endif; ?>" id="box-chart-shares">
+							<div class="box box-primary <?php if (isset($boxStatuses['box-chart-shares']) && !$boxStatuses['box-chart-shares']) :?>collapsed-box<?php endif; ?>" id="box-chart-shares" style="display:none;">
 							   	<div class="overlay"></div>
 							   	<div class="loading-img"></div>
 								<div class="box-header">
@@ -491,7 +492,7 @@
 							
 							<?php if ($dashboardBoxChartHashrates) : ?>
 							<!-- Hashrate box chart -->
-							<div class="box box-primary <?php if (isset($boxStatuses['box-chart-hashrates']) && !$boxStatuses['box-chart-hashrates']) :?>collapsed-box<?php endif; ?>" id="box-chart-hashrates">
+							<div class="box box-primary <?php if (isset($boxStatuses['box-chart-hashrates']) && !$boxStatuses['box-chart-hashrates']) :?>collapsed-box<?php endif; ?>" id="box-chart-hashrates" style="display:none;">
 							   	<div class="overlay"></div>
 							   	<div class="loading-img"></div>
 								<div class="box-header">

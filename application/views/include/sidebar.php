@@ -106,27 +106,7 @@
                 </a>
                 
 				<div class="navbar-right">
-					<ul class="nav navbar-nav">
-						<!-- Cron status -->
-						<li class="messages-menu cron-status" style="display:none;">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                <i class="fa fa-spin fa-cog"></i>
-                            </a>
-                            <ul class="dropdown-menu">
-                                <li class="header">Cron is running</li>
-                                <li>
-                                	<ul class="menu">
-	                                	<li class="p10">
-		                                	Cron process runs every minute and should take not more than 30 seconds to terminate.<br />
-		                                	If this icon is permanent, click the button below to unlock the cron.
-		                                	<div class="text-center mt10">
-			                                	<button class="btn btn-default cron-unlock">Unlock cron</button>
-		                                	</div>
-	                                	</li>
-                                	</ul>
-                                </li>
-                            </ul>
-                        </li>
+					<ul class="nav navbar-nav">	
 						<!-- Clock -->
 						<li class="messages-menu">
                             <a href="#" class="clock">
@@ -314,9 +294,9 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="sidebar-charts" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.go_to_charts') ?>">
-                            <a href="<?php echo site_url("app/charts") ?>">
-                                <i class="fa fa-bar-chart-o"></i> <span><?php echo lang('app.charts') ?></span>
+                        <li class="sidebar-charts" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.go_to_audit') ?>">
+                            <a href="<?php echo site_url("app/audit") ?>">
+                                <i class="fa fa-bar-chart-o"></i> <span><?php echo lang('app.audit') ?></span>
                             </a>
                         </li>
                         <li class="treeview">
@@ -348,11 +328,11 @@
                                 		<i class="fa fa-upload"></i> <?php echo lang('app.firmware_upgrade') ?>
                                 	</a>
                                 </li>
-                                <li>
+                                <!--<li>
                                 	<a href="<?php echo site_url("app/settings#resets-box") ?>" class="menu-resets-box ml10">
                                 		<i class="fa fa-warning"></i> <?php echo lang('app.resets') ?>
                                 	</a>
-                                </li>
+                                </li>-->
                             </ul>
                         </li>
                         <li class="treeview">

@@ -1433,6 +1433,7 @@ $(function() {
 		});
 		
 		// Raw stats click
+		// $('.view-chip-status').click( function() { window.location.href="/status.php" });
 		$('.view-raw-stats').click( function() { $('.section-raw-stats').fadeIn(); });
 		$('.close-stats').click( function() { $('.section-raw-stats').fadeOut(); });
 		
@@ -1797,36 +1798,6 @@ $(document).on('click', '.add-pool', function(e) {
 	}
 });
 
-// Remove local pool on the fly
-/*$(document).on('click', '.remove-pool', function(e) {
-
-	e.preventDefault();
-
-	if ($('.app_data').data('miner-running') !== 'cpuminer' && $('.app_data').data('miner-running') !== undefined) {
-		$('.overlay').show();
-	    var poolId = $(this).data('pool-id');
-	    $.ajax(_baseUrl+'/app/api?command=remove_pool&poolId='+poolId, {
-	        dataType: 'text',
-	        success: function (dataP) {
-	        	if (dataP)
-	        	{
-	        		var dataJ = $.parseJSON(dataP);
-	    			setTimeout(function() { getStats(true); }, 2000);
-	    			if (dataJ)
-	    			{
-	    				$('.pool-alert').html('Miner response: <pre style="font-size:10px;margin-top:10px;">'+dataP+'</pre>').fadeIn();
-	    				setTimeout(function() {
-							$('.pool-alert').html('');
-		    			}, 30000);
-	    			}
-	    		}
-	        }
-	    });
-	} else {
-		$('.pool-alert').html('<pre style="font-size:10px;margin-top:10px;">Sorry, but CPUMiner doesn\'t support remove pool on the fly</pre>').fadeIn();
-	}
-});*/
-
 $(document).on('click', '.cron-unlock', function(e) {
 
    	e.preventDefault();
@@ -1899,8 +1870,6 @@ function getStats(refresh)
 		url:  _baseUrl+'/app/stats',
 		dataType: 'json',
 		success:  function(data){
-			//console.log(data);
-			
 			if (data.notloggedin)
 			{
 				errorTriggered = true;
