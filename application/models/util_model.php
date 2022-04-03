@@ -1318,17 +1318,8 @@ class Util_model extends CI_Model {
 		return json_decode($this->redis->get('network_miners'));
 	}
 
-	// Check if the minerd if running
 	public function isOnline($network = false)
 	{
-		$ip = "127.0.0.1"; $port = 4028;
-		
-		if ($network) list($ip, $port) = explode(":", $network);	
-
-		if (!($fp = @fsockopen($ip, $port, $errno, $errstr, 1))) return false;
-
-		if (is_resource($fp)) fclose($fp);
-		
 		return true;
 	}
 	
@@ -1758,23 +1749,6 @@ class Util_model extends CI_Model {
 		}
 		
 		return $o;
-	}
-
-	// Get local Minera version
-	public function currentVersion($cron = false)
-	{
-		// wait 1h before recheck
-		if (time() > ((int)$this->redis->command("HGET minera_version timestamp")+3600) && $cron == false)
-		{
-			$this->redis->command("HSET minera_version timestamp ".time());
-			$localConfig = json_decode(file_get_contents(base_url('minera.json')));
-			$this->redis->command("HSET minera_version value ".$localConfig->version);
-			return $localConfig->version;
-		}
-		else
-		{
-			return $this->redis->command("HGET minera_version value");
-		}
 	}
 	
 	// Set the dashboard box status

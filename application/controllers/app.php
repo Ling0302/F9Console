@@ -7,7 +7,6 @@ class App extends CI_Controller {
 		parent::__construct();
 		self::__initLanguage();
 
-		// Set the general timezone
 		date_default_timezone_set('Asia/Shanghai');
 
 	}
@@ -48,7 +47,6 @@ class App extends CI_Controller {
 	public function index()
 	{
 
-		$mineraSystemId = 'dumyMinerID';
 		// $this->redis->del("minera_update");
 				
 		// if (!$this->redis->command("EXISTS dashboard_devicetree")) $this->redis->set("dashboard_devicetree", 1);
@@ -67,8 +65,8 @@ class App extends CI_Controller {
 		$pools = $this->util_model->getPools();
 		
 		$data['now'] = time();
-		$data['minera_system_id'] = $mineraSystemId;
-		$data['minera_version'] = $this->util_model->currentVersion(true);
+		$data['minera_system_id'] = $this->config->item('system_id');
+		$data['minera_version'] = 'dummyVersion';
 		$data['env'] = $this->config->item('ENV');
 		$data['sectionPage'] = 'lockscreen';
 		$data['htmlTag'] = "lockscreen";
@@ -85,24 +83,20 @@ class App extends CI_Controller {
 	*/
 	public function login()
 	{	
-		$storedp = $this->redis->get('minera_password');
+		$storedp = $this->config->item('init_console_password');
 		if (preg_match('/^[0-9a-f]{40}$/', $storedp)) {
 			$storedp = $storedp;
 		} elseif (preg_match('/^[a-f0-9]{32}$/', $storedp)) {
 			if ($this->input->post('password', true) && md5($this->input->post('password')) == $storedp) {
 				$storedp = sha1($this->input->post('password', true));
-				$this->redis->set('minera_password', $storedp);
 			}
 		} else {
 			$storedp = sha1($this->config->item('init_console_password'));
-			
-			$this->redis->set('minera_password', $storedp);
 		}
 
 		if ($this->input->post('password', true) && sha1($this->input->post('password')) == $storedp) {
 			$this->session->set_userdata("loggedin", $storedp);
 			// 记录登录操作
-			
 			redirect('app/dashboard');
 		}
 		else
@@ -115,8 +109,6 @@ class App extends CI_Controller {
 	public function logout()
 	{	
 		$this->session->set_userdata("loggedin", null);
-		// 记录退出操作
-
 		redirect('app/index'); // redirect to index
 	}
 	
@@ -125,8 +117,6 @@ class App extends CI_Controller {
 	*/
 	public function dashboard()
 	{
-
-		$this->util_model->isLoggedIn();
 		
 		//var_export($this->redis->command("HGETALL box_status"));
 		$boxStatuses = json_decode($this->redis->get("box_status"), true);
@@ -166,7 +156,7 @@ class App extends CI_Controller {
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
 		$data['localAlgo'] = "SHA-256";
 		$data['env'] = $this->config->item('ENV');
-		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
+		$data['mineraSystemId'] = $this->config->item('system_id');
 		
 		$this->load->view('include/header', $data);
 		$this->load->view('include/sidebar', $data);
@@ -179,32 +169,31 @@ class App extends CI_Controller {
 	*/
 	public function charts()
 	{
-		$this->util_model->isLoggedIn();
 		
-		$data['now'] = time();
-		$data['sectionPage'] = 'charts';
-		$data['isOnline'] = $this->util_model->isOnline();
-		$data['htmlTag'] = "charts";
-		$data['chartsScript'] = true;
-		$data['appScript'] = false;
-		$data['settingsScript'] = false;
-		$data['mineraUpdate'] = false;
-		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
-		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
-		$data['minerdLog'] = $this->redis->get('minerd_log');
-		$data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
-		$data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
-		$data['minerdRunning'] = $this->redis->get("minerd_running_software");
-		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
-		$data['minerdSoftware'] = $this->redis->get("minerd_software");
-		$data['netMiners'] = $this->util_model->getNetworkMiners();
-		$data['env'] = $this->config->item('ENV');
-		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
+		// $data['now'] = time();
+		// $data['sectionPage'] = 'charts';
+		// $data['isOnline'] = $this->util_model->isOnline();
+		// $data['htmlTag'] = "charts";
+		// $data['chartsScript'] = true;
+		// $data['appScript'] = false;
+		// $data['settingsScript'] = false;
+		// $data['mineraUpdate'] = false;
+		// $data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
+		// $data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
+		// $data['minerdLog'] = $this->redis->get('minerd_log');
+		// $data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
+		// $data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
+		// $data['minerdRunning'] = $this->redis->get("minerd_running_software");
+		// $data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
+		// $data['minerdSoftware'] = $this->redis->get("minerd_software");
+		// $data['netMiners'] = $this->util_model->getNetworkMiners();
+		// $data['env'] = $this->config->item('ENV');
+		// $data['mineraSystemId'] = $this->config->item('system_id');
 		
-		$this->load->view('include/header', $data);
-		$this->load->view('include/sidebar', $data);
-		$this->load->view('charts', $data);
-		$this->load->view('include/footer');
+		// $this->load->view('include/header', $data);
+		// $this->load->view('include/sidebar', $data);
+		// $this->load->view('charts', $data);
+		// $this->load->view('include/footer');
 	}
 
 
@@ -220,17 +209,17 @@ class App extends CI_Controller {
 		$data['appScript'] = false;
 		$data['settingsScript'] = false;
 		$data['mineraUpdate'] = false;
-		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
-		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
-		$data['minerdLog'] = $this->redis->get('minerd_log');
-		$data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
-		$data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
+		// $data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
+		// $data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
+		$data['minerdLog'] = '';
+		// $data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
+		$data['dashboardDevicetree'] = false;
 		$data['minerdRunning'] = $this->redis->get("minerd_running_software");
 		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
 		$data['minerdSoftware'] = $this->redis->get("minerd_software");
 		$data['netMiners'] = $this->util_model->getNetworkMiners();
 		$data['env'] = $this->config->item('ENV');
-		$data['mineraSystemId'] = $this->redis->get("minera_system_id");
+		$data['mineraSystemId'] = $this->config->item('system_id');
 		$data['logs'] = $this->util_model->getAuditLog();
 		
 		$this->load->view('include/header', $data);
@@ -244,7 +233,6 @@ class App extends CI_Controller {
 	*/
 	public function settings()
 	{
-		// $this->util_model->isLoggedIn();
 		
 		$data['now'] = time();
 		$data['sectionPage'] = 'settings';
@@ -767,7 +755,6 @@ class App extends CI_Controller {
 	*/
 	public function stored_stats()
 	{
-		// $this->util_model->isLoggedIn();
 		
 		$storedStats = $this->util_model->getStoredStats(3600);
 		
@@ -776,253 +763,8 @@ class App extends CI_Controller {
 			->set_output("[".implode(",", $storedStats)."]");
 	}
 
-	/*
-	// Cron controller to be used to run scheduled tasks
-	*/
-	public function cron()
-	{
-		if ( ($this->util_model->getSysUptime() + $this->redis->get('minerd_delaytime') ) <= 60 )
-		{
-			log_message('error', "System just started, warming up...");			
-			return true;			
-		}
 	
-		$time_start = microtime(true); 
-		log_message('info', "--- START CRON TASKS ---");
-			
-		$this->redis->set("cron_lock", true);
-			
-		// Check and restart the minerd if it's dead
-		if ($this->redis->get('minerd_autorecover'))
-		{
-			$this->util_model->checkMinerIsUp();	
-		}
-		
-		$now = time();
-		$currentHour = date("H", $now);
-		$currentMinute = date("i", $now);
-		
-		// Refresh Cryptsydata if needed
-		//$this->util_model->refreshcryptsyData();
-		//$this->util_model->updateAltcoinsRates();
-						
-		// Store the live stats
-		$stats = $this->util_model->storeStats();
-		
-		// Publish stats to Redis
-		$this->util_model->getStats();
 
-		/*
-		// Store the avg stats
-		*/
-		// Store 5min avg
-		if ( ($currentMinute%5) == 0)
-		{
-			$this->util_model->storeAvgStats(300);
-		}
-		// Store 1hour avg
-		if ( $currentMinute == "00")
-		{
-			$this->util_model->storeAvgStats(3600);
-		}
-		// Store 1day avg
-		if ( $currentHour == "04" && $currentMinute == "00")
-		{
-			$this->util_model->storeAvgStats(86400);
-		}
-		
-		// Store coins profitability
-		//if ($profit = $this->util_model->getProfitability()) {
-		//	$this->redis->set("coins_profitability", $profit);
-		//}
-		
-		// Activate/Deactivate time donation pool if enable
-		if ($this->util_model->isOnline() && isset($stats->pool_donation_id))
-		{		
-			$donationTime = $this->redis->get("minera_donation_time");
-			if ($donationTime > 0)
-			{
-				$currentHr = (isset($stats->pool->hashrate)) ? $stats->pool->hashrate : 0;
-				$poolDonationId = $stats->pool_donation_id;
-				$donationTimeStarted = ($this->redis->get("donation_time_started")) ? $this->redis->get("donation_time_started") : false;
-
-				$donationTimeDoneToday = ($this->redis->get("donation_time_done_today")) ? $this->redis->get("donation_time_done_today") : false;
-
-				$donationStartHour = "04";
-				$donationStartMinute = "10";
-				$donationStopHour = date("H", ($donationTimeStarted + $donationTime*60));
-				$donationStopMinute = date("i", ($donationTimeStarted + $donationTime*60));
-				
-				// Delete the donation-done flag after 24h
-				if ($now >= ($donationTimeDoneToday+86400))
-				{
-					$this->redis->del("donation_time_started");
-					$this->redis->del("donation_time_done_today");	
-					$donationTimeStarted = false;
-					$donationTimeDoneToday = false;
-				}
-				
-				// Stop time donation
-				if ($donationTimeStarted > 0 && (int)$currentHour >= (int)$donationStopHour && (int)$currentMinute >= (int)$donationStopMinute)
-				{
-					$this->redis->del("donation_time_started");
-					$donationTimeStarted = false;
-					$this->util_model->selectPool(0);
-					log_message("error", "[Donation-time] Terminated... Switching back to main pool ID [0]");
-				}
-
-				if ($donationTimeStarted > 0)
-				{
-					// Time donation in progress
-					$remain = round(((($donationTime*60) - ($now - $donationTimeStarted))/60));
-					$this->redis->set("donation_time_remain", $remain);
-					log_message("error", "[Donation time] In progress..." . $remain . " minutes remaing..." );
-				}
-
-				// Start time donation
-				if ($donationTimeDoneToday === false && ((int)$currentHour >= (int)$donationStartHour && (int)$currentMinute >= (int)$donationStartMinute))
-				{
-					// Starting time donation
-					$this->util_model->selectPool($poolDonationId);
-					$this->redis->set("donation_time_started", $now);
-					
-					// This prevent any re-activation for the current day
-					$this->redis->set("donation_time_done_today", $now);
-					
-					$this->redis->command("LPUSH saved_donations ".$now.":".$donationTime.":".$currentHr);
-					
-					log_message("error", "[Donation time] Started... (for ".$donationTime." minutes) - Switching to donation pool ID [".$poolDonationId."]");
-				}
-			}
-		}
-
-		// Scheduled event
-		$scheduledEventStartTime = $this->redis->get("scheduled_event_start_time");
-		$scheduledEventTime = $this->redis->get("scheduled_event_time");
-		$scheduledEventAction = $this->redis->get("scheduled_event_action");
-		if ($scheduledEventTime > 0)
-		{
-			log_message("error", "TIME: ".time()." - SCHEDULED START TIME: ".$scheduledEventStartTime);
-			
-			$timeToRunEvent = (($scheduledEventTime*3600) + $scheduledEventStartTime);
-			if (time() >= $timeToRunEvent)
-			{				
-				
-				log_message("error", "Running scheduled event ($timeToRunEvent) -> ".strtoupper($scheduledEventAction));
-				
-				$this->redis->set("scheduled_event_start_time", time());
-
-				$this->redis->command("BGSAVE");
-								
-				log_message("error", "TIME: ".time()." - AFTER SCHEDULED START TIME: ".$this->redis->get("scheduled_event_start_time"));
-				
-				if ($scheduledEventAction == "restart")
-				{
-					$this->util_model->minerRestart();
-				}
-				else
-				{
-					sleep(10);
-					$this->util_model->reboot();
-				}
-			}
-		}
-		
-		// Send anonymous stats
-		$anonynousStatsEnabled = $this->redis->get("anonymous_stats");
-		$mineraSystemId = $this->util_model->generateMineraId();
-
-		if ($mineraSystemId)
-		{
-			if ($this->util_model->isOnline()) {
-				$totalDevices = 0; $totalHashrate = 0; 
-				if (isset($stats->totals->hashrate))
-					$totalHashrate = $stats->totals->hashrate;
-					
-				if (isset($stats->devices))
-				{
-					$devs = (array)$stats->devices;
-					$totalDevices = count($devs);
-				}
-	
-				$minerdRunning = $this->redis->get("minerd_running_software");
-
-				$anonStats = array("id" => $mineraSystemId, "algo" => "SHA-256", "hashrate" => $totalHashrate, "devices" => $totalDevices, "miner" => $minerdRunning, "version" => $this->util_model->currentVersion(true), "timestamp" => time());
-			}
-			
-			if ( $currentMinute == "00")
-			{
-				if ($this->util_model->isOnline()) $this->util_model->sendAnonymousStats($mineraSystemId, $anonStats);
-			}
-		}
-				
-		// Use the live stats to check if autorestart is needed
-		// (devices possible dead)
-		$autorestartenable = $this->redis->get("minerd_autorestart");
-		$autorestartdevices = $this->redis->get("minerd_autorestart_devices");
-		$autorestarttime = $this->redis->get("minerd_autorestart_time");
-
-		if ($autorestartenable && $autorestartdevices)
-		{
-			log_message('error', "Checking miner for possible dead devices...");
-		
-			// Use only if miner is online
-			if ($this->util_model->isOnline())
-			{
-				// Check if there is stats error
-				if (isset($stats->error))
-					return false;
-				
-				// Get the max last_share time per device
-				$lastshares = false;
-				
-				if (isset($stats->devices))
-				{
-					foreach ($stats->devices as $deviceName => $device)
-					{
-						$lastshares[$deviceName] = $device->last_share;
-					}
-				}
-				
-				// Check if there is any device with last_share time > 10minutes (possible dead device)
-				if (is_array($lastshares))
-				{
-					$i = 0;
-					foreach ($lastshares as $deviceName => $lastshare)
-					{
-						if ( (time() - $lastshare) > $autorestarttime )
-						{
-							log_message('error', "WARNING: Found device: ".$deviceName." possible dead");
-							$i++;
-						}
-					}
-					
-					// Check if dead devices are equal or more than the ones set
-					if ($i >= $autorestartdevices)
-					{
-						// Restart miner
-						log_message('error', "ATTENTION: Restarting miner due to possible dead devices found - Threshold: ".$autorestartdevices." Found: ".$i);
-						$this->util_model->minerRestart();
-					}
-				}
-			}
-		}
-
-		$this->redis->del("cron_lock");
-
-		$time_end = microtime(true);
-		$execution_time = ($time_end - $time_start);
-		
-		log_message('error', "--- END CRON TASKS (".round($execution_time, 2)." secs) ---");
-	}
-	
-	/*
-	// Controllers for retro compatibility
-	*/
-	public function cron_stats()
-	{
-		redirect('app/cron');
-	}
 
 }
 

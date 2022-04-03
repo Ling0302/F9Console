@@ -17,6 +17,7 @@ $config['minerd_log_url'] = 'app/varLog';
 $config['tmp_stats_file'] = '/tmp/cm_latest_stats';
 $config['init_console_password'] = 'admin@miner';
 $config['system_user'] = 'minera';
+$config['system_id'] = 'dummy_system_id';
 $config['remote_config_url'] = 'https://raw.githubusercontent.com/getminera/minera/master/minera.json';
 $config['rpi_temp_file'] = '/sys/class/thermal/thermal_zone0/temp';
 $config['mobileminer_apikey'] = 'Y8gl9PF6QR22Vv';
