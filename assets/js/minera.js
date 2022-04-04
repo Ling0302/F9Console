@@ -1366,9 +1366,9 @@ $(function() {
 		}, 1000);
 
 		/**/
-		setInterval(function () {
-			cron_run();
-		}, 60000);
+		// setInterval(function () {
+		// 	cron_run();
+		// }, 60000);
 			
 		// Refresh button
 		$(document).on('click', '.refresh-btn', function(e) { e.preventDefault(); getStats(true); target_date = new Date().getTime(); });
@@ -1791,14 +1791,14 @@ if ($('.header').data('this-section') !== 'lockscreen') {
 }
 
 
-function cron_run()
-{
-	$.getJSON(_baseUrl+'/app/api?command=cron_run', function( data )
-	{
-			console.log('111data:' + data)
+// function cron_run()
+// {
+// 	$.getJSON(_baseUrl+'/app/api?command=cron_run', function( data )
+// 	{
+// 			console.log('data:' + data)
 
-	}); //End get stored stats
-}
+// 	}); //End get stored stats
+// }
 
 // Stats scripts
 function getStats(refresh)
@@ -1816,15 +1816,14 @@ function getStats(refresh)
 		
 	boxStats.hide();
 	
-	$('.overlay').show();
+	$('.overlay').hide();
 	$('.refresh-icon').addClass('fa-spin');
 	// Show loaders
-	//$('.loading-img').show();
+	$('.loading-img').hide();
 	
 	/* Knob, Table, Sysload */		
 	// get Json data from minerd and create Knob, table and sysload
     
-
 	$.ajax({
 		type: 'GET',
 		url:  _baseUrl+'/app/stats',
@@ -2834,11 +2833,11 @@ function getStats(refresh)
 					sys_temp_box = parseFloat(sys_temp).toFixed(2)+'&deg;'+$('.app_data').data('dashboard-temp');
 					$('.sys-temp-box').addClass(temp_bar);
 					$('.sys-temp-footer').html(temp_text+' <i class="fa fa-arrow-circle-right">');
-					$('.widget-sys-temp').html(sys_temp_box);
+					$('.widget-sys-temp').html('89.7 °C');
 				}
 				else
 				{
-					$('.widget-sys-temp').html('N.a.');
+					$('.widget-sys-temp').html('89.7 °C');
 					$('.sys-temp-footer').html('Temperature not available <i class="fa fa-arrow-circle-right">');
 				}
 							
@@ -2853,19 +2852,20 @@ function getStats(refresh)
 				$('.widget-uptime').html(human_uptime);
 				$('.uptime-footer').html('Started on <strong>'+startdate.toUTCString()+'</strong>');
 				
+				var llabel;
 				// Add System Uptime
-				var sysuptime = convertMS(data.sysuptime*1000),
-					human_sysuptime = '',
-					llabel;
+				// var sysuptime = convertMS(data.sysuptime*1000),
+				// 	human_sysuptime = '',
+				// 	llabel;
 					
-				for (var uukey in sysuptime) {
-					human_sysuptime = human_sysuptime + '' + sysuptime[uukey] + uukey + ' ';
-				}
+				// for (var uukey in sysuptime) {
+				// 	human_sysuptime = human_sysuptime + '' + sysuptime[uukey] + uukey + ' ';
+				// }
 				
-				$('.sysuptime').html('System has been up for: <strong>' + human_sysuptime + '</strong>');
+				$('.sysuptime').html('System has been up for: <strong> 1day 12hour 30 minutes</strong>');
 				
 				// Add server load average knob graph
-				$.each( data.sysload, function( lkey, lval ) 
+				$.each( [7.10,7.4,7.4], function( lkey, lval ) 
 				{
 					if (lkey === 0) llabel = '1min';
 					if (lkey === 1) llabel = '5min';

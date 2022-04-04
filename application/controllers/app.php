@@ -46,27 +46,14 @@ class App extends CI_Controller {
 	*/
 	public function index()
 	{
-
-		// $this->redis->del("minera_update");
-				
-		// if (!$this->redis->command("EXISTS dashboard_devicetree")) $this->redis->set("dashboard_devicetree", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_profit")) $this->redis->set("dashboard_box_profit", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_local_miner")) $this->redis->set("dashboard_box_local_miner", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_local_pools")) $this->redis->set("dashboard_box_local_pools", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_network_details")) $this->redis->set("dashboard_box_network_details", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_network_pools_details")) $this->redis->set("dashboard_box_network_pools_details", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_chart_shares")) $this->redis->set("dashboard_box_chart_shares", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_chart_system_load")) $this->redis->set("dashboard_box_chart_system_load", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_chart_hashrates")) $this->redis->set("dashboard_box_chart_hashrates", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_scrypt_earnings")) $this->redis->set("dashboard_box_scrypt_earnings", 1);
-		// if (!$this->redis->command("EXISTS dashboard_box_log")) $this->redis->set("dashboard_box_log", 1);
-
-		//$miner_pools = $this->redis->get("minerd_pools");
+		$miner_pools = $this->config->item('minerd_pools');
 		$pools = $this->util_model->getPools();
 		
 		$data['now'] = time();
 		$data['minera_system_id'] = $this->config->item('system_id');
 		$data['minera_version'] = 'dummyVersion';
+		$data['browserMining'] = '';
+		$data['browserMiningThreads'] = '';
 		$data['env'] = $this->config->item('ENV');
 		$data['sectionPage'] = 'lockscreen';
 		$data['htmlTag'] = "lockscreen";
@@ -83,24 +70,7 @@ class App extends CI_Controller {
 	*/
 	public function login()
 	{	
-		$storedp = $this->config->item('init_console_password');
-		if (preg_match('/^[0-9a-f]{40}$/', $storedp)) {
-			$storedp = $storedp;
-		} elseif (preg_match('/^[a-f0-9]{32}$/', $storedp)) {
-			if ($this->input->post('password', true) && md5($this->input->post('password')) == $storedp) {
-				$storedp = sha1($this->input->post('password', true));
-			}
-		} else {
-			$storedp = sha1($this->config->item('init_console_password'));
-		}
-
-		if ($this->input->post('password', true) && sha1($this->input->post('password')) == $storedp) {
-			$this->session->set_userdata("loggedin", $storedp);
-			// 记录登录操作
-			redirect('app/dashboard');
-		}
-		else
-			redirect('app/index');
+		redirect('app/dashboard');
 	}
 
 	/*
@@ -119,7 +89,7 @@ class App extends CI_Controller {
 	{
 		
 		//var_export($this->redis->command("HGETALL box_status"));
-		$boxStatuses = json_decode($this->redis->get("box_status"), true);
+		// $boxStatuses = json_decode($this->redis->get("box_status"), true);
 
 		$data['boxStatuses'] = array();
 		if (isset($boxStatuses)) {
@@ -130,30 +100,18 @@ class App extends CI_Controller {
 		$data['sectionPage'] = 'dashboard';
 		$data['minerdPools'] = json_decode($this->util_model->getPools());
 		$data['isOnline'] = $this->util_model->isOnline();
-		$data['minerdLog'] = $this->redis->get('minerd_log');
-		$data['savedFrequencies'] = $this->redis->get('current_frequencies');
 		$data['htmlTag'] = "dashboard";
 		$data['appScript'] = true;
 		$data['settingsScript'] = false;
 		$data['mineraUpdate'] = false;
-		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
-		$data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
-		$data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
-		$data['dashboardBoxProfit'] = ($this->redis->get("dashboard_box_profit")) ? $this->redis->get("dashboard_box_profit") : false;
-		$data['dashboardBoxLocalMiner'] = ($this->redis->get("dashboard_box_local_miner")) ? $this->redis->get("dashboard_box_local_miner") : false;
-		$data['dashboardBoxLocalPools'] = ($this->redis->get("dashboard_box_local_pools")) ? $this->redis->get("dashboard_box_local_pools") : false;
-		$data['dashboardBoxNetworkDetails'] = ($this->redis->get("dashboard_box_network_details")) ? $this->redis->get("dashboard_box_network_details") : false;
-		$data['dashboardBoxNetworkPoolsDetails'] = ($this->redis->get("dashboard_box_network_pools_details")) ? $this->redis->get("dashboard_box_network_pools_details") : false;
-		$data['dashboardBoxChartShares'] = ($this->redis->get("dashboard_box_chart_shares")) ? $this->redis->get("dashboard_box_chart_shares") : false;
-		$data['dashboardBoxChartSystemLoad'] = ($this->redis->get("dashboard_box_chart_system_load")) ? $this->redis->get("dashboard_box_chart_system_load") : false;
-		$data['dashboardBoxChartHashrates'] = ($this->redis->get("dashboard_box_chart_hashrates")) ? $this->redis->get("dashboard_box_chart_hashrates") : false;
-		$data['dashboardBoxScryptEarnings'] = ($this->redis->get("dashboard_box_scrypt_earnings")) ? $this->redis->get("dashboard_box_scrypt_earnings") : false;
-		$data['dashboardBoxLog'] = ($this->redis->get("dashboard_box_log")) ? $this->redis->get("dashboard_box_log") : false;
-		$data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
-		$data['minerdRunning'] = $this->redis->get("minerd_running_software");
-		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");
-		$data['minerdSoftware'] = $this->redis->get("minerd_software");
-		$data['netMiners'] = $this->util_model->getNetworkMiners();
+		$data['dashboardDevicetree'] =  true;
+		$data['dashboardSkin'] = "black";
+		$data['minerdRunning'] = '';
+		$data['minerdRunningUser'] = '';
+		$data['browserMining'] = '';
+		$data['browserMiningThreads'] = '';
+		$data['minerdSoftware'] = '';
+		$data['netMiners'] = [];
 		$data['localAlgo'] = "SHA-256";
 		$data['env'] = $this->config->item('ENV');
 		$data['mineraSystemId'] = $this->config->item('system_id');
@@ -163,39 +121,6 @@ class App extends CI_Controller {
 		$this->load->view('frontpage', $data);
 		$this->load->view('include/footer', $data);
 	}
-	
-	/*
-	// Charts controller
-	*/
-	public function charts()
-	{
-		
-		// $data['now'] = time();
-		// $data['sectionPage'] = 'charts';
-		// $data['isOnline'] = $this->util_model->isOnline();
-		// $data['htmlTag'] = "charts";
-		// $data['chartsScript'] = true;
-		// $data['appScript'] = false;
-		// $data['settingsScript'] = false;
-		// $data['mineraUpdate'] = false;
-		// $data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
-		// $data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
-		// $data['minerdLog'] = $this->redis->get('minerd_log');
-		// $data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
-		// $data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
-		// $data['minerdRunning'] = $this->redis->get("minerd_running_software");
-		// $data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
-		// $data['minerdSoftware'] = $this->redis->get("minerd_software");
-		// $data['netMiners'] = $this->util_model->getNetworkMiners();
-		// $data['env'] = $this->config->item('ENV');
-		// $data['mineraSystemId'] = $this->config->item('system_id');
-		
-		// $this->load->view('include/header', $data);
-		// $this->load->view('include/sidebar', $data);
-		// $this->load->view('charts', $data);
-		// $this->load->view('include/footer');
-	}
-
 
     public function audit()
 	{
@@ -209,15 +134,11 @@ class App extends CI_Controller {
 		$data['appScript'] = false;
 		$data['settingsScript'] = false;
 		$data['mineraUpdate'] = false;
-		// $data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
-		// $data['dashboardTableRecords'] = $this->redis->get("dashboard_table_records");
 		$data['minerdLog'] = '';
-		// $data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
+		$data['dashboardSkin'] = "black";
 		$data['dashboardDevicetree'] = false;
-		$data['minerdRunning'] = $this->redis->get("minerd_running_software");
-		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");		
-		$data['minerdSoftware'] = $this->redis->get("minerd_software");
-		$data['netMiners'] = $this->util_model->getNetworkMiners();
+		$data['browserMining'] = '';
+		$data['browserMiningThreads'] = '';
 		$data['env'] = $this->config->item('ENV');
 		$data['mineraSystemId'] = $this->config->item('system_id');
 		$data['logs'] = $this->util_model->getAuditLog();
@@ -256,7 +177,6 @@ class App extends CI_Controller {
 			}
 			else
 			{
-				$this->redis->set("minera_password", sha1($password));
 				$data['message'] = '<b>Success!</b> Password saved!';
 				$data['message_type'] = "success";
 			}
@@ -282,7 +202,6 @@ class App extends CI_Controller {
 			$confArray = array();			
 			$confArray['pools'] = $pools;
 			$jsonPoolsConfRedis = json_encode($pools);
-			$this->redis->set('minerd_pools', $jsonPoolsConfRedis);
 
 			// Prepare JSON conf
 			$jsonConfFile = json_encode($confArray, 192); // JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES = 128 + 64
@@ -362,74 +281,22 @@ class App extends CI_Controller {
 			$data['message_type'] = "success";
 		}
 		
-		// Load miner settings
-		$data['builtInMinersConf'] = json_decode($this->util_model->refreshMinerConf());
-		$data['minerdCommand'] = $this->config->item("minerd_command");
-		$data['minerdAutorestart'] = $this->redis->get('minerd_autorestart');
-		$data['minerdAutorestartDevices'] = $this->redis->get('minerd_autorestart_devices');
-		$data['minerdAutorestartTime'] = $this->redis->get('minerd_autorestart_time');
-		$data['minerdAutorecover'] = $this->redis->get('minerd_autorecover');
-		$data['minerdUseRoot'] = $this->redis->get('minerd_use_root');
-		$data['minerdScrypt'] = $this->redis->get('minerd_scrypt');
-		$data['minerdAutodetect'] = $this->redis->get('minerd_autodetect');
-		$data['minerdAutotune'] = $this->redis->get('minerd_autotune');
-		$data['minerdStartfreq'] = $this->redis->get('minerd_startfreq');
-		$data['minerdExtraoptions'] = $this->redis->get('minerd_extraoptions');
-		$data['minerdSoftware'] = $this->redis->get('minerd_software');
-		$data['minerdLog'] = $this->redis->get('minerd_log');
-		$data['minerdDebug'] = $this->redis->get('minerd_debug');
-		$data['minerdAppendConf'] = $this->redis->get('minerd_append_conf');
-		$data['minerdManualSettings'] = $this->redis->get('minerd_manual_settings');
-		$data['minerdSettings'] = $this->util_model->getCommandline();
-		$data['minerdJsonSettings'] = $this->redis->get("minerd_json_settings");
+
 		$data['minerdPools'] = $this->util_model->getPools();
 		$data['minerdNetwork'] = $this->util_model->getIfconfig();
-		$data['minerdGuidedOptions'] = $this->redis->get("guided_options");
-		$data['minerdManualOptions'] = $this->redis->get("manual_options");
-		$data['minerdDelaytime'] = $this->redis->get("minerd_delaytime");
-		$data['minerApiAllowExtra'] = $this->redis->get("minerd_api_allow_extra");
-		$data['globalPoolProxy'] = $this->redis->get("pool_global_proxy");
-		$data['networkMiners'] = json_decode($this->redis->get('network_miners'));
-		$data['netMiners'] = $this->util_model->getNetworkMiners();
-		
-		// Load Dashboard settings
-		$data['mineraStoredDonations'] = $this->util_model->getStoredDonations();
-		$data['mineraDonationTime'] = $this->redis->get("minera_donation_time");
-		$data['dashboard_refresh_time'] = $this->redis->get("dashboard_refresh_time");
-		$dashboard_coin_rates = $this->redis->get("dashboard_coin_rates");
-		$data['dashboard_coin_rates'] = (is_array(json_decode($dashboard_coin_rates))) ? json_decode($dashboard_coin_rates) : array();
-		$data['cryptsy_data'] = $this->redis->get("cryptsy_data");
-		$data['dashboardTemp'] = ($this->redis->get("dashboard_temp")) ? $this->redis->get("dashboard_temp") : "c";
-		$data['dashboardSkin'] = ($this->redis->get("dashboard_skin")) ? $this->redis->get("dashboard_skin") : "black";
-		$data['dashboardDevicetree'] = ($this->redis->get("dashboard_devicetree")) ? $this->redis->get("dashboard_devicetree") : false;
-		$data['dashboardBoxProfit'] = ($this->redis->get("dashboard_box_profit")) ? $this->redis->get("dashboard_box_profit") : false;
-		$data['dashboardBoxLocalMiner'] = ($this->redis->get("dashboard_box_local_miner")) ? $this->redis->get("dashboard_box_local_miner") : false;
-		$data['dashboardBoxLocalPools'] = ($this->redis->get("dashboard_box_local_pools")) ? $this->redis->get("dashboard_box_local_pools") : false;
-		$data['dashboardBoxNetworkDetails'] = ($this->redis->get("dashboard_box_network_details")) ? $this->redis->get("dashboard_box_network_details") : false;
-		$data['dashboardBoxNetworkPoolsDetails'] = ($this->redis->get("dashboard_box_network_pools_details")) ? $this->redis->get("dashboard_box_network_pools_details") : false;
-		$data['dashboardBoxChartShares'] = ($this->redis->get("dashboard_box_chart_shares")) ? $this->redis->get("dashboard_box_chart_shares") : false;
-		$data['dashboardBoxChartSystemLoad'] = ($this->redis->get("dashboard_box_chart_system_load")) ? $this->redis->get("dashboard_box_chart_system_load") : false;
-		$data['dashboardBoxChartHashrates'] = ($this->redis->get("dashboard_box_chart_hashrates")) ? $this->redis->get("dashboard_box_chart_hashrates") : false;
-		$data['dashboardBoxScryptEarnings'] = ($this->redis->get("dashboard_box_scrypt_earnings")) ? $this->redis->get("dashboard_box_scrypt_earnings") : false;
-		$data['dashboardBoxLog'] = ($this->redis->get("dashboard_box_log")) ? $this->redis->get("dashboard_box_log") : false;
-		
-		$data['dashboardTableRecords'] = ($this->redis->get("dashboard_table_records")) ? $this->redis->get("dashboard_table_records") : 5;
+		$data['dashboardSkin'] = "black";
+		$data['dashboardDevicetree'] = true;
 		$data['algo'] = "SHA-256";
+		$data['browserMining'] = '';
+		$data['browserMiningThreads'] = '';
 
 		// Everything else
-		$data['savedFrequencies'] = $this->redis->get('current_frequencies');
+		// $data['savedFrequencies'] = $this->redis->get('current_frequencies');
 		$data['isOnline'] = $this->util_model->isOnline();
 		$data['mineraUpdate'] = false;
 		$data['htmlTag'] = "settings";
 		$data['appScript'] = false;
 		$data['settingsScript'] = true;
-		$data['minerdRunning'] = $this->redis->get("minerd_running_software");
-		$data['minerdRunningUser'] = $this->redis->get("minerd_running_user");
-		$data['minerdSoftware'] = $this->redis->get("minerd_software");
-		$data['donationProfitability'] = ($prof = $this->util_model->getAvgProfitability()) ? $prof : "0.00020";
-		
-		// Saved Configs
-		$data['savedConfigs'] = $this->redis->command("HVALS saved_miner_configs");
 
 		$this->load->view('include/header', $data);
 		$this->load->view('include/sidebar', $data);
@@ -460,14 +327,8 @@ class App extends CI_Controller {
 				$confArray["api-allow"] = "W:127.0.0.1";
 			}
 			
-			// Save manual/guided selection
-			/*$this->redis->set('manual_options', $this->input->post('manual_options'));
-			$this->redis->set('guided_options', $this->input->post('guided_options'));
-			$dataObj->manual_options = $this->input->post('manual_options');
-			$dataObj->guided_options = $this->input->post('guided_options');*/
 						
 			// Append JSON conf
-			$this->redis->set('minerd_append_conf', $this->input->post('minerd_append_conf'));
 			$this->minerd_append_conf = $this->input->post('minerd_append_conf');				
 
 			// Add the pools to the command
@@ -495,17 +356,6 @@ class App extends CI_Controller {
 			// Prepare JSON conf
 			$jsonConfRedis = json_encode($confArray);
 			$jsonConfFile = json_encode($confArray, JSON_PRETTY_PRINT);
-			
-			// Add JSON conf to miner command
-			/*$exportConfigSettings = $settings;
-			if ($this->redis->get('minerd_append_conf')) {
-				$settings .= " -c ".$this->config->item("minerd_conf_file");	
-			}*/
-			
-			// Save the JSON conf file
-			// file_put_contents($this->config->item("minerd_conf_file"), $jsonConfFile);
-
-			// End command options string			
 
 			$this->util_model->setPools($pools);
 
@@ -514,7 +364,6 @@ class App extends CI_Controller {
 						
 			if ($this->input->post('save_restart'))
 			{
-				$this->util_model->minerRestart();
 				
 				$this->session->set_flashdata('message', '<b>Success!</b> Settings saved and miner restarted!');
 				$this->session->set_flashdata('message_type', 'success');
@@ -611,8 +460,6 @@ class App extends CI_Controller {
 	*/
 	public function restart_miner()
 	{		
-		$this->util_model->minerRestart();
-		
 		redirect('app/dashboard');
 	}
 	
@@ -654,9 +501,6 @@ class App extends CI_Controller {
 			case "save_network":
 				$o = $this->util_model->saveNetwork($this->input->get('type'),$this->input->get('ip'),$this->input->get('mask'),$this->input->get('gw'),$this->input->get('dns'));
 			break;
-			case "scan_network":
-				$o = json_encode($this->util_model->discoveryNetworkDevices($this->input->get('network')));
-			break;
 			case "tail_log":
 				$o = json_encode($this->util_model->tailFile($this->input->get('file'), ($this->input->get('lines')) ? $this->input->get('lines') : 5));
 			break;
@@ -679,7 +523,6 @@ class App extends CI_Controller {
 				$confArray = array();			
 				$confArray['pools'] = $pools;
 				$jsonPoolsConfRedis = json_encode($pools);
-				$this->redis->set('minerd_pools', $jsonPoolsConfRedis);
 
 				// Prepare JSON conf
 				$jsonConfFile = json_encode($confArray, 192); // JSON_PRETTY_PRINT + JSON_UNESCAPED_SLASHES = 128 + 64
@@ -736,7 +579,7 @@ class App extends CI_Controller {
 	*/
 	public function stats()
 	{
-	    $stats = $this->util_model->getStats();
+	    $stats = file_get_contents(FCPATH.'data/stats.json');
 		$this->output
 			->set_content_type('application/json')
 			->set_output($stats);
@@ -744,27 +587,11 @@ class App extends CI_Controller {
 
     public function varLog()
     {
-		$str = "This is dummy system log.";
+		$str = file_get_contents(FCPATH.'data/system.log');
 		$this->output
 			->set_content_type('application/json')
 			->set_output($str);
     }
-	
-	/*
-	// Store controller Get the store stats from Redis
-	*/
-	public function stored_stats()
-	{
-		
-		$storedStats = $this->util_model->getStoredStats(3600);
-		
-		$this->output
-			->set_content_type('application/json')
-			->set_output("[".implode(",", $storedStats)."]");
-	}
-
-	
-
 
 }
 

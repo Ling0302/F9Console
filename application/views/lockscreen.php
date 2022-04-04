@@ -39,8 +39,8 @@
 			
 			<div class="lockscreen-link">
 				<div class="mt20">
-			        <p class="terminal-font"><?php echo lang("app.system") ?>: <?php echo gethostname() ?></p>
-					<p class="terminal-font"><?php echo lang("app.ip_address") ?>: <?php echo $_SERVER['SERVER_ADDR'] ?></p>
+			        <p class="terminal-font"><?php echo lang("app.system") ?>: RK356X</p>
+					<p class="terminal-font"><?php echo lang("app.ip_address") ?>: 192.168.0.10</p>
 					<p class="terminal-font"><?php echo lang("app.firmware_version") ?>: <?php echo $firmwareVersion ?></p>
 				</div>
 			</div> 
@@ -48,14 +48,5 @@
 			<div class="lockscreen-link">
 				<?php if ($isOnline) : ?><i class="fa fa-circle text-success"></i> <?php echo lang("app.online") ?><?php else: ?><i class="fa fa-circle text-muted"></i> <?php echo lang("app.offline") ?><?php endif; ?>
 			</div>
-			
-			<div class="lockscreen-link">
-                <img width="100" height="100" src="<?php echo base_url("assets/img/wechat-offical-account.jpg") ?>" alt="wechat qr code"/>
-            </div>
-
-            <div class="lockscreen-link">
-                <div><?php echo lang("app.language") ?>:<a href="<?php echo site_url("app/switchLanguage") . '?lang=cn'?>"><?php echo lang("app.chinese") ?> </a> 
-													  | <a href="<?php echo site_url("app/switchLanguage") . '?lang=en'?>"><?php echo lang("app.english") ?></a></div>
-            </div>
 						
         </div><!-- /.center -->

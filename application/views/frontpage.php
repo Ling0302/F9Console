@@ -129,7 +129,7 @@
 								</div>
 								
 								<!-- Stopped  widget -->
-								<?php if (!$this->redis->get("minerd_status")) : ?>
+								<?php if (false) : ?>
 								<div class="col-lg-4 col-sm-4 col-xs-12 enable-if-not-running local-widget" style="display: none;">
 									<!-- small box -->
 									<div class="small-box bg-gray">
@@ -189,7 +189,7 @@
 						<!-- Top section -->
 						<section class="hidden-xs col-md-12 connectedSortable ui-sortable top-section">
 
-							<?php if ($dashboardBoxLocalMiner) : ?>
+							<?php if (true) : ?>
 							<!-- Local Miner box -->
 							<div class="box box-light <?php if (isset($boxStatuses['box-local-miner']) && !$boxStatuses['box-local-miner']) :?>collapsed-box<?php endif; ?>" id="box-local-miner">
 							   	<div class="overlay"></div>
@@ -243,7 +243,7 @@
 							</div><!-- /.miner box -->
 							<?php endif; ?>
 							
-							<?php if ($dashboardBoxLocalPools) : ?>
+							<?php if (true) : ?>
 							<!-- Local Pools box -->
 							<div class="box box-light <?php if (isset($boxStatuses['box-local-pools']) && !$boxStatuses['box-local-pools']) :?>collapsed-box<?php endif; ?>" id="box-local-pools">
 							   	<div class="overlay"></div>
@@ -295,7 +295,7 @@
 							</div><!-- /.local pools box -->
 							<?php endif; ?>
 							
-							<?php if ($dashboardBoxNetworkDetails) : ?>
+							<?php if (false) : ?>
 								<!-- Network Miners box -->
 								<?php if (isset($netMiners) && count($netMiners) > 0) : ?>
 								<div id="box-network-details" class="box box-light network-miner-details <?php if (isset($boxStatuses['box-network-details']) && !$boxStatuses['box-network-details']) :?>collapsed-box<?php endif; ?>" style="display:none;">
@@ -346,7 +346,7 @@
 								</div><!-- /.network miner box -->
 								<?php endif; ?>
 							<?php endif; ?>	
-							<?php if ($dashboardBoxNetworkPoolsDetails) : ?>
+							<?php if (false) : ?>
 								<!-- Network pools box -->
 								<?php if (isset($netMiners) && count($netMiners) > 0) : ?>
 								<div id="box-network-pools-details" class="box box-light <?php if (isset($boxStatuses['box-network-pools-details']) && !$boxStatuses['box-network-pools-details']) :?>collapsed-box<?php endif; ?>">
@@ -442,7 +442,7 @@
 						
 						<!-- Right col -->
 						<section class="col-md-6 col-xs-12 connectedSortable ui-sortable right-section" id="box-charts">
-							<?php if ($dashboardBoxChartShares) : ?>
+							<?php if (true) : ?>
 							<!-- A/R/H chart -->
 							<div class="box box-primary <?php if (isset($boxStatuses['box-chart-shares']) && !$boxStatuses['box-chart-shares']) :?>collapsed-box<?php endif; ?>" id="box-chart-shares" style="display:none;">
 							   	<div class="overlay"></div>
@@ -462,9 +462,9 @@
 							</div><!-- /.A/R/H chart -->
 							<?php endif; ?>
 							
-							<?php if ($dashboardBoxChartSystemLoad) : ?>
+							<?php if (true) : ?>
 							<!-- System box -->
-							<div class="box box-light <?php if (isset($boxStatuses['box-chart-system-load']) && !$boxStatuses['box-chart-system-load']) :?>collapsed-box<?php endif; ?>" id="box-chart-system-load">
+							<div class="box box-light collapsed-box" id="box-chart-system-load">
 							   	<div class="overlay"></div>
 							   	<div class="loading-img"></div>
 								<div class="box-header" style="cursor: move;">
@@ -490,7 +490,7 @@
 						<!-- Left col -->
 						<section class="col-md-6 col-xs-12 connectedSortable ui-sortable left-section">
 							
-							<?php if ($dashboardBoxChartHashrates) : ?>
+							<?php //if ($dashboardBoxChartHashrates) : ?>
 							<!-- Hashrate box chart -->
 							<div class="box box-primary <?php if (isset($boxStatuses['box-chart-hashrates']) && !$boxStatuses['box-chart-hashrates']) :?>collapsed-box<?php endif; ?>" id="box-chart-hashrates" style="display:none;">
 							   	<div class="overlay"></div>
@@ -508,7 +508,7 @@
 									<div class="chart" id="hashrate-chart" style="height:160px;"></div>
 								</div>
 							</div><!-- /.hashrate box -->
-							<?php endif; ?>
+							<?php //endif; ?>
 						
 						</section><!-- /.left col -->
 						
@@ -519,7 +519,7 @@
 						<!-- Bottom section -->
 						<section class="col-md-12 connectedSortable ui-sortable bottom-section">
 
-							<?php if ($dashboardBoxLog) : ?>
+							<?php if (true) : ?>
 							<!-- Real time log box -->
 							<div class="box box-light <?php if (isset($boxStatuses['box-log']) && !$boxStatuses['box-log']) :?>collapsed-box<?php endif; ?>" id="box-log">
 								<div class="box-header" style="cursor: move;">

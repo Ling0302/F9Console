@@ -1,14 +1,4 @@
-/*!
- * Author: Abdullah A Almsaeed
- * Date: 4 Jan 2014
- * Description:
- *      This file should be included in all pages
- !**/
 
-/*
- * Global variables. If you change any of these vars, don't forget 
- * to change the values in the less files!
- */
 var left_side_width = 220; //Sidebar width in pixels
 
 $(function() {
@@ -76,9 +66,6 @@ $(function() {
 	    var box = $(this);
         //Find the body and the footer
         var bf = box.find(".box-body, .box-footer");
-		if (box.hasClass("collapsed-box")) {
-            bf.slideUp();
-        }
     });
 
     /*

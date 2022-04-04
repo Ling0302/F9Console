@@ -1,11 +1,11 @@
     <body class="skin-<?php echo $dashboardSkin ?>" onload="getStats(false);">
 		<div class="app_data"
-			data-refresh-time="<?php echo ($dashboard_refresh_time) ? $dashboard_refresh_time : 60; ?>"
-			data-records-per-page="<?php echo ($dashboardTableRecords) ? $dashboardTableRecords : 5; ?>"
+			data-refresh-time="60"
+			data-records-per-page="5"
 			data-minerd-log="<?php echo base_url($this->config->item("minerd_log_url")); ?>"
 			data-device-tree="<?php echo $dashboardDevicetree ?>"
-			data-dashboard-temp="<?php echo ($this->redis->get("dashboard_temp")) ? $this->redis->get("dashboard_temp") : "c"; ?>"
-			data-miner-status="<?php echo ($this->redis->get("minerd_status")) ? 1 : 0; ?>"
+			data-dashboard-temp="c"
+			data-miner-status="0"
 			data-minera-pool-username="<?php echo $this->util_model->getMineraPoolUser(); ?>"
 			data-minera-pool-url-scrypt="<?php echo $this->config->item('minera_pool_url') ?>"
 			data-minera-pool-url-sha256="<?php echo $this->config->item('minera_pool_url_sha256') ?>"
@@ -296,7 +296,7 @@
                         </li>
                         <li class="sidebar-charts" data-toggle="tooltip" title="" data-original-title="<?php echo lang('app.go_to_audit') ?>">
                             <a href="<?php echo site_url("app/audit") ?>">
-                                <i class="fa fa-bar-chart-o"></i> <span><?php echo lang('app.audit') ?></span>
+                                <i class="fa fa-history"></i> <span><?php echo lang('app.audit') ?></span>
                             </a>
                         </li>
                         <li class="treeview">

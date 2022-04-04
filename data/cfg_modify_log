@@ -1,0 +1,60 @@
+Fri Aug  4 17:04:10 CST 2017
+poweron
+----------------------------------------------
+Fri Aug  4 17:06:04 CST 2017
+md5:92dcf47a1ab40bba998c17a86d12b1da
+{
+"pools" : [
+	{
+		"url" : "112.74.139.26:3333", 
+		"user" : "rjy001.002", 
+		"pass" : "123"
+	},
+	{
+		"url" : "stratum+tcp://btc.viabtc.com:3333", 
+		"user" : "rjy001.003", 
+		"pass" : "123"
+	},
+	{
+		"url" : "stratum+tcp://btc.viabtc.com:443", 
+		"user" : "rjy001.004", 
+		"pass" : "123"
+	}
+],
+
+"api-listen" : true,
+"api-port" : "4028",
+"api-allow" : "R:0/0,W:127.0.0.1"
+}
+
+----------------------------------------------
+Fri Aug  4 17:05:14 CST 2017
+md5:84bb6ecd0a36a9428bec61ad00cd907f
+{
+"pools" : [
+	{
+		"url" : "112.74.139.26:3333", 
+		"user" : "rjy001", 
+		"pass" : "123"
+	},
+	{
+		"url" : "stratum+tcp://btc.viabtc.com:3333", 
+		"user" : "rjy001", 
+		"pass" : "123"
+	},
+	{
+		"url" : "stratum+tcp://btc.viabtc.com:443", 
+		"user" : "rjy001", 
+		"pass" : "123"
+	}
+],
+"clover-start-temp" : "35",
+"api-listen" : true,
+"api-port" : "4028",
+"api-allow" : "R:0/0,W:127.0.0.1"
+}
+
+----------------------------------------------
+Fri Aug  4 17:08:04 CST 2017
+poweron
+----------------------------------------------
