@@ -100,10 +100,10 @@
     }
 
     $data1 = $data2 = $data3 = $data4 = [];
-    if(file_exists("/tmp/status-0-map"))
+    if(file_exists("./data/status-0-map"))
     {
-        $handle1 = fopen("/tmp/status-0-map", "r");
-        $handle2 = fopen("/tmp/status-1-map", "r");
+        $handle1 = fopen("./data/status-0-map", "r");
+        $handle2 = fopen("./data/status-1-map", "r");
         $handle3 = fopen("/tmp/status-2-map", "r");
         $handle4 = fopen("/tmp/status-3-map", "r");
     } else {
@@ -137,7 +137,8 @@
         }
         fclose($handle4);
     }
-    $level = getBoardLevel();
+    // $level = getBoardLevel();
+    $level = 36;
 
     $last1 = $data1[count($data1)-2];
     $last2 = $data2[count($data2)-2];
