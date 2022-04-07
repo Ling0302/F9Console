@@ -102,7 +102,7 @@
     $data1 = $data2 = $data3 = $data4 = [];
     if(file_exists("/tmp/status-0-map"))
     {
-        $handle1 = fopen("/tmp/status-0-mapp", "r");
+        $handle1 = fopen("/tmp/status-0-map", "r");
         $handle2 = fopen("/tmp/status-1-map", "r");
         $handle3 = fopen("/tmp/status-2-map", "r");
         $handle4 = fopen("/tmp/status-3-map", "r");
@@ -255,7 +255,7 @@
                 <td class="active"><?php echo $actual_data1[4][2] ?></td>
                 <td class="active"><?php echo $actual_data1[4][1] ?></td>
                 <td class="active"><?php echo $actual_data1[4][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">32(U94-U96)</td>
                 <td class="active"><?php echo $actual_data1[31][2] ?></td>
                 <td class="active"><?php echo $actual_data1[31][1] ?></td>
@@ -266,7 +266,7 @@
                 <td class="active"><?php echo $actual_data1[5][0] ?></td>
                 <td class="active"><?php echo $actual_data1[5][1] ?></td>
                 <td class="active"><?php echo $actual_data1[5][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">31(91-U93)</td>
                 <td class="active"><?php echo $actual_data1[30][0] ?></td>
                 <td class="active"><?php echo $actual_data1[30][1] ?></td>
@@ -277,7 +277,7 @@
                 <td class="active"><?php echo $actual_data1[6][2] ?></td>
                 <td class="active"><?php echo $actual_data1[6][1] ?></td>
                 <td class="active"><?php echo $actual_data1[6][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">30(U88-U90)</td>
                 <td class="active"><?php echo $actual_data1[29][2] ?></td>
                 <td class="active"><?php echo $actual_data1[29][1] ?></td>
@@ -288,7 +288,7 @@
                 <td class="active"><?php echo $actual_data1[7][0] ?></td>
                 <td class="active"><?php echo $actual_data1[7][1] ?></td>
                 <td class="active"><?php echo $actual_data1[7][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">29(U85-U87)</td>
                 <td class="active"><?php echo $actual_data1[28][0] ?></td>
                 <td class="active"><?php echo $actual_data1[28][1] ?></td>
@@ -299,7 +299,7 @@
                 <td class="active"><?php echo $actual_data1[8][2] ?></td>
                 <td class="active"><?php echo $actual_data1[8][1] ?></td>
                 <td class="active"><?php echo $actual_data1[8][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">28(U82-U84)</td>
                 <td class="active"><?php echo $actual_data1[27][2] ?></td>
                 <td class="active"><?php echo $actual_data1[27][1] ?></td>
@@ -310,7 +310,7 @@
                 <td class="active"><?php echo $actual_data1[9][0] ?></td>
                 <td class="active"><?php echo $actual_data1[9][1] ?></td>
                 <td class="active"><?php echo $actual_data1[9][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">27(U79-U81)</td>
                 <td class="active"><?php echo $actual_data1[26][0] ?></td>
                 <td class="active"><?php echo $actual_data1[26][1] ?></td>
@@ -321,7 +321,7 @@
                 <td class="active"><?php echo $actual_data1[10][2] ?></td>
                 <td class="active"><?php echo $actual_data1[10][1] ?></td>
                 <td class="active"><?php echo $actual_data1[10][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">26(U76-U78)</td>
                 <td class="active"><?php echo $actual_data1[25][2] ?></td>
                 <td class="active"><?php echo $actual_data1[25][1] ?></td>
@@ -332,7 +332,7 @@
                 <td class="active"><?php echo $actual_data1[11][0] ?></td>
                 <td class="active"><?php echo $actual_data1[11][1] ?></td>
                 <td class="active"><?php echo $actual_data1[11][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">25(U73-U75)</td>
                 <td class="active"><?php echo $actual_data1[24][0] ?></td>
                 <td class="active"><?php echo $actual_data1[24][1] ?></td>
@@ -343,7 +343,7 @@
                 <td class="active"><?php echo $actual_data1[12][2] ?></td>
                 <td class="active"><?php echo $actual_data1[12][1] ?></td>
                 <td class="active"><?php echo $actual_data1[12][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">24(U70-U72)</td>
                 <td class="active"><?php echo $actual_data1[23][2] ?></td>
                 <td class="active"><?php echo $actual_data1[23][1] ?></td>
@@ -354,7 +354,7 @@
                 <td class="active"><?php echo $actual_data1[13][0] ?></td>
                 <td class="active"><?php echo $actual_data1[13][1] ?></td>
                 <td class="active"><?php echo $actual_data1[13][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">23(U67-U69)</td>
                 <td class="active"><?php echo $actual_data1[22][0] ?></td>
                 <td class="active"><?php echo $actual_data1[22][1] ?></td>
@@ -365,7 +365,7 @@
                 <td class="active"><?php echo $actual_data1[14][2] ?></td>
                 <td class="active"><?php echo $actual_data1[14][1] ?></td>
                 <td class="active"><?php echo $actual_data1[14][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">22(U64-U66)</td>
                 <td class="active"><?php echo $actual_data1[21][2] ?></td>
                 <td class="active"><?php echo $actual_data1[21][1] ?></td>
@@ -376,7 +376,7 @@
                 <td class="active"><?php echo $actual_data1[15][0] ?></td>
                 <td class="active"><?php echo $actual_data1[15][1] ?></td>
                 <td class="active"><?php echo $actual_data1[15][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">21(U61-U63)</td>
                 <td class="active"><?php echo $actual_data1[20][0] ?></td>
                 <td class="active"><?php echo $actual_data1[20][1] ?></td>
@@ -387,7 +387,7 @@
                 <td class="active"><?php echo $actual_data1[16][2] ?></td>
                 <td class="active"><?php echo $actual_data1[16][1] ?></td>
                 <td class="active"><?php echo $actual_data1[16][0] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">20(U58-U60)</td>
                 <td class="active"><?php echo $actual_data1[19][2] ?></td>
                 <td class="active"><?php echo $actual_data1[19][1] ?></td>
@@ -398,7 +398,7 @@
                 <td class="active"><?php echo $actual_data1[17][0] ?></td>
                 <td class="active"><?php echo $actual_data1[17][1] ?></td>
                 <td class="active"><?php echo $actual_data1[17][2] ?></td>
-                <td>&nbsp;</td>
+                <td class="skip">&nbsp;</td>
                 <td class="active skip">19(U55-U57)</td>
                 <td class="active"><?php echo $actual_data1[18][0] ?></td>
                 <td class="active"><?php echo $actual_data1[18][1] ?></td>
@@ -1812,6 +1812,9 @@
                                 if(item <= 300){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 }
+                                else {
+                                    $(this).removeClass('highlight-red')
+                                }
                                 break;
                             default:
                                 break;
@@ -1846,7 +1849,7 @@
                                     $(this).removeClass('highlight-red')
                                 }
                                 break;
-                            case 70:
+                            case 70: 
                                 if(item > 70 && item <= 80){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
@@ -1856,6 +1859,8 @@
                             case 60:
                                 if(item <= 70){
                                     $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
                                 }
                                 break;
                             default:
@@ -1896,7 +1901,7 @@
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
                                     $(this).removeClass('highlight-red')
-                                }
+                                } 
                                 break;
                             default:
                                 break;
