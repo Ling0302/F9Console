@@ -2293,7 +2293,7 @@ class Util_model extends CI_Model {
 		}
 		json_encode($bin_str);
 
-		$info->model ='F9';
+		$info->model ='F93';
 		$info->bin = json_last_error() == JSON_ERROR_NONE ? trim($bin_str) : '';
 		$info->firmware_version = $this->getFirmwareVersion();
 		$info->mac = $ifConfig->mac;
@@ -2315,10 +2315,10 @@ class Util_model extends CI_Model {
 		$version_arr3 = preg_split("//", $eeprom3, null, PREG_SPLIT_NO_EMPTY);
 		$version_arr4 = $eeprom4 ? preg_split("//", $eeprom4, null, PREG_SPLIT_NO_EMPTY) : [];
 	
-		$version1 = "v".$version_arr1[7].'.'.$version_arr1[8];
-		$version2 = "v".$version_arr2[7].'.'.$version_arr2[8];
-		$version3 = "v".$version_arr3[7].'.'.$version_arr3[8];
-		$version4 = $eeprom4 ? "v".$version_arr4[7].'.'.$version_arr4[8] : "";
+		$version1 = "V".$version_arr1[7].$version_arr1[8];
+		$version2 = "V".$version_arr2[7].$version_arr2[8];
+		$version3 = "V".$version_arr3[7].$version_arr3[8];
+		$version4 = $eeprom4 ? "V".$version_arr4[7].$version_arr4[8] : "";
 		
 		if ( $version1 == $version2  && $version1 == $version3 ){
 			$hw_version = $version1;
