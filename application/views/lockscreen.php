@@ -48,5 +48,10 @@
 			<div class="lockscreen-link">
 				<?php if ($isOnline) : ?><i class="fa fa-circle text-success"></i> <?php echo lang("app.online") ?><?php else: ?><i class="fa fa-circle text-muted"></i> <?php echo lang("app.offline") ?><?php endif; ?>
 			</div>
+
+			<div class="lockscreen-link">
+                <div><?php echo lang("app.language") ?>:<a href="<?php echo site_url("app/switchLanguage") . '?lang=cn'?>"><?php echo lang("app.chinese") ?> </a> 
+													  | <a href="<?php echo site_url("app/switchLanguage") . '?lang=en'?>"><?php echo lang("app.english") ?></a></div>
+            </div>
 						
         </div><!-- /.center -->
