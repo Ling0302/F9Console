@@ -150,6 +150,10 @@ $lang['app.save_network_settings']  = "Save Network Settings";
 $lang['app.firmware_upgrade']  = "Firmware upgrade";
 $lang['app.upload_firmware_file']  = "Upload Firmware";
 $lang['app.select_firmware_file']  = "Please select the firmware file to upload";
+$lang['app.startup_temp']  = "Startup Temperature";
+$lang['app.select_startup_temp']  = "Please select the temperature of miner startup";
+$lang['app.set_startup_temp']  = "Set Startup Temperature";
+$lang['app.pls_select']  = "Please Select";
 
 // Charts Page
 $lang['app.hashrate_history']  = "Hashrate History";

@@ -233,6 +233,42 @@
 						
 						</form>
                     </div>
+
+					<!-- Startup Temperature -->
+					<div class="box box-primary" id="startup-box">
+						<div class="box-header">
+                            <div class="pull-right box-tools">
+                                <button class="btn btn-default btn-xs" data-widget="collapse" data-toggle="tooltip" title="" data-original-title="Collapse"><i class="fa fa-minus"></i></button>
+                            </div>
+                            <i class="fa ion-thermometer"></i>
+                            <h3 class="box-title"><?php echo lang('app.startup_temp') ?></h3>
+                        </div>
+						
+						<form action="<?php echo site_url("app/settings") ?>" method="post" role="form"  enctype="multipart/form-data" id="startup_temp">
+							<input type="hidden" name="startup_temp" value="1" />
+                            <div class="box-body">
+								<p><?php echo lang('app.select_startup_temp') ?></p>
+								<div class="col-xs-12 input-group mt10">
+									<span class="input-group-addon"><i class="fa ion-thermometer"></i></span>
+									<select class="form-control">
+										<option value=""><?php echo lang('app.pls_select') ?></option>
+										<option value="30">30°C</option>
+										<option value="35">35°C</option>
+										<option value="38">38°C</option>
+										<option value="40">40°C</option>
+										<option value="45">45°C</option>
+										<option value="48">48°C</option>
+										<option value="50">50°C</option>
+									</select>
+								</div>
+								
+                            </div>
+							<div class="box-footer">
+								<button type="submit" class="btn btn-primary save-firmware_upgrade"><?php echo lang('app.set_startup_temp') ?></button>
+							</div>
+						
+						</form>
+                    </div>
                     
 					<!-- Reset box -->
 					<div class="box box-primary" id="resets-box" style="display:none;">

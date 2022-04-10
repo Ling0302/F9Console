@@ -151,6 +151,10 @@ $lang['app.save_network_settings']  = "保存网络设置";
 $lang['app.firmware_upgrade']  = "固件升级";
 $lang['app.upload_firmware_file']  = "上传固件";
 $lang['app.select_firmware_file']  = "选择固件文件";
+$lang['app.startup_temp']  = "启动温度";
+$lang['app.select_startup_temp']  = "请选择挖矿启动温度";
+$lang['app.set_startup_temp']  = "设置启动温度";
+$lang['app.pls_select']  = "请选择";
 
 
 // Charts Page
