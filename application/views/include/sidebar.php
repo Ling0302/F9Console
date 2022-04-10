@@ -328,11 +328,11 @@
                                 		<i class="fa fa-upload"></i> <?php echo lang('app.firmware_upgrade') ?>
                                 	</a>
                                 </li>
-                                <!--<li>
-                                	<a href="<?php echo site_url("app/settings#resets-box") ?>" class="menu-resets-box ml10">
-                                		<i class="fa fa-warning"></i> <?php echo lang('app.resets') ?>
+                                <li>
+                                	<a href="<?php echo site_url("app/settings#startup-box") ?>" class="menu-startup-box ml10">
+                                		<i class="fa ion-thermometer"></i> <?php echo lang('app.startup_temp') ?>
                                 	</a>
-                                </li>-->
+                                </li>
                             </ul>
                         </li>
                         <li class="treeview">
