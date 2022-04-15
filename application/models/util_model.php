@@ -2248,7 +2248,7 @@ class Util_model extends CI_Model {
 
 	public function getFirmwareVersion()
 	{
-		return str_replace(' ','',exec("cat /firmware_info | awk -F ':' '{print $2 \":\" $3}'"));
+		return str_replace(' ','',exec("head -n 2 /firmware_info | awk -F ':' '{print $2 \":\" $3}'"));
 	}
 
 	public function isShowLogo()

@@ -168,16 +168,33 @@
             <select class="vol-selectpicker form-control">
                 <option value=''>电压筛选条件</option> 
                 <option value='350'>高于350 mv</option>
-                <option value='330'>330mv ~ 350mv</option>
-                <option value='300'>300mv ~ 330mv</option>
+                <option value='340'>340mv ~ 350mv</option>
+                <option value='330'>330mv ~ 340mv</option>
+                <option value='320'>320mv ~ 330mv</option>
+                <option value='310'>310mv ~ 320mv</option>
                 <option value='290'>低于300 mv</option>
             </select>
             <select class="temp-selectpicker form-control">
                 <option value=''>温度筛选条件</option>
                 <option value='95'>高于95℃</option>
-                <option value='80'>80℃ ~ 95℃</option>
-                <option value='70'>70℃ ~ 80℃</option>
+                <option value='90'>90℃ ~ 95℃</option>
+                <option value='85'>85℃ ~ 90℃</option>
+                <option value='80'>80℃ ~ 85℃</option>
+                <option value='75'>75℃ ~ 80℃</option>
+                <option value='70'>70℃ ~ 75℃</option>
                 <option value='60'>低于70℃</option>
+            </select>
+            <select class="yield-selectpicker form-control">
+                <option value=''>yield值筛选条件</option>
+                <option value='91'>高于91%</option>
+                <option value='80'>80% ~ 90%</option>
+                <option value='70'>60% ~ 80%</option>
+                <option value='60'>50% ~ 60%</option>
+                <option value='50'>40% ~ 50%</option>
+                <option value='40'>30% ~ 40%</option>
+                <option value='30'>10% ~ 30%</option>
+                <option value='10'>1% ~ 9%</option>
+                <option value='0'>等于0%</option>
             </select>
             <select class="error-selectpicker form-control">
                 <option value=''>硬件错误数筛选条件</option>
@@ -1794,25 +1811,39 @@
                                     $(this).removeClass('highlight-red')
                                 }
                                 break;
+                            case 340:
+                                if(item > 340 && item <= 350){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                }
+                                break;
                             case 330:
-                                if(item > 330 && item <= 350){
+                                if(item > 330 && item <= 340){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
                                     $(this).removeClass('highlight-red')
                                 }
                                 break;
-                            case 300:
-                                if(item > 300 && item <= 330){
-                                    $(this).removeClass('active').addClass('highlight-red');
-                                } else {
-                                    $(this).removeClass('highlight-red')
-                                }
-                                break;
-                            case 290:
-                                if(item <= 300){
+                            case 320:
+                                if(item > 320 && item <= 330){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 }
                                 else {
+                                    $(this).removeClass('highlight-red')
+                                }
+                                break;
+                                case 310:
+                                if(item > 310 && item <= 320){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                }
+                                break;
+                                case 300:
+                                if(item < 300){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
                                     $(this).removeClass('highlight-red')
                                 }
                                 break;
@@ -1842,27 +1873,48 @@
                                     $(this).removeClass('highlight-red')
                                 }
                                 break;
-                            case 80:
-                                if(item > 80 && item <= 95){
+                            case 90:
+                                if(item > 90 && item <= 95){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
                                     $(this).removeClass('highlight-red')
                                 }
                                 break;
-                            case 70: 
-                                if(item > 70 && item <= 80){
+                            case 85:
+                                if(item > 85 && item <= 90){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
                                     $(this).removeClass('highlight-red')
-                                }
+                                } 
+                                break;
+                            case 80:
+                                if(item >80 && item <= 85){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break;
+                            case 75:
+                                if(item >75 && item <= 80){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break;
+                            case 70:
+                                if(item >70 && item <= 75){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
                                 break;
                             case 60:
-                                if(item <= 70){
+                                if(item < 70){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
                                     $(this).removeClass('highlight-red')
-                                }
-                                break;
+                                } 
+                                break; 
                             default:
                                 break;
                         }
@@ -1873,6 +1925,88 @@
                     return false;
                 }
             });
+            // yield值筛选
+            $("select.yield-selectpicker").change(function(){
+                var selectedYield = parseFloat($(this).val());
+
+                if (selectedYield > 0) {
+                    $('div.visible').find('td').not('.skip').each(function(){
+                        var item = parseFloat($(this).text().split('|')[2]);
+                        switch(selectedYield){
+                            case 91:
+                                if(item > 91){
+                                    $(this).removeClass('active highlight-red').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                }
+                                break;
+                            case 80:
+                                if(item > 80 && item <= 90){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                }
+                                break;
+                            case 70:
+                                if(item > 60 && item <= 80){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break;
+                            case 60:
+                                if(item >50 && item <= 60){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break;
+                            case 50:
+                                if(item >40 && item <= 50){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break;
+                            case 40:
+                                if(item >30 && item <= 40){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break;
+                            case 30:
+                                if(item > 10 && item <=30){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break; 
+                            case 10:
+                                if(item > 1 && item <=10){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break; 
+                            case 0:
+                                if(item == 0){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                } 
+                                break; 
+                            default:
+                                break;
+                        }
+                        
+                        return;
+                    });
+                } else {
+                    return false;
+                }
+            });
+
 
             // 硬件错误数筛选
             $("select.error-selectpicker").change(function(){
@@ -1915,6 +2049,8 @@
             });
 
         });
+
+        
     </script>
 
   </body>
