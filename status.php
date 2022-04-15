@@ -172,6 +172,7 @@
                 <option value='330'>330mv ~ 340mv</option>
                 <option value='320'>320mv ~ 330mv</option>
                 <option value='310'>310mv ~ 320mv</option>
+                <option value='300'>310mv ~ 310mv</option>
                 <option value='290'>低于300 mv</option>
             </select>
             <select class="temp-selectpicker form-control">
@@ -1841,6 +1842,13 @@
                                 }
                                 break;
                                 case 300:
+                                if(item > 300 && item <= 310){
+                                    $(this).removeClass('active').addClass('highlight-red');
+                                } else {
+                                    $(this).removeClass('highlight-red')
+                                }
+                                break;
+                                case 290:
                                 if(item < 300){
                                     $(this).removeClass('active').addClass('highlight-red');
                                 } else {
