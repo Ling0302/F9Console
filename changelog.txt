@@ -20,3 +20,7 @@
 
 2022年4月6日:
 1. 更新文件: /www/status.php
+
+2022年4月17日:
+1. 更新文件: /www/status.php
+2. 更新文件：/www/application/models/util_model.php
