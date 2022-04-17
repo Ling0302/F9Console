@@ -2248,7 +2248,19 @@ class Util_model extends CI_Model {
 
 	public function getFirmwareVersion()
 	{
-		return str_replace(' ','',exec("head -n 2 /firmware_info | awk -F ':' '{print $2 \":\" $3}'"));
+		$minerModel = '';
+		$versionStr = [];
+		$fileHandler = fopen("/firmware_info", "r");
+		if ($fileHandler) {
+			while (($line = fgets($fileHandler)) !== false) {
+				$versionStr[] = $line;
+			}
+			fclose($fileHandler);
+		}
+		$versionNo = explode(':', trim($versionStr[1]))[1] . ":" . explode(':', trim($versionStr[1]))[2];
+		$minerModel = $versionStr[2] ? trim(explode(':', trim($versionStr[2]))[1]) : $minerModel;
+		
+		return $minerModel . $versionNo;
 	}
 
 	public function isShowLogo()
